@@ -58,11 +58,9 @@
 <div class="form-group">
   <input type="password" class="form-control input-md" name="password" id="password" placeholder="Password" required>
 </div>
-<a href="needhelp.php">Need Help?</a> <br>
+<a href="needhelp.php">Need Help?</a> <br><br>
 <div class="form-group">
   <button type="submit" class="btn btn-primary btn-block" id="login" name="login">Login</button>
-  <a button id="signup" name="signup" class="btn btn-primary btn-block" href="signup.php" >Signup
-  </button>
   </a>
   </p>
 </div>
