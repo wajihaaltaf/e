@@ -58,8 +58,7 @@ window.location = "tenant_room.php";
 
     <!-- Logo -->
     <a href="index2.html" class="logo">
-      <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b>A</b>LT</span>
+      <!-- mini logo for sidebar mini 50x50 pixels -->    <span class="logo-mini"><b>HR</b>MS</span>
       <!-- logo for regular state and mobile devices -->
       <span class="logo-lg"><b>HR</b>MS</span>
     </a>
@@ -279,7 +278,7 @@ window.location = "tenant_room.php";
         <li class="header">
         </li>
         <!-- Optionally, you can add icons to the links -->
-        <li><a href="#"><i class="fa fa-link"></i> <span>Home</span></a></li>
+        <li><a href="hr.php"><i class="fa fa-link"></i> <span>Home</span></a></li>
          <li class="treeview">
           <a href="#"><i class="fa fa-link"></i> <span>Recruitment</span>
             <span class="pull-right-container">
@@ -289,7 +288,7 @@ window.location = "tenant_room.php";
           
           <ul class="treeview-menu">
             <li><a href="test.php">Test</a></li>
-            <li><a href="interview.php">Interview</a></li>
+            <li class="active"><a href="interview.php">Interview</a></li>
               <li><a href="managerapproved.php">Managers Approved</a></li>
             <li><a href="ceoapproved.php">CEO Approved</a></li>
           </ul>
@@ -307,8 +306,8 @@ window.location = "tenant_room.php";
           </ul>
         </li>
      
-       <li class="active"><a href="#"><i class="fa fa-link"></i> <span>Loan</span></a></li>
-         <li><a href="#"><i class="fa fa-link"></i> <span>Employee Log</span></a></li>
+       <li><a href="#"><i class="fa fa-link"></i> <span>Loan</span></a></li>
+         <li><a href="employeelog.php"><i class="fa fa-link"></i> <span>Employee Log</span></a></li>
           <li><a href="aboutus.php"><i class="fa fa-link"></i> <span>About Us</span></a></li>
       </ul>
       <!-- /.sidebar-menu -->

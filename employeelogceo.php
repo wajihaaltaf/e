@@ -39,8 +39,7 @@ require_once('session2.php');
 
     <!-- Logo -->
     <a href="index2.html" class="logo">
-      <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b>A</b>LT</span>
+      <!-- mini logo for sidebar mini 50x50 pixels -->    <span class="logo-mini"><b>HR</b>MS</span>
       <!-- logo for regular state and mobile devices -->
       <span class="logo-lg"><b>HR</b>MS</span>
     </a>
@@ -260,7 +259,7 @@ require_once('session2.php');
         <li class="header">
         </li>
         <!-- Optionally, you can add icons to the links -->
-        <li class="active"><a href="ceo.php"><i class="fa fa-link"></i> <span>Home</span></a></li>
+        <li><a href="ceo.php"><i class="fa fa-link"></i> <span>Home</span></a></li>
          
         <li class="treeview">
           <a href="#"><i class="fa fa-link"></i> <span>Notifications</span>
@@ -276,7 +275,7 @@ require_once('session2.php');
           </ul>
         </li>
      
-         <li><a href="employeelogceo.php"><i class="fa fa-link"></i> <span>Employee Log</span></a></li>
+         <li class="active"><a href="employeelogceo.php"><i class="fa fa-link"></i> <span>Employee Log</span></a></li>
           <li><a href="aboutusceo.php"><i class="fa fa-link"></i> <span>About Us</span></a></li>
       </ul>
     </section>

@@ -67,8 +67,7 @@ window.location = "managerpage.php";
 
     <!-- Logo -->
     <a href="index2.html" class="logo">
-      <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b>A</b>LT</span>
+      <!-- mini logo for sidebar mini 50x50 pixels -->    <span class="logo-mini"><b>HR</b>MS</span>
       <!-- logo for regular state and mobile devices -->
       <span class="logo-lg"><b>HR</b>MS</span>
     </a>
@@ -288,7 +287,7 @@ window.location = "managerpage.php";
         <li class="header">
         </li>
         <!-- Optionally, you can add icons to the links -->
-        <li class="active"><a href="#"><i class="fa fa-link"></i> <span>Home</span></a></li>
+        <li><a href="#"><i class="fa fa-link"></i> <span>Home</span></a></li>
          <li class="treeview">
           <a href="#"><i class="fa fa-link"></i> <span>Recruitment</span>
             <span class="pull-right-container">
@@ -303,7 +302,7 @@ window.location = "managerpage.php";
            
           </ul>
         </li>
- <li><a href="leaverequests.php"><i class="fa fa-link"></i> <span>Leave Request</span></a></li>
+ <li><a href="leaverequests.php" class="active"><i class="fa fa-link"></i> <span>Leave Request</span></a></li>
          <li><a href="employeelogmanager.php"><i class="fa fa-link"></i> <span>Employee Log</span></a></li>
           <li><a href="aboutusmanager.php"><i class="fa fa-link"></i> <span>About Us</span></a></li>
       </ul>

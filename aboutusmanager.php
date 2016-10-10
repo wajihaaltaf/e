@@ -7,7 +7,7 @@ require_once('session2.php');
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>HR | Dashboard</title>
+  <title>Manager | About US</title>
   	<link rel="shortcut icon" href="assets/img/logocalc1.png">
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -39,8 +39,7 @@ require_once('session2.php');
 
     <!-- Logo -->
     <a href="index2.html" class="logo">
-      <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b>A</b>LT</span>
+      <!-- mini logo for sidebar mini 50x50 pixels -->    <span class="logo-mini"><b>HR</b>MS</span>
       <!-- logo for regular state and mobile devices -->
       <span class="logo-lg"><b>HR</b>MS</span>
     </a>

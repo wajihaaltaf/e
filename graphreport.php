@@ -126,8 +126,7 @@ $select = "SELECT COUNT(*) as COUNTING,emp_position FROM `employee` GROUP by emp
 
     <!-- Logo -->
     <a href="index2.html" class="logo">
-      <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b>A</b>LT</span>
+      <!-- mini logo for sidebar mini 50x50 pixels -->    <span class="logo-mini"><b>HR</b>MS</span>
       <!-- logo for regular state and mobile devices -->
       <span class="logo-lg"><b>HR</b>MS</span>
     </a>

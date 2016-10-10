@@ -39,8 +39,7 @@ require_once('session2.php');
 
     <!-- Logo -->
     <a href="index2.html" class="logo">
-      <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b>A</b>LT</span>
+      <!-- mini logo for sidebar mini 50x50 pixels -->    <span class="logo-mini"><b>HR</b>MS</span>
       <!-- logo for regular state and mobile devices -->
       <span class="logo-lg"><b>HR</b>MS</span>
     </a>
@@ -256,11 +255,11 @@ require_once('session2.php');
       <!-- /.search form -->
 
       <!-- Sidebar Menu -->
-      <ul class="sidebar-menu">
+   <ul class="sidebar-menu">
         <li class="header">
         </li>
         <!-- Optionally, you can add icons to the links -->
-        <li><a href="#"><i class="fa fa-link"></i> <span>Home</span></a></li>
+        <li><a href="hr.php"><i class="fa fa-link"></i> <span>Home</span></a></li>
          <li class="treeview">
           <a href="#"><i class="fa fa-link"></i> <span>Recruitment</span>
             <span class="pull-right-container">
@@ -269,10 +268,10 @@ require_once('session2.php');
           </a>
           
           <ul class="treeview-menu">
-            <li><a href="#">Test</a></li>
-            <li><a href="#">Interview</a></li>
-              <li><a href="#">Managers Approved</a></li>
-            <li><a href="#">CEO Approved</a></li>
+            <li><a href="test.php">Test</a></li>
+            <li><a href="interview.php">Interview</a></li>
+              <li><a href="managerapproved.php">Managers Approved</a></li>
+            <li><a href="ceoapproved.php">CEO Approved</a></li>
           </ul>
         </li>
         <li class="treeview">
@@ -283,8 +282,8 @@ require_once('session2.php');
           </a>
           
           <ul class="treeview-menu">
-            <li><a href="#">Do Request</a></li>
-            <li><a href="#">Check Request</a></li>
+            <li><a href="addrequest.php">Do Request</a></li>
+            <li><a href="reqinsert.php">Check Request</a></li>
           </ul>
         </li>
      

@@ -7,7 +7,7 @@ require_once('session2.php');
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>HR | Employee LOG</title>
+  <title>HR | Loan</title>
   	<link rel="shortcut icon" href="assets/img/logocalc1.png">
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -39,8 +39,7 @@ require_once('session2.php');
 
     <!-- Logo -->
     <a href="index2.html" class="logo">
-      <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b>A</b>LT</span>
+      <!-- mini logo for sidebar mini 50x50 pixels -->    <span class="logo-mini"><b>HR</b>MS</span>
       <!-- logo for regular state and mobile devices -->
       <span class="logo-lg"><b>HR</b>MS</span>
     </a>
@@ -256,11 +255,11 @@ require_once('session2.php');
       <!-- /.search form -->
 
       <!-- Sidebar Menu -->
-      <ul class="sidebar-menu">
+    <ul class="sidebar-menu">
         <li class="header">
         </li>
         <!-- Optionally, you can add icons to the links -->
-        <li><a href="#"><i class="fa fa-link"></i> <span>Home</span></a></li>
+        <li><a href="hr.php"><i class="fa fa-link"></i> <span>Home</span></a></li>
          <li class="treeview">
           <a href="#"><i class="fa fa-link"></i> <span>Recruitment</span>
             <span class="pull-right-container">
@@ -288,8 +287,8 @@ require_once('session2.php');
           </ul>
         </li>
      
-       <li class="active"><a href="#"><i class="fa fa-link"></i> <span>Loan</span></a></li>
-         <li><a href="#"><i class="fa fa-link"></i> <span>Employee Log</span></a></li>
+       <li class="active"><a href="loan.php"><i class="fa fa-link"></i> <span>Loan</span></a></li>
+         <li><a href="employeelog.php"><i class="fa fa-link"></i> <span>Employee Log</span></a></li>
           <li><a href="aboutus.php"><i class="fa fa-link"></i> <span>About Us</span></a></li>
       </ul>
       <!-- /.sidebar-menu -->
