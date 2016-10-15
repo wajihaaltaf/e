@@ -2,7 +2,7 @@
 require_once('config.php');
 require_once 'PHPMailer/PHPMailerAutoload.php';
 
-define('GUSER', 'bisma@ayazahmed.com'); // GMail username
+define('GUSER', 'bisma@laraveldevelopers.co'); // GMail username
 define('GPWD', 'Bisma2015'); // GMail password
 DEFINE('WEBSITE_URL', 'http://localhost');
 
@@ -14,7 +14,7 @@ function smtpmailer($to, $from, $from_name, $subject, $body) {
 	$mail->SMTPDebug = 0;  // debugging: 1 = errors and messages, 2 = messages only
 	$mail->SMTPAuth = true;  // authentication enabled
 	$mail->SMTPSecure = 'ssl'; // secure transfer enabled REQUIRED for GMail
-	$mail->Host = 'srv10.hosterpk.com'; //smtp.gmail.com';
+	$mail->Host = 'a2plcpnl0869.prod.iad2.secureserver.net'; //smtp.gmail.com';
 	$mail->Port = 465; //465; 
 	$mail->Username = GUSER;  
 	$mail->Password = GPWD;           
@@ -49,17 +49,17 @@ window.location.assign("needhelp.php");
 <?php exit();}
 else{
 		if($option == "A") {
-		$f = mysqli_query($con,"SELECT emp_id from employee where emp_email='$email'")or die(mysqli_error($con));
-													$count = mysqli_num_rows($f);
+		$f = mysql_query("SELECT emp_id from employee where emp_email='$email'")or die(mysqli_error($con));
+													$count = mysql_num_rows($f);
 													if($count > 0)
 													{
-		$qry=mysqli_query($con,"UPDATE employee set Activation='$activation' where emp_email = '$email'")or die(mysqli_error($con));
+		$qry=mysql_query("UPDATE employee set Activation='$activation' where emp_email = '$email'")or die(mysqli_error($con));
             
 				$message = " To Reset Password, please click on this link:\n\n";
-                $message .= WEBSITE_URL . '/ERP/reset.php?email=' . urlencode($email) . "&key=$activation";	
+                $message .= WEBSITE_URL . '/HRMS/reset.php?email=' . urlencode($email) . "&key=$activation";	
 		
 
-if (smtpmailer($email, 'techrisersnedcis@gmail.com', 'ERP| Reset Password', 'FORGET PASSWORD', $message)) {
+if (smtpmailer($email, 'techrisersnedcis@gmail.com', 'HRMS| Reset Password', 'FORGET PASSWORD', $message)) {
 	// Finish the page:
      $msg='<div class="success">! Reset Password email has been sent to '.$email.' Please click on the Link to Reset Your Password </div>';	
 }
@@ -79,16 +79,16 @@ window.location = "needhelp.php";
 }
 		//end of option A	
 else if($option == "B" or $option == "C"){ 
-$f = mysqli_query($con,"SELECT emp_id from employee where emp_email='$email'")or die(mysqli_error($con));
+$f = mysql_query("SELECT emp_id from employee where emp_email='$email'")or die(mysqli_error($con));
 													$count = mysqli_num_rows($f);
 													if($count > 0){
-$qry=mysqli_query($con,"UPDATE employee set Activation='$activation' where emp_email = '$email'")or die(mysqli_error($con));
+$qry=mysql_query("UPDATE employee set Activation='$activation' where emp_email = '$email'")or die(mysqli_error($con));
 
 				$message = " To Activate Your Account, please click on this link:\n\n";
-                $message .= WEBSITE_URL . '/ERP/activate.php?email=' . urlencode($email) . "&key=$activation";
+                $message .= WEBSITE_URL . '/HRMS/activate.php?email=' . urlencode($email) . "&key=$activation";
 
 	
-if (smtpmailer($email, 'techrisersnedcis@gmail.com', 'ERP| Account Activation', 'Account Activation', $message)) {
+if (smtpmailer($email, 'techrisersnedcis@gmail.com', 'HRMS| Account Activation', 'Account Activation', $message)) {
 	// Finish the page:
                 $msg='<div class="success">! Activation email
 has been sent to '.$email.' Please click on the Link to Reset Your Password </div>';	
