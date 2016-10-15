@@ -2,12 +2,34 @@
 require_once('config.php');
 require_once('session2.php');
 ?>
+
+<?php
+$id = $_GET['id'];
+	$select = "SELECT * FROM 
+			employee
+			 WHERE emp_id= $id";
+			 
+			 $result = mysql_fetch_array(mysql_query($select));
+	$qry=mysql_query($select);
+		if($qry)
+		{
+		while($rec = mysql_fetch_array($qry)){
+		$uname = "$rec[emp_username]";
+		$name = "$rec[emp_name]";
+		$email = "$rec[emp_email]";
+		$nic = "$rec[emp_nic]";
+		$address ="$rec[emp_address]";
+		$images = "$rec[emp_image]";
+		$position = "$rec[emp_position]";
+		}
+		}
+?>
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Manager | Employee LOG</title><link rel="shortcut icon" href="assets/img/logocalc1.png"><script src="js/blockrightclick.js"></script>
+  <title>HR | Employee Details</title><link rel="shortcut icon" href="assets/img/logocalc1.png"><script src="js/blockrightclick.js"></script>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.6 -->
@@ -55,13 +77,16 @@ require_once('session2.php');
             <!-- Menu toggle button -->
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
           <i class="fa fa-bell-o"></i>
-              <span class="label label-success"> <?php	
-	                   $count_client=mysql_query("select * from tempstore where temp_status=1 ");
+              <span class="label label-success">   <?php	
+	                   $count_client=mysql_query("select * from interview where inter_status=1 ");
 	                   $count = mysql_num_rows($count_client);
-					      $counts_client=mysql_query("select * from leavereq where leave_type='Loan' and leave_approve=0");
-				 $count = mysql_num_rows($counts_client) + $count;
-
-                       echo $count;?>	</span>
+					    $count_client=mysql_query("select * from tempstore where temp_status=1");
+	                   $counts = mysql_num_rows($count_client);
+					     $count_client=mysql_query("select * from tempstore where temp_status=1  ");
+	                   $countss= mysql_num_rows($count_client);
+					   $count=$count+$counts+$countss;
+					   echo $count;
+                       ?>		</span>
             </a>
             <ul class="dropdown-menu">
               <li class="header">You have <?php echo $count; ?> Notifications</li>
@@ -78,25 +103,60 @@ require_once('session2.php');
                       </div>
                       <!-- Message title and timestamp -->
                       <h4>
-                        <?php
-													$user_query = mysql_query("select * from tempstore where temp_status=1 limit 1")or die(mysql_error());
-													while($row = mysql_fetch_array($user_query)){
-													$id = $row['temp_id'];
-													echo $row['name']; ?>													
+                       Recruitment 												
                         <small><i class="fa fa-clock-o"></i> 5mints</small>
                       </h4>
                       <!-- The message -->
-                      <p><?php echo $row['email']; }?></p>
+                      <p></p>
+                    </a>
+                  </li>
+                  <!-- end message -->
+                </ul>
+                <!-- /.menu -->
+              </li> <li class="footer"><a href="interview.php">See All Recruitment Notifications</a></li>
+            </ul>
+          </li>
+         <li class="dropdown notifications-menu">
+            <!-- Menu toggle button -->
+            
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+          <i class="fa fa-envelope-o"></i>
+              <span class="label label-success"> <?php	
+					  $count=0;
+	                   $count_client=mysql_query("select * from leavereq where leave_approve=1 and Leave_type='Leave'");
+	                   $count = mysql_num_rows($count_client);
+					    $count_client=mysql_query("select * from leavereq where leave_approve=1 and Leave_type='Other'");
+	                   $count = mysql_num_rows($count_client) + $count;
+                     echo $count;  ?>	</span>
+            </a>
+            <ul class="dropdown-menu">
+              <li class="header">You have <?php echo $count; ?> Requests</li>
+              <li>
+                <!-- inner menu: contains the messages -->
+                <ul class="menu">
+                  <li><!-- start message -->
+                    <a href="#">
+                      <div class="pull-left">
+                        <!-- User Image -->
+                       
+                      </div>
+                      <!-- Message title and timestamp -->
+                      <h4>
+                        Check Request    												
+                        <small><i class="fa fa-clock-o"></i> <?php echo $count; ?></small>
+                      </h4>
+                      <!-- The message -->
+                      <p></p>
                     </a>
                   </li>
                   <!-- end message -->
                 </ul>
                 <!-- /.menu -->
               </li>
-              <li class="footer"><a href="requestreport.php">See All Notifications</a></li>
+              <li class="footer"><a href="reqinsert.php">See All Requests</a></li>
             </ul>
           </li>
-        
+          
           <!-- User Account Menu -->
           <li class="dropdown user user-menu">
             <!-- Menu Toggle Button -->
@@ -134,7 +194,8 @@ require_once('session2.php');
               
               <!-- Menu Footer-->
               <li class="user-footer">
-                <div class="pull-left">  <a href="hrprofile.php" class="btn btn-default btn-flat">Profile</a>
+                <div class="pull-left">
+                  <a href="hrprofile.php" class="btn btn-default btn-flat">Profile</a>
                 </div>
                 <div class="pull-right">
                   <a href="session_logout.php" class="btn btn-default btn-flat">Sign out</a>
@@ -212,6 +273,8 @@ require_once('session2.php');
       <!-- /.sidebar-menu -->
     </section>
   </aside>
+    <!-- /.sidebar -->
+  </aside>
 
 
   <!-- Content Wrapper. Contains page content -->
@@ -233,141 +296,48 @@ require_once('session2.php');
     <section class="content">
      <div class="box box-default">
             <div class="box-header with-border">
-              <h3 class="box-title">Employee Log</h3>
+              <h3 class="box-title">Employee Detail</h3>
               <br>
- <h4>CEO</h4>
-			<link href="css/table1.css" rel="stylesheet" type="text/css" />
-			<form method="post">
-			<div class="control-label" align="right">
-<table class="table" cellspacing="0" border="0" class="table" id="example">
-				<thead>
-				<tr class="head">
-				<th>Username</th>
-                <th>Email</th>
-				<th>Link</th>
-				</tr>
-				 <script>
-				$(function() {
-							
-				 });
-				 </script>
-				</thead>
-
-
-<!-------------------------------- select table inventory ---------------------------------->
-						<?php 
-						$query=mysql_query("select * FROM employee where emp_position='CEO' ")or die(mysql_error());
-						while($rec=mysql_fetch_array($query)){
-						$id = $rec['emp_id'];
-						?>
-						<tr class="edit_tr">
-						<td><?php echo $rec['emp_name']; ?></td>
-						<td><?php echo $rec['emp_email'] ?></td>
-                        <td><a href="empinfomanager.php <?php echo '?id='.$id; ?> ">Employee detail</a></td>
-						</tr><?php }?>
-							</table>
-							</div>
-							</form>
-                            <h4>Manager</h4>
-			<link href="css/table1.css" rel="stylesheet" type="text/css" />
-			<form method="post">
-			<div class="control-label" align="right">
-<table class="table" cellspacing="0" border="0" class="table" id="example">
-				<thead>
-				<tr class="head">
-				<th>Username</th>
-                <th>Email</th>
-				<th>Link</th>
-				</tr>
-				 <script>
-				$(function() {
-							
-				 });
-				 </script>
-				</thead>
-
-
-<!-------------------------------- select table inventory ---------------------------------->
-						<?php 
-						$query=mysql_query("select * FROM employee where emp_position='Manager' ")or die(mysql_error());
-						while($rec=mysql_fetch_array($query)){
-						$id = $rec['emp_id'];
-						?>
-						<tr class="edit_tr">
-						<td><?php echo $rec['emp_name']; ?></td>
-						<td><?php echo $rec['emp_email'] ?></td>
-                        <td><a href="empinfo.php <?php echo '?id='.$id; ?> ">Employee detail</a></td>
-						</tr><?php }?>
-							</table>
-							</div>
-							</form>
-                             <h4>HR</h4>
-			<link href="css/table1.css" rel="stylesheet" type="text/css" />
-			<form method="post">
-			<div class="control-label" align="right">
-<table class="table" cellspacing="0" border="0" class="table" id="example">
-				<thead>
-				<tr class="head">
-				<th>Username</th>
-                <th>Email</th>
-				<th>Link</th>
-				</tr>
-				 <script>
-				$(function() {
-							
-				 });
-				 </script>
-				</thead>
-
-
-<!-------------------------------- select table inventory ---------------------------------->
-						<?php 
-						$query=mysql_query("select * FROM employee where emp_position='Admin' ")or die(mysql_error());
-						while($rec=mysql_fetch_array($query)){
-						$id = $rec['emp_id'];
-						?>
-						<tr class="edit_tr">
-						<td><?php echo $rec['emp_name']; ?></td>
-						<td><?php echo $rec['emp_email'] ?></td>
-                        <td><a href="empinfo.php <?php echo '?id='.$id; ?> ">Employee detail</a></td>
-						</tr><?php }?>
-							</table>
-							</div>
-							</form>
-            <h4>Finance</h4>
-			<link href="css/table1.css" rel="stylesheet" type="text/css" />
-			<form method="post">
-			<div class="control-label" align="right">
-<table class="table" cellspacing="0" border="0" class="table" id="example">
-				<thead>
-				<tr class="head">
-				<th>Username</th>
-                <th>Email</th>
-				<th>Link</th>
-				</tr>
-				 <script>
-				$(function() {
-							
-				 });
-				 </script>
-				</thead>
-
-
-<!-------------------------------- select table inventory ---------------------------------->
-						<?php 
-						$query=mysql_query("select * FROM employee where emp_position='Finance' ")or die(mysql_error());
-						while($rec=mysql_fetch_array($query)){
-						$id = $rec['emp_id'];
-						?>
-						<tr class="edit_tr">
-						<td><?php echo $rec['emp_name']; ?></td>
-						<td><?php echo $rec['emp_email'] ?></td>
-                        <td><a href="empinfo.php <?php echo '?id='.$id; ?> ">Employee detail</a></td>
-						</tr><?php }?>
-							</table>
-							</div>
-							</form>
-              
+        <div id="page-wrapper" class="page-wrapper-cls">
+            <div id="page-inner">
+                <div class="row">
+		<div class="col-md-12">
+			<form class="form-horizontal" role="form" method="post">
+			<h3><center>Employee Information</center></h3>
+			<br> 
+<table>
+	<tr>
+		<td width="40%">
+ <img src="data:image/jpeg;base64,<?php echo base64_encode($images); ?>" width ="200px" height="200px" class="img-rounded" align="absbottom"/>
+		</td>
+        <td width="10%">
+        </td>
+		<td width="50%">
+   <table><tr><td><h4>Name: </h4></td>
+  <td><h4> <?php echo "$name" ?> </h4></td>
+  </tr>
+  <tr><td><h4>UserName: </h4></td>
+  <td><h4> <?php echo "$uname" ?> </h4></td>
+  </tr>
+  <tr><td><h4>Positon: </h4></td>
+  <td><h4> <?php echo "$position" ?> </h4></td>
+  </tr>
+  <tr><td><h4>Email: </h4></td>
+  <td><h4> <?php echo "$email" ?> </h4></td>
+  </tr>
+  <tr><td><h4>Address: </h4></td>
+  <td><h4> <?php echo "$address" ?> </h4></td>
+  </tr>
+  </table>
+</div>
+</div>
+</div>
+    <!-- /#wrapper -->
+</div>
+<div class="empty">
+<a href="#" class="btn btn-primary" onClick="window.print()" id="print" ><i class="fa fa-print"></i> Print Logs</a></button>
+</div>
+</td></table>
                 <!-- /.col -->
               </div>
               <!-- /.row -->
