@@ -31,6 +31,7 @@ window.location = "test.php";
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.6 -->
   <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="css/status.css">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
   <!-- Ionicons -->
@@ -182,7 +183,6 @@ window.location = "test.php";
 				echo 
 				"".$_SESSION['emp_email']." ";
 				}
-
 				?>
                   <small><?php echo $_SESSION['position']; ?></small>
                 </p>
@@ -326,18 +326,16 @@ window.location = "test.php";
 						</div>
                         
 				
+	   
 					<div class="form-group">
-							  <label class="col-md-5 control-label" for="rental">Status:</label>
+					 <label class="col-md-5 control-label" for="rental">Status:</label>
 							  <div class="col-md-3">
-					<div class="input-group">
-    			<div id="radioBtn" class="btn-group">
-					<a class="btn btn-primary btn-sm notActive" data-toggle="gender" data-title="Pass">Pass</a>
-    				<a class="btn btn-primary btn-sm notActive" data-toggle="gender" data-title="Fail">Fail</a>
-    			</div>
-    				<input type="hidden" name="gender" id="gender">
-    			</div>
-				</div>
-				</div>
+              <input type="radio" id="radio1" name="radios" value="all" checked>
+       <label for="radio1">Pass</label>
+    <input type="radio" id="radio2" name="radios"value="false">
+       <label for="radio2">Fail</label>
+    <input type="radio" id="radio3" name="radios" value="true">
+     </div></div>
                 <div class="form-group">
 							  <label class="col-md-5 control-label" for="rental">Email:</label>
 							  <div class="col-md-3">
@@ -603,3 +601,13 @@ window.location = "test.php";
 <script src="dist/js/demo.js"></script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
