@@ -80,7 +80,7 @@ window.location = "needhelp.php";
 		//end of option A	
 else if($option == "B" or $option == "C"){ 
 $f = mysql_query("SELECT emp_id from employee where emp_email='$email'")or die(mysqli_error($con));
-													$count = mysqli_num_rows($f);
+													$count = mysql_num_rows($f);
 													if($count > 0){
 $qry=mysql_query("UPDATE employee set Activation='$activation' where emp_email = '$email'")or die(mysqli_error($con));
 
@@ -139,7 +139,8 @@ window.location = "needhelp.php";
   <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
   <!--[if lt IE 9]>
     <script src="js/html5shiv.js"></script>
-  <![endif]--><link rel="shortcut icon" href="assets/img/logocalc1.png"><script src="js/blockrightclick.js"></script>
+  <![endif]--><link rel="shortcut icon" href="assets/img/logocalc1.png">
+  <script src="js/blockrightclick.js"></script>
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/scripts.js"></script>
