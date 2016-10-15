@@ -192,12 +192,11 @@ require_once('session2.php');
         <li class="header">
         </li>
         <!-- Optionally, you can add icons to the links -->
-        <li class="active"><a href="finance.php"><i class="fa fa-link"></i> <span>Home</span></a></li>
+        <li><a href="finance.php"><i class="fa fa-link"></i> <span>Home</span></a></li>
        <li><a href="salary.php"><i class="fa fa-link"></i> <span>Salary</span></a></li>
         <li><a href="loan.php"><i class="fa fa-link"></i> <span>Loan</span></a></li>
-        <li><a href="loan.php"><i class="fa fa-link"></i> <span>Loan</span></a></li>
-         <li><a href="employeelogfinance.php"><i class="fa fa-link"></i> <span>Employee Log</span></a></li>
-          <li><a href="aboutusfinance.php"><i class="fa fa-link"></i> <span>About Us</span></a></li>
+        <li><a href="employeelogfinance.php"><i class="fa fa-link"></i> <span>Employee Log</span></a></li>
+          <li class="active"><a href="aboutusfinance.php"><i class="fa fa-link"></i> <span>About Us</span></a></li>
       </ul>
       <!-- /.sidebar-menu -->
     </section>
@@ -214,13 +213,13 @@ require_once('session2.php');
 				"".$_SESSION['emp_email']." "; ?></small>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Dashboard</li>
+        <li><a href="manager.php"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">About us</li>
       </ol>
     </section>
 
     <!-- Main content -->
-    <section class="content">
+     <section class="content">
      <div class="box box-default">
             <div class="box-header with-border">
               <h3 class="box-title">About us</h3>
@@ -242,7 +241,6 @@ require_once('session2.php');
 										<img id="developers" src="images/12442926_537079656466514_64118953_n.jpg" class="img-circle" height="100" width="100">
 										<hr>
 										<p>Name: Bisma Ayaz</p>
-										<p>Address: Gulshan Karachi</p>
 										<p>Email: bisma.ayaz@yahoo.com</p>
 										<p>Position: Developer</p>
 										</center>
@@ -253,9 +251,8 @@ require_once('session2.php');
 								        <img id="developers" src="images/12795362_962631297149775_9211809512204472208_n.jpg" class="img-circle" width="100" height="100">
 								        <hr>
 										<p>Name: Wajiha Altaf</p>
-										<p>Address: baby k ghar</p>
 										<p>Email: wajiha.altaf@yahoo.com</p>
-										<p>Position: Programmer</p>
+										<p>Position: Developer</p>
 								        </center>
 								</div>
 								<br>
@@ -264,9 +261,8 @@ require_once('session2.php');
 										<img id="developers" src="images/12064395_537079793133167_845695592_n.jpg" class="img-circle" width="100" height="100">
 										<hr>
 										<p>Name: Farah Sadiq</p>
-										<p>Address: KFRL me</p>
 										<p>Email: farahsadiq357@yahoo.com</p>
-										<p>Position: Documentalist</p>
+										<p>Position: Developer</p>
 										</center>
 								</div>
 								<br>
@@ -275,9 +271,8 @@ require_once('session2.php');
 								        <img id="developers" src="images/12790156_1094751150567516_1470554256_o.jpg" class="img-circle" width="100" height="100">
 								        <hr>
 										<p>Name: Iraj kanwal</p>
-										<p>Address: US me</p>
 										<p>Email: kanwal.iraj@yahoo.com</p>
-										<p>Position: Designer</p>
+										<p>Position: Developer</p>
 								        </center>
 								</div>
                                 <br>
