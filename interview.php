@@ -3,24 +3,6 @@ require_once('config.php');
 require_once('session2.php');
 ?>
 
-
-<?php
-	if (isset($_POST['register'])){
-	$fname=$_POST['fname'];
-	$email=$_POST['nname'];
-	$status=$_POST['gender'];
-	$date=$_POST['bdate'];
-	if($status == "Pass") $st = 1;
-	else $st = 0;
-	mysql_query("INSERT INTO `test` VALUES ('', '$fname', '$date', '$st', '$email','0')")or die(mysql_error());
-				?>
-				<script>
-alert('Added Succsessfully');
-window.location = "tenant_room.php";
-</script>
-<?php
-}?>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -296,8 +278,9 @@ window.location = "tenant_room.php";
 				"".$_SESSION['emp_email']." "; ?></small>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Dashboard</li>
+       <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Recruitment</li>
+          <li class="active">Interview</li>
       </ol>
     </section>
 

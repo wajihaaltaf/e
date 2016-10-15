@@ -29,7 +29,7 @@ $id=$_SESSION['id'];
 				?>
 				<script>
 alert('Request Send Succesfully Succsessfully');
-window.location = "water.php";
+window.location = "addrequest.php";
 </script>
 <?php
 }?>
@@ -38,7 +38,8 @@ window.location = "water.php";
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>HR | Request</title><link rel="shortcut icon" href="assets/img/logocalc1.png"><script src="js/blockrightclick.js"></script>
+  <title>HR | Request</title><link rel="shortcut icon" href="assets/img/logocalc1.png">
+  <script src="js/blockrightclick.js"></script>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.6 -->
@@ -290,7 +291,6 @@ window.location = "water.php";
           </ul>
         </li>
      
-       <li class="active"><a href="#"><i class="fa fa-link"></i> <span>Loan</span></a></li>
          <li><a href="#"><i class="fa fa-link"></i> <span>Employee Log</span></a></li>
           <li><a href="aboutus.php"><i class="fa fa-link"></i> <span>About Us</span></a></li>
       </ul>
@@ -311,7 +311,8 @@ window.location = "water.php";
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Dashboard</li>
+        <li class="active">Request</li>
+        <li class="active">Do Request</li>
       </ol>
     </section>
 
@@ -320,12 +321,12 @@ window.location = "water.php";
      <div class="box box-default">
             <div class="box-header with-border">
               <h3 class="box-title">Do Request</h3>
-             	 <div id="page-wrapper" class="page-wrapper-cls">
+		 <div id="page-wrapper" class="page-wrapper-cls">
             <div id="page-inner">
                 <div class="row">
 		<div class="col-md-12">
 			<form class="form-horizontal" role="form" method="post">
-			<h3><center></center></h3>
+			<h3><center>Leave Request</center></h3>
 			<br> 
 				<div>
 					<div class="form-group">
@@ -358,7 +359,7 @@ window.location = "water.php";
                 <div class="form-group">
 							  <label class="col-md-5 control-label" for="rental">Subject:</label>
 							  <div class="col-md-3">
-						<input type="text" name="subject" id = "nname" class="form-control input-md"  placeholder="Subject" required/>
+						<input type="text" name="subject" id = "nname" class="form-control input-md"  placeholder="Subject" autofocus="autofocus" required/>
 					</div>
 				</div>
                 </div>
@@ -366,7 +367,7 @@ window.location = "water.php";
                 <div class="form-group">
 							  <label class="col-md-5 control-label" for="rental">Message:</label>
 							  <div class="col-md-3">
-						<textarea cols="50" rows="7" name="message" class="form-control input-md"></textarea>
+						<textarea cols="50" rows="7" name="message" class="form-control input-md" required/></textarea>
 					</div>
 				</div>
                 
@@ -384,6 +385,8 @@ window.location = "water.php";
 
 				</div>
 				</form>
+				</div>
+				</div>
                 <!-- /.col -->
               </div>
               <!-- /.row -->

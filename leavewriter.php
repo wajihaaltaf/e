@@ -21,7 +21,7 @@ $select = "SELECT emp_id FROM leavereq WHERE leave_id= $id";
 ?>
 <script>
 alert('Added Successfully');
-window.location = "inter.php";
+window.location = "reqinsert.php";
 </script>
 <?php
 }?>

@@ -20,7 +20,7 @@ $id = $_GET['id'];
 				?>
 				<script>
 alert('Added Succsessfully');
-window.location = "register.php";
+window.location = "interview.php";
 </script>
 <?php
 }?>
@@ -31,7 +31,7 @@ window.location = "register.php";
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>HR | Employee LOG</title><link rel="shortcut icon" href="assets/img/logocalc1.png"><script src="js/blockrightclick.js"></script>
+  <title>HR | Recruitment</title><link rel="shortcut icon" href="assets/img/logocalc1.png"><script src="js/blockrightclick.js"></script>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.6 -->
@@ -302,7 +302,8 @@ window.location = "register.php";
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Dashboard</li>
+        <li class="active">Recruitment</li>
+          <li class="active">Interview</li>
       </ol>
     </section>
 
@@ -327,6 +328,7 @@ window.location = "register.php";
 							<option></option>
 								<option>Manager</option>
                                 <option>Admin</option>
+                                <option>Finance</option>
 				</select>			
 			</div>
 			</div>
