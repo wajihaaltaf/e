@@ -11,6 +11,7 @@
 <title>Login</title>
 <link rel="shortcut icon" href="assets/img/logocalc1.png">
 <!--  Bootstrap Style -->
+<script src="js/blockrightclick.js"></script>
 <link href="assets/css/bootstrap.css" rel="stylesheet" />
 <!--  Font-Awesome Style -->
 <link href="assets/css/font-awesome.min.css" rel="stylesheet" />
@@ -49,8 +50,6 @@
 <br>
 <br>
 <div class="col-lg-12 col-md-12 col-sm-12" />
-
-
 <form action="login.php" class="form-signin" method="post" role="form">
 <div class="form-group">
   <input type="text" class="form-control input-md" name="email" id="email" placeholder="User Name OR Email" required autofocus>
@@ -58,7 +57,8 @@
 <div class="form-group">
   <input type="password" class="form-control input-md" name="password" id="password" placeholder="Password" required>
 </div>
-<a href="needhelp.php">Need Help?</a> <br><br>
+<a href="needhelp.php">Need Help?</a> <br>
+<br>
 <div class="form-group">
   <button type="submit" class="btn btn-primary btn-block" id="login" name="login">Login</button>
   </a>

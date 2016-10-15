@@ -2,12 +2,26 @@
 require_once('config.php');
 require_once('session2.php');
 ?>
+<?php
+$id = $_SESSION['id'];
+	$select = "SELECT * FROM 
+			employee where emp_id='$id'";
+		
+	$qry=mysql_query($select);
+		$rec = mysql_fetch_array($qry);
+		$name = "$rec[emp_name]";
+		$email = "$rec[emp_email]";
+		$nic = "$rec[emp_nic]";
+		$bdate ="$rec[emp_DOB]";
+     $position = "$rec[emp_position]";
+		
+		?>
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Finance | Salary Transaction</title><link rel="shortcut icon" href="assets/img/logocalc1.png"><script src="js/blockrightclick.js"></script>
+  <title>HR | Employee LOG</title><link rel="shortcut icon" href="assets/img/logocalc1.png"><script src="js/blockrightclick.js"></script>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.6 -->
@@ -55,13 +69,16 @@ require_once('session2.php');
             <!-- Menu toggle button -->
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
           <i class="fa fa-bell-o"></i>
-              <span class="label label-success"> <?php	
-	                   $count_client=mysql_query("select * from tempstore where temp_status=1 ");
+              <span class="label label-success">   <?php	
+	                   $count_client=mysql_query("select * from interview where inter_status=1 ");
 	                   $count = mysql_num_rows($count_client);
-					      $counts_client=mysql_query("select * from leavereq where leave_type='Loan' and leave_approve=0");
-				 $count = mysql_num_rows($counts_client) + $count;
-
-                       echo $count;?>	</span>
+					    $count_client=mysql_query("select * from tempstore where temp_status=1");
+	                   $counts = mysql_num_rows($count_client);
+					     $count_client=mysql_query("select * from tempstore where temp_status=1  ");
+	                   $countss= mysql_num_rows($count_client);
+					   $count=$count+$counts+$countss;
+					   echo $count;
+                       ?>		</span>
             </a>
             <ul class="dropdown-menu">
               <li class="header">You have <?php echo $count; ?> Notifications</li>
@@ -78,25 +95,60 @@ require_once('session2.php');
                       </div>
                       <!-- Message title and timestamp -->
                       <h4>
-                        <?php
-													$user_query = mysql_query("select * from tempstore where temp_status=1 limit 1")or die(mysql_error());
-													while($row = mysql_fetch_array($user_query)){
-													$id = $row['temp_id'];
-													echo $row['name']; ?>													
+                       Recruitment 												
                         <small><i class="fa fa-clock-o"></i> 5mints</small>
                       </h4>
                       <!-- The message -->
-                      <p><?php echo $row['email']; }?></p>
+                      <p></p>
+                    </a>
+                  </li>
+                  <!-- end message -->
+                </ul>
+                <!-- /.menu -->
+              </li> <li class="footer"><a href="interview.php">See All Recruitment Notifications</a></li>
+            </ul>
+          </li>
+         <li class="dropdown notifications-menu">
+            <!-- Menu toggle button -->
+            
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+          <i class="fa fa-envelope-o"></i>
+              <span class="label label-success"> <?php	
+					  $count=0;
+	                   $count_client=mysql_query("select * from leavereq where leave_approve=1 and Leave_type='Leave'");
+	                   $count = mysql_num_rows($count_client);
+					    $count_client=mysql_query("select * from leavereq where leave_approve=1 and Leave_type='Other'");
+	                   $count = mysql_num_rows($count_client) + $count;
+                     echo $count;  ?>	</span>
+            </a>
+            <ul class="dropdown-menu">
+              <li class="header">You have <?php echo $count; ?> Requests</li>
+              <li>
+                <!-- inner menu: contains the messages -->
+                <ul class="menu">
+                  <li><!-- start message -->
+                    <a href="#">
+                      <div class="pull-left">
+                        <!-- User Image -->
+                       
+                      </div>
+                      <!-- Message title and timestamp -->
+                      <h4>
+                        Check Request    												
+                        <small><i class="fa fa-clock-o"></i> <?php echo $count; ?></small>
+                      </h4>
+                      <!-- The message -->
+                      <p></p>
                     </a>
                   </li>
                   <!-- end message -->
                 </ul>
                 <!-- /.menu -->
               </li>
-              <li class="footer"><a href="requestreport.php">See All Notifications</a></li>
+              <li class="footer"><a href="reqinsert.php">See All Requests</a></li>
             </ul>
           </li>
-        
+          
           <!-- User Account Menu -->
           <li class="dropdown user user-menu">
             <!-- Menu Toggle Button -->
@@ -134,7 +186,8 @@ require_once('session2.php');
               
               <!-- Menu Footer-->
               <li class="user-footer">
-                <div class="pull-left">  <a href="hrprofile.php" class="btn btn-default btn-flat">Profile</a>
+                <div class="pull-left">
+                  <a href="hrprofile.php" class="btn btn-default btn-flat">Profile</a>
                 </div>
                 <div class="pull-right">
                   <a href="session_logout.php" class="btn btn-default btn-flat">Sign out</a>
@@ -188,14 +241,42 @@ require_once('session2.php');
       <!-- /.search form -->
 
       <!-- Sidebar Menu -->
-       <ul class="sidebar-menu">
+     <!-- Sidebar Menu -->
+      <ul class="sidebar-menu">
         <li class="header">
         </li>
         <!-- Optionally, you can add icons to the links -->
-        <li><a href="finance.php"><i class="fa fa-link"></i> <span>Home</span></a></li>
-       <li class="active"><a href="salary.php"><i class="fa fa-link"></i> <span>Salary</span></a></li>
-         <li><a href="employeelogfinance.php"><i class="fa fa-link"></i> <span>Employee Log</span></a></li>
-          <li><a href="aboutusfinance.php"><i class="fa fa-link"></i> <span>About Us</span></a></li>
+        <li><a href="hr.php"><i class="fa fa-link"></i> <span>Home</span></a></li>
+         <li class="treeview">
+          <a href="#"><i class="fa fa-link"></i> <span>Recruitment</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          
+          <ul class="treeview-menu">
+            <li class="active"><a href="test.php">Test</a></li>
+            <li><a href="interview.php">Interview</a></li>
+              <li><a href="managerapproved.php">Managers Approved</a></li>
+            <li><a href="ceoapproved.php">CEO Approved</a></li>
+          </ul>
+        </li>
+        <li class="treeview">
+          <a href="#"><i class="fa fa-link"></i> <span>Request</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          
+          <ul class="treeview-menu">
+            <li><a href="addrequest.php">Do Request</a></li>
+            <li><a href="reqinsert.php">Check Request</a></li>
+          </ul>
+        </li>
+     
+       <li class="active"><a href="loan.php"><i class="fa fa-link"></i> <span>Loan</span></a></li>
+         <li><a href="employeelog.php"><i class="fa fa-link"></i> <span>Employee Log</span></a></li>
+          <li><a href="aboutus.php"><i class="fa fa-link"></i> <span>About Us</span></a></li>
       </ul>
       <!-- /.sidebar-menu -->
     </section>
@@ -222,72 +303,50 @@ require_once('session2.php');
     <section class="content">
      <div class="box box-default">
             <div class="box-header with-border">
-              <h3 class="box-title">Salary</h3>
+              <h3 class="box-title">Profile</h3>
               <br>
-<div id="page-wrapper">
-            <div class="container-fluid">	
-  <nav>
-  <div id="page-wrapper">
-            <div class="container-fluid">
+<table>
+	<tr>
+		<td width="40%">
+ <img src="data:image/jpeg;base64,<?php echo base64_encode($image); ?>" width ="200px" height="200px" class="img-rounded" align="absbottom"/>
+		</td>
+        <td width="10%">
+        </td>
+		<td width="50%">
+   <table><tr><td><h4>Name: </h4></td>
+  <td><h4> <?php echo " $name" ?> </h4></td>
+  </tr>
+  <tr><td><h4>Email: </h4></td>
+  <td><h4> <?php echo "$email" ?> </h4></td>
+  </tr>
+  <tr><td><h4>NIC: </h4></td>
+  <td><h4> <?php echo " $nic" ?> </h4></td>
+  </tr>
+  <tr><td><h4>Date Of birth: </h4></td>
+  <td><h4> <?php echo " $bdate" ?> </h4></td>
+  </tr>
+    
+  <tr><td><h4>Applied for: </h4></td>
+  <td><h4> <?php echo " $position" ?> </h4></td>
+  </tr>
+  </table>
+</div>
+</div>
+</div>
+</form>
+<div class="control-group">
+				<div class="controls" align="center">
+						           				 <a href="update.php <?php echo '?id='.$id; ?>" class="btn btn-success"><i class="glyphicon glyphicon-pencil"></i></a>
+                                                 <a href="hr.php" class="btn btn-danger"><i class="glyphicon glyphicon-pencil"></i></a>
+    <!-- /#wrapper -->
+</div>
+</td></table>
+              </div>
 
-                <!-- Page Heading -->
-			<nav>
-				<center><h2>SALARY<h2></center>
-				<div class="col-sm-12">
-				<div class="span7" id="">  
-                     <div class="row-fluid">
-					  <?php	
-	                   $count_client=mysql_query("select * from salary");
-	                   $count = mysql_num_rows($count_client);
-                       ?>	
-                        <!-- block -->						
-                        <div id="block_bg" class="block">	
-                            <div class="navbar navbar-inner block-header">
-							<br>
-                                <div class="muted pull-right">&nbsp;Employee List&nbsp;&nbsp;</div><div class="muted pull-right"><span class="label label-warning"><?php echo $count;?></span></div>
-														
-                            <div class="block-content collapse in">
-                                <div class="span12">
-								
-								<!-----------------------form --------------------->
-								
-  									<table cellpadding="0" cellspacing="0" border="0" class="table" id="example">
-									
-										<thead>
-										  <tr>
-												<th></th>
-												<th>Name</th>
-												<th>Salary</th>
-												<th>Bonus</th>
-                                                <th>Total Salary</th>
-												<script src="js/jquery.dataTables.min.js"></script>
-                                                <script src="js/DT_bootstrap.js"></script>
-												<th></th>
-										   </tr>
-										</thead>
-										<tbody>
-													<?php
-													$user_query = mysql_query("select e.emp_name as en,s.sal_id as sid,s.sal_amount as sam,s.sal_bonus as sbs from employee e,salary s where e.emp_id= s.emp_id")or die(mysql_error());
-													while($row = mysql_fetch_array($user_query)){
-													$id = $row['sid'];
-													?>
-									
-												<tr>
-												<td width="30">
-												</td>
-												<td><?php echo $row['en']; ?></td>
-	
-												<td><?php echo $row['sam']; ?></td>
-											<td><?php echo $row['sbs']; ?></td>
-                                            <td> <?php 
-											$total=intval($row['sam'])+intval($row['sbs']);
-											echo $total;  ?></td>
-							</tr>
-												<?php }?>
-										</tbody>
-									</table>
-								</form>
-							               
+			<br>
+		
+		
+            </div>
                 <!-- /.col -->
               </div>
               <!-- /.row -->
@@ -295,6 +354,7 @@ require_once('session2.php');
            
             <!-- /.footer -->
           </div>
+          
           
     </section>
     <!-- /.content -->

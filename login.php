@@ -33,7 +33,7 @@ if($result) {
 			$_SESSION['position'] = $member['emp_position'];
 			$_SESSION['emp_email'] = $member['emp_email'];
 			$_SESSION['id'] = $member['emp_id'];
-			$_SESSION['image'] = $member['emp_image'];
+			$_SESSION['emp_image'] = $member['emp_image'];
 			$id = $member['emp_id'];
 			$select = "SELECT HOST FROM information_schema.processlist where id = connection_id()";
 $qry=mysql_query($select);

@@ -2,12 +2,26 @@
 require_once('config.php');
 require_once('session2.php');
 ?>
+<?php
+$id = $_SESSION['id'];
+	$select = "SELECT * FROM 
+			employee where emp_id='$id'";
+		
+	$qry=mysql_query($select);
+		$rec = mysql_fetch_array($qry);
+		$name = "$rec[emp_name]";
+		$email = "$rec[emp_email]";
+		$nic = "$rec[emp_nic]";
+		$bdate ="$rec[emp_DOB]";
+     $position = "$rec[emp_position]";
+		
+		?>
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Finance | Salary Transaction</title><link rel="shortcut icon" href="assets/img/logocalc1.png"><script src="js/blockrightclick.js"></script>
+  <title>CEO | Profile</title><link rel="shortcut icon" href="assets/img/logocalc1.png"><script src="js/blockrightclick.js"></script>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.6 -->
@@ -134,7 +148,7 @@ require_once('session2.php');
               
               <!-- Menu Footer-->
               <li class="user-footer">
-                <div class="pull-left">  <a href="hrprofile.php" class="btn btn-default btn-flat">Profile</a>
+                <div class="pull-left">  <a href="ceoprofile.php" class="btn btn-default btn-flat">Profile</a>
                 </div>
                 <div class="pull-right">
                   <a href="session_logout.php" class="btn btn-default btn-flat">Sign out</a>
@@ -188,16 +202,29 @@ require_once('session2.php');
       <!-- /.search form -->
 
       <!-- Sidebar Menu -->
-       <ul class="sidebar-menu">
+  <ul class="sidebar-menu">
         <li class="header">
         </li>
         <!-- Optionally, you can add icons to the links -->
-        <li><a href="finance.php"><i class="fa fa-link"></i> <span>Home</span></a></li>
-       <li class="active"><a href="salary.php"><i class="fa fa-link"></i> <span>Salary</span></a></li>
-         <li><a href="employeelogfinance.php"><i class="fa fa-link"></i> <span>Employee Log</span></a></li>
-          <li><a href="aboutusfinance.php"><i class="fa fa-link"></i> <span>About Us</span></a></li>
+        <li><a href="ceo.php"><i class="fa fa-link"></i> <span>Home</span></a></li>
+         
+        <li class="treeview">
+          <a href="#"><i class="fa fa-link"></i> <span>Notifications</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          
+          <ul class="treeview-menu">
+            <li><a href="requestreport.php">Request</a></li>
+            <li><a href="graphreport.php">Graphical Report</a></li>
+            <li><a href="csvreport.php">CSV Report</a></li>
+          </ul>
+        </li>
+     
+         <li><a href="employeelogceo.php"><i class="fa fa-link"></i> <span>Employee Log</span></a></li>
+          <li class="active"><a href="aboutusceo.php"><i class="fa fa-link"></i> <span>About Us</span></a></li>
       </ul>
-      <!-- /.sidebar-menu -->
     </section>
     <!-- /.sidebar -->
   </aside>
@@ -219,75 +246,53 @@ require_once('session2.php');
     </section>
 
     <!-- Main content -->
-    <section class="content">
+     <section class="content">
      <div class="box box-default">
             <div class="box-header with-border">
-              <h3 class="box-title">Salary</h3>
+              <h3 class="box-title">Profile</h3>
               <br>
-<div id="page-wrapper">
-            <div class="container-fluid">	
-  <nav>
-  <div id="page-wrapper">
-            <div class="container-fluid">
+<table>
+	<tr>
+		<td width="40%">
+ <img src="data:image/jpeg;base64,<?php echo base64_encode($image); ?>" width ="200px" height="200px" class="img-rounded" align="absbottom"/>
+		</td>
+        <td width="10%">
+        </td>
+		<td width="50%">
+   <table><tr><td><h4>Name: </h4></td>
+  <td><h4> <?php echo " $name" ?> </h4></td>
+  </tr>
+  <tr><td><h4>Email: </h4></td>
+  <td><h4> <?php echo "$email" ?> </h4></td>
+  </tr>
+  <tr><td><h4>NIC: </h4></td>
+  <td><h4> <?php echo " $nic" ?> </h4></td>
+  </tr>
+  <tr><td><h4>Date Of birth: </h4></td>
+  <td><h4> <?php echo " $bdate" ?> </h4></td>
+  </tr>
+    
+  <tr><td><h4>Applied for: </h4></td>
+  <td><h4> <?php echo " $position" ?> </h4></td>
+  </tr>
+  </table>
+</div>
+</div>
+</div>
+</form>
+<div class="control-group">
+				<div class="controls" align="center">
+						           				 <a href="update.php <?php echo '?id='.$id; ?>" class="btn btn-success"><i class="glyphicon glyphicon-pencil"></i></a>
+                                                 <a href="hr.php" class="btn btn-danger"><i class="glyphicon glyphicon-pencil"></i></a>
+    <!-- /#wrapper -->
+</div>
+</td></table>
+              </div>
 
-                <!-- Page Heading -->
-			<nav>
-				<center><h2>SALARY<h2></center>
-				<div class="col-sm-12">
-				<div class="span7" id="">  
-                     <div class="row-fluid">
-					  <?php	
-	                   $count_client=mysql_query("select * from salary");
-	                   $count = mysql_num_rows($count_client);
-                       ?>	
-                        <!-- block -->						
-                        <div id="block_bg" class="block">	
-                            <div class="navbar navbar-inner block-header">
-							<br>
-                                <div class="muted pull-right">&nbsp;Employee List&nbsp;&nbsp;</div><div class="muted pull-right"><span class="label label-warning"><?php echo $count;?></span></div>
-														
-                            <div class="block-content collapse in">
-                                <div class="span12">
-								
-								<!-----------------------form --------------------->
-								
-  									<table cellpadding="0" cellspacing="0" border="0" class="table" id="example">
-									
-										<thead>
-										  <tr>
-												<th></th>
-												<th>Name</th>
-												<th>Salary</th>
-												<th>Bonus</th>
-                                                <th>Total Salary</th>
-												<script src="js/jquery.dataTables.min.js"></script>
-                                                <script src="js/DT_bootstrap.js"></script>
-												<th></th>
-										   </tr>
-										</thead>
-										<tbody>
-													<?php
-													$user_query = mysql_query("select e.emp_name as en,s.sal_id as sid,s.sal_amount as sam,s.sal_bonus as sbs from employee e,salary s where e.emp_id= s.emp_id")or die(mysql_error());
-													while($row = mysql_fetch_array($user_query)){
-													$id = $row['sid'];
-													?>
-									
-												<tr>
-												<td width="30">
-												</td>
-												<td><?php echo $row['en']; ?></td>
-	
-												<td><?php echo $row['sam']; ?></td>
-											<td><?php echo $row['sbs']; ?></td>
-                                            <td> <?php 
-											$total=intval($row['sam'])+intval($row['sbs']);
-											echo $total;  ?></td>
-							</tr>
-												<?php }?>
-										</tbody>
-									</table>
-								</form>
-							               
+			<br>
+		
+		
+            </div>
                 <!-- /.col -->
               </div>
               <!-- /.row -->
@@ -295,6 +300,7 @@ require_once('session2.php');
            
             <!-- /.footer -->
           </div>
+          
           
     </section>
     <!-- /.content -->
