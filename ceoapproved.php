@@ -231,7 +231,7 @@ require_once('session2.php');
         <li class="header">
         </li>
         <!-- Optionally, you can add icons to the links -->
-        <li><a href="#"><i class="fa fa-link"></i> <span>Home</span></a></li>
+        <li><a href="hr.php"><i class="fa fa-link"></i> <span>Home</span></a></li>
          <li class="treeview">
           <a href="#"><i class="fa fa-link"></i> <span>Recruitment</span>
             <span class="pull-right-container">
@@ -258,8 +258,7 @@ require_once('session2.php');
             <li><a href="reqinsert.php">Check Request</a></li>
           </ul>
         </li>
-     
-       <li class="active"><a href="#"><i class="fa fa-link"></i> <span>Loan</span></a></li>
+    
          <li><a href="#"><i class="fa fa-link"></i> <span>Employee Log</span></a></li>
           <li><a href="aboutus.php"><i class="fa fa-link"></i> <span>About Us</span></a></li>
       </ul>

@@ -269,13 +269,11 @@ window.location = "addrequest.php";
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
-          </a>
-          
-          <ul class="treeview-menu">
-            <li><a href="#">Test</a></li>
-            <li><a href="#">Interview</a></li>
-              <li><a href="#">Managers Approved</a></li>
-            <li><a href="#">CEO Approved</a></li>
+          </a><ul class="treeview-menu">
+            <li><a href="test.php">Test</a></li>
+            <li><a href="interview.php">Interview</a></li>
+              <li><a href="managerapproved.php">Managers Approved</a></li>
+            <li><a href="ceoapproved.php">CEO Approved</a></li>
           </ul>
         </li>
         <li class="treeview">
@@ -310,7 +308,7 @@ window.location = "addrequest.php";
 				"".$_SESSION['emp_email']." "; ?></small>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="hr.php"><i class="fa fa-dashboard"></i> Home</a></li>
         <li class="active">Request</li>
         <li class="active">Do Request</li>
       </ol>
