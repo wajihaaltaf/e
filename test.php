@@ -279,7 +279,6 @@ window.location = "test.php";
           </ul>
         </li>
      
-       <li class="active"><a href="loan.php"><i class="fa fa-link"></i> <span>Loan</span></a></li>
          <li><a href="employeelog.php"><i class="fa fa-link"></i> <span>Employee Log</span></a></li>
           <li><a href="aboutus.php"><i class="fa fa-link"></i> <span>About Us</span></a></li>
       </ul>
