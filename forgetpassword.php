@@ -144,7 +144,7 @@ window.location = "needhelp.php";
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/scripts.js"></script>
-<title>Edit User</title>
+<title>HRMS | Forget Password</title>
 <!-- Bootstrap Core CSS -->
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <!-- Custom Fonts -->
@@ -179,7 +179,7 @@ window.location = "needhelp.php";
   <div class="form-group">
     <label class="col-md-5 control-label">Email:</label>
     <div class="col-md-3">
-      <input type="text" name="emp_email" id = "email" class="form-control input-md"  placeholder="Email" pattern="[^@]+@[^@]+\.[a-zA-Z]{2,}" title="Incorrect Email" required/>
+      <input type="text" name="emp_email" id = "email" class="form-control input-md"  placeholder="Email" pattern="[^@]+@[^@]+\.[a-zA-Z]{2,}" title="Incorrect Email" autofocus="autofocus" required/>
     </div>
   </div>
   <input type="hidden" name="option" value="<?php echo $_POST['option']; ?>" />

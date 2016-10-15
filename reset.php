@@ -45,7 +45,7 @@ if (isset($_GET['key']) && (strlen($_GET['key']) == 32))//The Activation key wil
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/scripts.js"></script>
-<title>Edit User</title>
+<title>HRMS | Reset Password</title>
 <!-- Bootstrap Core CSS -->
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <!-- Custom Fonts -->
