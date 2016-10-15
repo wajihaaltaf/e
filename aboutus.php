@@ -279,8 +279,8 @@ require_once('session2.php');
 				"".$_SESSION['emp_email']." "; ?></small>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Dashboard</li>
+        <li><a href="hr.php"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">About Us</li>
       </ol>
     </section>
 
@@ -307,7 +307,6 @@ require_once('session2.php');
 										<img id="developers" src="images/12442926_537079656466514_64118953_n.jpg" class="img-circle" height="100" width="100">
 										<hr>
 										<p>Name: Bisma Ayaz</p>
-										<p>Address: Gulshan Karachi</p>
 										<p>Email: bisma.ayaz@yahoo.com</p>
 										<p>Position: Developer</p>
 										</center>
@@ -318,9 +317,8 @@ require_once('session2.php');
 								        <img id="developers" src="images/12795362_962631297149775_9211809512204472208_n.jpg" class="img-circle" width="100" height="100">
 								        <hr>
 										<p>Name: Wajiha Altaf</p>
-										<p>Address: baby k ghar</p>
 										<p>Email: wajiha.altaf@yahoo.com</p>
-										<p>Position: Programmer</p>
+										<p>Position: Developer</p>
 								        </center>
 								</div>
 								<br>
@@ -329,9 +327,8 @@ require_once('session2.php');
 										<img id="developers" src="images/12064395_537079793133167_845695592_n.jpg" class="img-circle" width="100" height="100">
 										<hr>
 										<p>Name: Farah Sadiq</p>
-										<p>Address: KFRL me</p>
 										<p>Email: farahsadiq357@yahoo.com</p>
-										<p>Position: Documentalist</p>
+										<p>Position: Developer</p>
 										</center>
 								</div>
 								<br>
@@ -340,9 +337,8 @@ require_once('session2.php');
 								        <img id="developers" src="images/12790156_1094751150567516_1470554256_o.jpg" class="img-circle" width="100" height="100">
 								        <hr>
 										<p>Name: Iraj kanwal</p>
-										<p>Address: US me</p>
 										<p>Email: kanwal.iraj@yahoo.com</p>
-										<p>Position: Designer</p>
+										<p>Position: Developer</p>
 								        </center>
 								</div>
                                 <br>
