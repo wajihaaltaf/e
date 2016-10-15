@@ -8,10 +8,12 @@ require_once('session2.php');
 	if (isset($_POST['register'])){
 	$fname=$_POST['fname'];
 	$email=$_POST['nname'];
-	$status=$_POST['gender'];
+	$status=$_POST['radios'];
 	$date=$_POST['bdate'];
+	//echo $status;
 	if($status == "Pass") $st = 1;
 	else $st = 0;
+	//echo "INSERT INTO `test` VALUES ('', '$fname', '$date', '$st', '$email','0')";
 	mysql_query("INSERT INTO `test` VALUES ('', '$fname', '$date', '$st', '$email','0')")or die(mysql_error());
 				?>
 				<script>
@@ -330,11 +332,10 @@ window.location = "test.php";
 					<div class="form-group">
 					 <label class="col-md-5 control-label" for="rental">Status:</label>
 							  <div class="col-md-3">
-              <input type="radio" id="radio1" name="radios" value="all" checked>
+              <input type="radio" id="radio1" name="radios" value="Pass" checked>
        <label for="radio1">Pass</label>
-    <input type="radio" id="radio2" name="radios"value="false">
+    <input type="radio" id="radio2" name="radios"value="Dalse">
        <label for="radio2">Fail</label>
-    <input type="radio" id="radio3" name="radios" value="true">
      </div></div>
                 <div class="form-group">
 							  <label class="col-md-5 control-label" for="rental">Email:</label>
@@ -601,13 +602,3 @@ window.location = "test.php";
 <script src="dist/js/demo.js"></script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
