@@ -276,7 +276,7 @@ window.location = "tenant_room.php";
             <li><a href="addrequest.php">Do Request</a></li>
             <li><a href="reqinsert.php">Check Request</a></li>
           </ul>
-        </li>  <li><a href="loan.php"><i class="fa fa-link"></i> <span>Loan</span></a></li>
+        </li>
          <li><a href="employeelog.php"><i class="fa fa-link"></i> <span>Employee Log</span></a></li>
           <li><a href="aboutus.php"><i class="fa fa-link"></i> <span>About Us</span></a></li>
       </ul>

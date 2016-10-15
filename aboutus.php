@@ -258,8 +258,6 @@ require_once('session2.php');
             <li><a href="reqinsert.php">Check Request</a></li>
           </ul>
         </li>
-     
-       <li><a href="loan.php"><i class="fa fa-link"></i> <span>Loan</span></a></li>
          <li><a href="employeelog.php"><i class="fa fa-link"></i> <span>Employee Log</span></a></li>
           <li class="active"><a href="aboutus.php"><i class="fa fa-link"></i> <span>About Us</span></a></li>
       </ul>
