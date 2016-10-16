@@ -3,25 +3,62 @@ require_once('config.php');
 require_once('session2.php');
 ?>
 <?php
-$id = $_SESSION['id'];
-	$select = "SELECT * FROM 
-			employee where emp_id='$id'";
+if(isset($_GET['id']))
+{
+$emp_id=$_SESSION['id'];
+	$user_query = mysql_query("select * from employee where emp_id=$emp_id")or die(mysql_error());
+													while($row = mysql_fetch_array($user_query)){
+													$empname = $row['emp_name'];
+													
+												$gender = $row['emp_gender'];
+											        $empnic = $row['emp_nic'];
+													$empdob = $row['emp_DOB'];
+													$empemail = $row['emp_email'];
+													$empcuraddress = $row['emp_address'];
+													$password = $row['emp_password'];
+													
+													}}
+	if (isset($_POST['update'])){
+		if (($_POST['emp_full_name'] == '')or ($_POST['emp_dob'] == '')  or ($_POST['emp_nic'] == '') or ($_POST['password'] == '')or ($_POST['emp_current_address'] == '') or ($_POST['emp_email'] == '') )
+			{
+			?> <script>
+alert('Error Occured while updating');
+window.location = "updateprofile.php";
+</script>
+			<?php
+			exit();
+			}
+	else{ 
+		$firstname = addslashes("$_POST[emp_full_name]");
+	   $dob = addslashes("$_POST[emp_dob]");
+		$nic = addslashes("$_POST[emp_nic]");
+		$passw = md5(addslashes("$_POST[password]"));
+		$empcuraddress = addslashes("$_POST[emp_current_address]");
+		$email= addslashes("$_POST[emp_email]");
+		if($password == $passw) {
+		mysql_query("UPDATE employee SET emp_name ='$firstname', emp_DOB ='$dob', emp_nic = '$nic',emp_email ='$email',emp_address='$empcuraddress' WHERE emp_id = '$emp_id'")or die(mysql_error()); 
 		
-	$qry=mysql_query($select);
-		$rec = mysql_fetch_array($qry);
-		$name = "$rec[emp_name]";
-		$email = "$rec[emp_email]";
-		$nic = "$rec[emp_nic]";
-		$bdate ="$rec[emp_DOB]";
-     $position = "$rec[emp_position]";
-		
-		?>
+?>
+<script>
+alert('Updated Successfully');
+window.location = "ceoprofile.php";
+</script>
+<?php
+}
+else {
+?>
+<script>
+alert('Password doesnot match with eachother');
+window.location = "ceoprofile.php";
+</script>
+<?php }}}?>
+
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>HR | Profile</title><link rel="shortcut icon" href="assets/img/logocalc1.png"><script src="js/blockrightclick.js"></script>
+  <title>Manager | Profile</title><link rel="shortcut icon" href="assets/img/logocalc1.png"><script src="js/blockrightclick.js"></script>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.6 -->
@@ -187,8 +224,9 @@ $id = $_SESSION['id'];
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
-                  <a href="hrprofile.php" class="btn btn-default btn-flat">Profile</a>
+                  <a href="managerprofile.php" class="btn btn-default btn-flat">Profile</a>
                 </div>
+
                 <div class="pull-right">
                   <a href="session_logout.php" class="btn btn-default btn-flat">Sign out</a>
                 </div>
@@ -241,12 +279,11 @@ $id = $_SESSION['id'];
       <!-- /.search form -->
 
       <!-- Sidebar Menu -->
-     <!-- Sidebar Menu -->
       <ul class="sidebar-menu">
         <li class="header">
         </li>
         <!-- Optionally, you can add icons to the links -->
-        <li><a href="hr.php"><i class="fa fa-link"></i> <span>Home</span></a></li>
+        <li class="active"><a href="manager.php"><i class="fa fa-link"></i> <span>Home</span></a></li>
          <li class="treeview">
           <a href="#"><i class="fa fa-link"></i> <span>Recruitment</span>
             <span class="pull-right-container">
@@ -254,33 +291,20 @@ $id = $_SESSION['id'];
             </span>
           </a>
           
-          <ul class="treeview-menu">
-            <li class="active"><a href="test.php">Test</a></li>
-            <li><a href="interview.php">Interview</a></li>
-              <li><a href="managerapproved.php">Managers Approved</a></li>
-            <li><a href="ceoapproved.php">CEO Approved</a></li>
+          <ul class="treeview-menu"> <li><a href="interviewresult.php">Interview Results</a></li>
+              <li><a href="addemp.php">Add Employee</a></li>
+           
           </ul>
         </li>
-        <li class="treeview">
-          <a href="#"><i class="fa fa-link"></i> <span>Request</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          
-          <ul class="treeview-menu">
-            <li><a href="addrequest.php">Do Request</a></li>
-            <li><a href="reqinsert.php">Check Request</a></li>
-          </ul>
-        </li>
-  
-         <li><a href="employeelog.php"><i class="fa fa-link"></i> <span>Employee Log</span></a></li>
-          <li><a href="aboutus.php"><i class="fa fa-link"></i> <span>About Us</span></a></li>
+ <li><a href="leaverequests.php"><i class="fa fa-link"></i> <span>Leave Request</span></a></li>
+         <li><a href="employeelogmanager.php"><i class="fa fa-link"></i> <span>Employee Log</span></a></li>
+          <li><a href="aboutusmanager.php"><i class="fa fa-link"></i> <span>About Us</span></a></li>
       </ul>
       <!-- /.sidebar-menu -->
     </section>
     <!-- /.sidebar -->
   </aside>
+
 
 
   <!-- Content Wrapper. Contains page content -->
@@ -294,8 +318,8 @@ $id = $_SESSION['id'];
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Profile</li>
-        
+        <li class="active">Reports</li>
+         <li class="active">CSV</li>
       </ol>
     </section>
 
@@ -303,59 +327,78 @@ $id = $_SESSION['id'];
     <section class="content">
      <div class="box box-default">
             <div class="box-header with-border">
-              <h3 class="box-title">Profile</h3>
-              <br>
-<table>
-	<tr>
-		<td width="40%">
- <img src="data:image/jpeg;base64,<?php echo base64_encode($image); ?>" width ="200px" height="200px" class="img-rounded" align="absbottom"/>
-		</td>
-        <td width="10%">
-        </td>
-		<td width="50%">
-   <table><tr><td><h4>Name: </h4></td>
-  <td><h4> <?php echo " $name" ?> </h4></td>
-  </tr>
-  <tr><td><h4>Email: </h4></td>
-  <td><h4> <?php echo "$email" ?> </h4></td>
-  </tr>
-  <tr><td><h4>NIC: </h4></td>
-  <td><h4> <?php echo " $nic" ?> </h4></td>
-  </tr>
-  <tr><td><h4>Date Of birth: </h4></td>
-  <td><h4> <?php echo " $bdate" ?> </h4></td>
-  </tr>
-    
-  <tr><td><h4>Applied for: </h4></td>
-  <td><h4> <?php echo " $position" ?> </h4></td>
-  </tr>
-  </table>
-</div>
-</div>
-</div>
-</form>
-<div class="control-group">
-				<div class="controls" align="center">
-						           				 <a href="update.php <?php echo '?id='.$id; ?>" class="btn btn-success"><i class="glyphicon glyphicon-pencil"></i></a>
-                                                 <a href="hr.php" class="btn btn-danger"><i class="glyphicon glyphicon-pencil"></i></a>
-    <!-- /#wrapper -->
-</div>
-</td></table>
-              </div>
+              <h3 class="box-title">Update Profile</h3>
 
-			<br>
-		
-		
-            </div>
+            
                 <!-- /.col -->
-              </div>
-              <!-- /.row -->
-            </div>
-           
-            <!-- /.footer -->
-          </div>
-          
-          
+               
+                <!-- Page Heading -->
+  <div id="page-wrapper" class="page-wrapper-cls">
+            <div id="page-inner">
+                <div class="row">
+		<div class="col-md-12">
+			<form class="form-horizontal" role="form" method="post">
+			<h3><center>Edit Information</center></h3>
+			<br>									
+			<div> 
+					<div class="form-group">
+							  <label class="col-md-5 control-label" for="rental">First Name:</label>
+							  <div class="col-md-3">
+					<input type="text" name="emp_full_name" id = "fname" class="form-control input-md" placeholder="please enter first name" pattern="[A-Za-z. ]{1,50}" value= "<?php echo $empname; ?>" required/> 
+						</div>
+						</div>
+						
+                 
+                      
+                <div class="form-group">
+							  <label class="col-md-5 control-label">Email:</label>
+							  <div class="col-md-3">
+						<input type="text" name="emp_email" id = "email" class="form-control input-md"  placeholder="Email" pattern="[^@]+@[^@]+\.[a-zA-Z]{2,}" title="Incorrect Email" value="<?php echo $empemail; ?>"required/>
+					</div>
+				</div>
+                 <div class="form-group">
+							  <label class="col-md-5 control-label">NIC: [14Digit Number]</label>
+							  <div class="col-md-3">
+						<input type="text" name="emp_nic" id = "nic" class="form-control input-md"  placeholder="NIC" title="Numbers Only" value="<?php echo $empnic; ?>" required/>
+					</div>
+				</div>	
+				<div class="form-group">
+							  <label class="col-md-5 control-label" for="rental">Date of birth:</label>
+							  <div class="col-md-3">
+						<input type="date" name="emp_dob" id = "bdate" title="click to choose a date" class="form-control input-md" placeholder="1900-1-31" value = <?php echo $empdob; ?> required/>
+					</div>
+				</div>
+               
+                <div class="form-group">
+							  <label class="col-md-5 control-label" for="rental">Address:</label>
+							  <div class="col-md-3">
+						<input type="text" name="emp_current_address" id = "address" class="form-control input-md" placeholder="Current Address" pattern="[A-Za-z0-9.#/\-_,' ]{6,50}"  value="<?php echo $empcuraddress; ?>" required/>
+					</div>
+				</div>
+		
+        		
+ <div class="form-group">
+							  <label class="col-md-5 control-label" for="rental">Password:</label>
+							  <div class="col-md-3">
+						<input type="password" name="password" id = "password" class="form-control input-md" placeholder="Password" title="Should be atleast six characters with atleast 1 special character"  required/>
+					</div>
+				</div>
+               <div class="control-group">
+				<div class="controls" align="center">
+						           				 <button name="update" class="btn btn-success">Update</button>
+												 <a button id="cancel" name="cancel" class="btn btn-danger" href="manager.php" >Cancel</button></a>
+						           			 </div></div>
+											 <br>
+											 <br>
+											 <br>
+											 <br>
+                                   
+									</tr>
+									</tbody>
+						            </div>
+									</center>
+                                 </form>      
+                                    
     </section>
     <!-- /.content -->
   </div>
@@ -527,6 +570,7 @@ $id = $_SESSION['id'];
           <!-- /.form-group -->
 
           <h3 class="control-sidebar-heading">Chat Settings</h3>
+
 
           <div class="form-group">
             <label class="control-sidebar-subheading">

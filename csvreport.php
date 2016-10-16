@@ -2,6 +2,62 @@
 require_once('config.php');
 require_once('session2.php');
 ?>
+<?php
+if(isset($_POST['register']))
+{
+$category= $_POST['category'];
+if($category == "Dept")
+{
+$user_query = mysqli_query($con,"select * from employee")or die(mysqli_error($con));}
+													while($row = mysqli_fetch_array($user_query)){
+													$module_id = $row['module_id'];
+													$cid = $row['category_id'];
+													$user_query2=mysqli_query($con,"SELECT DATE_FORMAT(exam_date, '%d-%m-%Y') as exam_date from schedule  where module_id='$module_id' and station_id= '$station' and category_id='$cid'");
+													$row = mysqli_fetch_array($user_query2);
+													$dte = $row['exam_date']; 
+														$user_query2=mysqli_query($con,"SELECT STN from station where station_id='$station' ");
+													$row = mysqli_fetch_array($user_query2);
+													$STN = $row['STN']; 
+
+header('Content-Type: text/csv; charset=utf-8');
+header("Content-Disposition: attachment; filename='$category'.csv");
+
+// create a file pointer connected to the output stream
+$output = fopen('php://output', 'w');
+
+// output the column headings
+$no= mysqli_query($con,"SELECT exam_id FROM `schedule` WHERE module_id='$module_id' AND category_id='$cid'");
+$no1 = mysqli_fetch_array($no);
+$ab= $no1['exam_id'];
+
+$yes = mysqli_query($con,"SELECT module.module_name , schedule.exam_date  from schedule , module where schedule.module_id=module.module_id and schedule.module_id='$module_id' and schedule.station_id= '$station' ") or die(mysqli_error($con));
+// fetch the datau
+$row = mysqli_fetch_assoc($yes);
+
+fputcsv($output, $row);
+fputcsv($output, array('Ref_id', 'First Name', 'Module Name','NIC'));
+// fetch the data
+$rows = mysqli_query($con,"SELECT candidate.Ref_id,candidate.cand_full_name,module.module_name,candidate.cand_nic FROM candidate,module,enrollment WHERE module.module_id=enrollment.module_id and enrollment.module_id='$module_id' and candidate.cand_id=enrollment.cand_id") or die(mysqli_error($con));
+$total= mysqli_num_rows($rows);
+$count= ceil($total/$shift); $var=0;
+for ($x = 1; $x <= $shift; $x++)
+{ mysqli_query($con, "INSERT INTO exams_shift ( `exam_id`, `shift_no`) VALUES ('$ab', '$x')")or die(mysql_error());
+ 
+$abc = mysqli_query($con,"SELECT candidate.Ref_id,candidate.cand_id,candidate.cand_full_name,module.module_name,candidate.cand_nic FROM candidate,module,enrollment WHERE module.module_id=enrollment.module_id and enrollment.module_id='$module_id' and candidate.cand_id=enrollment.cand_id  limit $var,$count") or die(mysqli_error($con));
+fputcsv($output, array('shift'.$x));
+$q= mysqli_query($con,"SELECT shift_id FROM `exams_shift` WHERE exam_id= '$ab' AND shift_no= '$x'");
+$a= mysqli_fetch_assoc($q);
+$b= $a['shift_id'];
+while ($row = mysqli_fetch_assoc($abc)){
+$c= $row['cand_id'];
+mysqli_query($con, "INSERT INTO user_shift ( `cand_id`,`shift_id`) VALUES ('$c', '$b')")or die(mysql_error());
+ fputcsv($output, $row);
+
+}
+$var=$var+$count;
+}}
+exit();
+}?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -134,7 +190,7 @@ require_once('session2.php');
               
               <!-- Menu Footer-->
               <li class="user-footer">
-                <div class="pull-left">  <a href="hrprofile.php" class="btn btn-default btn-flat">Profile</a>
+                <div class="pull-left">  <a href="ceoprofile.php" class="btn btn-default btn-flat">Profile</a>
                 </div>
                 <div class="pull-right">
                   <a href="session_logout.php" class="btn btn-default btn-flat">Sign out</a>
@@ -227,7 +283,8 @@ require_once('session2.php');
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Dashboard</li>
+        <li class="active">Reports</li>
+         <li class="active">CSV</li>
       </ol>
     </section>
 
@@ -235,7 +292,7 @@ require_once('session2.php');
     <section class="content">
      <div class="box box-default">
             <div class="box-header with-border">
-              <h3 class="box-title">About us</h3>
+              <h3 class="box-title">CSV Report</h3>
 
             
                 <!-- /.col -->
@@ -244,70 +301,42 @@ require_once('session2.php');
                 <div>
       <div class="row">
     <div class='col-md-offset-2 col-md-8 text-center'>
-    <h2><i class="fa fa-users">&nbsp;DEVELOPER</i></h2>
-    </div>
-  </div>
-  <br>
-  <br>
-   <div class="span3">
-										<center>
-										<img id="developers" src="images/12442926_537079656466514_64118953_n.jpg" class="img-circle" height="100" width="100">
-										<hr>
-										<p>Name: Bisma Ayaz</p>
-										<p>Address: Gulshan Karachi</p>
-										<p>Email: bisma.ayaz@yahoo.com</p>
-										<p>Position: Developer</p>
-										</center>
-								</div>
-								<br>
-								<div class="span3">
-										<center>
-								        <img id="developers" src="images/12795362_962631297149775_9211809512204472208_n.jpg" class="img-circle" width="100" height="100">
-								        <hr>
-										<p>Name: Wajiha Altaf</p>
-										<p>Address: baby k ghar</p>
-										<p>Email: wajiha.altaf@yahoo.com</p>
-										<p>Position: Programmer</p>
-								        </center>
-								</div>
-								<br>
-								 <div class="span3">
-										<center>
-										<img id="developers" src="images/12064395_537079793133167_845695592_n.jpg" class="img-circle" width="100" height="100">
-										<hr>
-										<p>Name: Farah Sadiq</p>
-										<p>Address: KFRL me</p>
-										<p>Email: farahsadiq357@yahoo.com</p>
-										<p>Position: Documentalist</p>
-										</center>
-								</div>
-								<br>
-                                <div class="span3">
-										<center>
-								        <img id="developers" src="images/12790156_1094751150567516_1470554256_o.jpg" class="img-circle" width="100" height="100">
-								        <hr>
-										<p>Name: Iraj kanwal</p>
-										<p>Address: US me</p>
-										<p>Email: kanwal.iraj@yahoo.com</p>
-										<p>Position: Designer</p>
-								        </center>
-								</div>
-                                <br>
-								
-              </div>
-
-			<br>
-		
-		
-            </div>
-                <!-- /.col -->
-              </div>
-              <!-- /.row -->
-            </div>
-           
-            <!-- /.footer -->
-          </div>
-          
+    <div id="page-wrapper" class="page-wrapper-cls">
+    <div id="page-inner">
+    <div class="row">
+    <div class="col-md-12">
+    <form class="form-horizontal" role="form" method="post">
+      <h3>
+        <center>
+          Create CSV of Employees
+        </center>
+      </h3>
+      <br>
+    <div class="form-group">
+        <label class="col-md-5 control-label">Category:</label>
+        <div class="col-md-3">
+          <select id="brand" name="category" class="form-control" required>
+     <option value="">- select -</option>
+    <option value="Dept">Department</option>
+    <option value="Gender">Gender</option>
+          </select>
+        </div>
+      </div>
+      
+      <div class="control-group">
+        <div class="controls" align="center">
+          <button type="submit" id="submit" name="register" class="btn btn-success">Create CSV</button>
+          <a button id="cancel" name="cancel" class="btn btn-danger" href="ceo.php" >Cancel
+          </button>
+          </a> <br>
+          <br>
+          <br>
+          <br>
+          <br>
+        </div>
+      </div>
+      </div>
+    </form>
     </section>
     <!-- /.content -->
   </div>

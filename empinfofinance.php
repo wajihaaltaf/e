@@ -2,26 +2,34 @@
 require_once('config.php');
 require_once('session2.php');
 ?>
+
 <?php
-$id = $_SESSION['id'];
+$id = $_GET['id'];
 	$select = "SELECT * FROM 
-			employee where emp_id='$id'";
-		
+			employee
+			 WHERE emp_id= $id";
+			 
+			 $result = mysql_fetch_array(mysql_query($select));
 	$qry=mysql_query($select);
-		$rec = mysql_fetch_array($qry);
+		if($qry)
+		{
+		while($rec = mysql_fetch_array($qry)){
+		$uname = "$rec[emp_username]";
 		$name = "$rec[emp_name]";
 		$email = "$rec[emp_email]";
 		$nic = "$rec[emp_nic]";
-		$bdate ="$rec[emp_DOB]";
-     $position = "$rec[emp_position]";
-		
-		?>
+		$address ="$rec[emp_address]";
+		$images = "$rec[emp_image]";
+		$position = "$rec[emp_position]";
+		}
+		}
+?>
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>HR | Profile</title><link rel="shortcut icon" href="assets/img/logocalc1.png"><script src="js/blockrightclick.js"></script>
+  <title>Finance | Employee Details</title><link rel="shortcut icon" href="assets/img/logocalc1.png"><script src="js/blockrightclick.js"></script>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.6 -->
@@ -240,46 +248,18 @@ $id = $_SESSION['id'];
       </form>
       <!-- /.search form -->
 
-      <!-- Sidebar Menu -->
-     <!-- Sidebar Menu -->
       <ul class="sidebar-menu">
         <li class="header">
         </li>
         <!-- Optionally, you can add icons to the links -->
-        <li><a href="hr.php"><i class="fa fa-link"></i> <span>Home</span></a></li>
-         <li class="treeview">
-          <a href="#"><i class="fa fa-link"></i> <span>Recruitment</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          
-          <ul class="treeview-menu">
-            <li class="active"><a href="test.php">Test</a></li>
-            <li><a href="interview.php">Interview</a></li>
-              <li><a href="managerapproved.php">Managers Approved</a></li>
-            <li><a href="ceoapproved.php">CEO Approved</a></li>
-          </ul>
-        </li>
-        <li class="treeview">
-          <a href="#"><i class="fa fa-link"></i> <span>Request</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          
-          <ul class="treeview-menu">
-            <li><a href="addrequest.php">Do Request</a></li>
-            <li><a href="reqinsert.php">Check Request</a></li>
-          </ul>
-        </li>
-  
-         <li><a href="employeelog.php"><i class="fa fa-link"></i> <span>Employee Log</span></a></li>
-          <li><a href="aboutus.php"><i class="fa fa-link"></i> <span>About Us</span></a></li>
+        <li><a href="finance.php"><i class="fa fa-link"></i> <span>Home</span></a></li>
+       <li><a href="salary.php"><i class="fa fa-link"></i> <span>Salary</span></a></li>
+        <li><a href="loan.php"><i class="fa fa-link"></i> <span>Loan</span></a></li>
+        <li class="active"><a href="employeelogfinance.php"><i class="fa fa-link"></i> <span>Employee Log</span></a></li>
+          <li><a href="aboutusfinance.php"><i class="fa fa-link"></i> <span>About Us</span></a></li>
       </ul>
       <!-- /.sidebar-menu -->
     </section>
-    <!-- /.sidebar -->
   </aside>
 
 
@@ -294,8 +274,7 @@ $id = $_SESSION['id'];
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Profile</li>
-        
+        <li class="active">Employee Log</li>
       </ol>
     </section>
 
@@ -303,50 +282,48 @@ $id = $_SESSION['id'];
     <section class="content">
      <div class="box box-default">
             <div class="box-header with-border">
-              <h3 class="box-title">Profile</h3>
+              <h3 class="box-title">Employee Detail</h3>
               <br>
+        <div id="page-wrapper" class="page-wrapper-cls">
+            <div id="page-inner">
+                <div class="row">
+		<div class="col-md-12">
+			<form class="form-horizontal" role="form" method="post">
+			<h3><center>Employee Information</center></h3>
+			<br> 
 <table>
 	<tr>
 		<td width="40%">
- <img src="data:image/jpeg;base64,<?php echo base64_encode($image); ?>" width ="200px" height="200px" class="img-rounded" align="absbottom"/>
+ <img src="data:image/jpeg;base64,<?php echo base64_encode($images); ?>" width ="200px" height="200px" class="img-rounded" align="absbottom"/>
 		</td>
         <td width="10%">
         </td>
 		<td width="50%">
    <table><tr><td><h4>Name: </h4></td>
-  <td><h4> <?php echo " $name" ?> </h4></td>
+  <td><h4> <?php echo "$name" ?> </h4></td>
+  </tr>
+  <tr><td><h4>UserName: </h4></td>
+  <td><h4> <?php echo "$uname" ?> </h4></td>
+  </tr>
+  <tr><td><h4>Positon: </h4></td>
+  <td><h4> <?php echo "$position" ?> </h4></td>
   </tr>
   <tr><td><h4>Email: </h4></td>
   <td><h4> <?php echo "$email" ?> </h4></td>
   </tr>
-  <tr><td><h4>NIC: </h4></td>
-  <td><h4> <?php echo " $nic" ?> </h4></td>
-  </tr>
-  <tr><td><h4>Date Of birth: </h4></td>
-  <td><h4> <?php echo " $bdate" ?> </h4></td>
-  </tr>
-    
-  <tr><td><h4>Applied for: </h4></td>
-  <td><h4> <?php echo " $position" ?> </h4></td>
+  <tr><td><h4>Address: </h4></td>
+  <td><h4> <?php echo "$address" ?> </h4></td>
   </tr>
   </table>
 </div>
 </div>
 </div>
-</form>
-<div class="control-group">
-				<div class="controls" align="center">
-						           				 <a href="update.php <?php echo '?id='.$id; ?>" class="btn btn-success"><i class="glyphicon glyphicon-pencil"></i></a>
-                                                 <a href="hr.php" class="btn btn-danger"><i class="glyphicon glyphicon-pencil"></i></a>
     <!-- /#wrapper -->
 </div>
+<div class="empty">
+<a href="#" class="btn btn-primary" onClick="window.print()" id="print" ><i class="fa fa-print"></i> Print Logs</a></button>
+</div>
 </td></table>
-              </div>
-
-			<br>
-		
-		
-            </div>
                 <!-- /.col -->
               </div>
               <!-- /.row -->
@@ -354,7 +331,6 @@ $id = $_SESSION['id'];
            
             <!-- /.footer -->
           </div>
-          
           
     </section>
     <!-- /.content -->

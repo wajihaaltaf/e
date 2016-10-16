@@ -282,8 +282,8 @@ $id = $_SESSION['id'];
 </form>
 <div class="control-group">
 				<div class="controls" align="center">
-						           				 <a href="update.php <?php echo '?id='.$id; ?>" class="btn btn-success"><i class="glyphicon glyphicon-pencil"></i></a>
-                                                 <a href="hr.php" class="btn btn-danger"><i class="glyphicon glyphicon-pencil"></i></a>
+						           				 <a href="updateprofile.php <?php echo '?id='.$id; ?>" class="btn btn-success"><i class="glyphicon glyphicon-pencil"></i></a>
+                                                 <a href="ceo.php" class="btn btn-danger"><i class="glyphicon glyphicon-pencil"></i></a>
     <!-- /#wrapper -->
 </div>
 </td></table>

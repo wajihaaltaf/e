@@ -2,6 +2,7 @@
 require_once('config.php');
 require_once('session2.php');
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,6 +24,93 @@ require_once('session2.php');
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+
+        var data = google.visualization.arrayToDataTable([
+          ['Gender', 'fd'],
+<?php 
+$select = "SELECT COUNT(*) as COUNTING,emp_gender FROM `employee` GROUP by emp_gender";
+			//$result = mysql_fetch_array(mysql_query($select));
+	$qry=mysql_query($select);
+		while($rec = mysql_fetch_array($qry)){
+		$uname = "$rec[COUNTING]";
+		$gender = "$rec[emp_gender]";
+		?>
+          ['<?php echo $gender; ?>',    <?php echo $uname; ?>],
+<?php } ?>
+        ]);
+        var options = {
+          title: 'Male to Female Employees'
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart1'));
+
+        chart.draw(data, options);
+	  var data = google.visualization.arrayToDataTable([
+          ['Position', 'fd'],
+<?php 
+$select = "SELECT DATE_FORMAT(NOW(), '%Y') - DATE_FORMAT(emp_DOB, '%Y') - (DATE_FORMAT(NOW(), '00-%m-%d') < DATE_FORMAT(emp_DOB, '00-%m-%d')) AS age FROM employee group by age";
+			//$result = mysql_fetch_array(mysql_query($select));
+	$qry=mysql_query($select);
+		while($rec = mysql_fetch_array($qry)){
+		$uname = "$rec[age]";
+		?>
+          ['<?php echo $uname; ?>',    <?php echo $uname; ?>],
+<?php } ?>
+        ]);
+        var options = {
+          title: 'Employees by Age'
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart3'));
+
+        chart.draw(data, options);
+		var data = google.visualization.arrayToDataTable([
+          ['Department', 'fd'],
+<?php 
+$select = "SELECT count(employee.emp_id) as COUNTING, employee.dept_id, department.dept_name as name FROM employee, department where employee.dept_id = department.dept_id group by employee.dept_id ";
+			//$result = mysql_fetch_array(mysql_query($select));
+	$qry=mysql_query($select);
+		while($rec = mysql_fetch_array($qry)){
+		$uname = "$rec[COUNTING]";
+		$gender = "$rec[name]";
+		?>
+          ['<?php echo $gender; ?>',    <?php echo $uname; ?>],
+<?php } ?>
+        ]);
+        var options = {
+          title: 'Employees by Department'
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart2'));
+
+        chart.draw(data, options);
+			  var data = google.visualization.arrayToDataTable([
+          ['Position', 'fd'],
+<?php 
+$select = "SELECT COUNT(*) as COUNTING,emp_position FROM `employee` GROUP by emp_position";
+			//$result = mysql_fetch_array(mysql_query($select));
+	$qry=mysql_query($select);
+		while($rec = mysql_fetch_array($qry)){
+		$uname = "$rec[COUNTING]";
+		$gender = "$rec[emp_position]";
+		?>
+          ['<?php echo $gender; ?>',    <?php echo $uname; ?>],
+<?php } ?>
+        ]);
+        var options = {
+          title: 'Employees by Position'
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+        chart.draw(data, options);
+      }
+    </script>
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -134,7 +222,7 @@ require_once('session2.php');
               
               <!-- Menu Footer-->
               <li class="user-footer">
-                <div class="pull-left">  <a href="hrprofile.php" class="btn btn-default btn-flat">Profile</a>
+                <div class="pull-left">  <a href="financeprofile.php" class="btn btn-default btn-flat">Profile</a>
                 </div>
                 <div class="pull-right">
                   <a href="session_logout.php" class="btn btn-default btn-flat">Sign out</a>
@@ -195,8 +283,7 @@ require_once('session2.php');
         <li class="active"><a href="finance.php"><i class="fa fa-link"></i> <span>Home</span></a></li>
        <li><a href="salary.php"><i class="fa fa-link"></i> <span>Salary</span></a></li>
         <li><a href="loan.php"><i class="fa fa-link"></i> <span>Loan</span></a></li>
-         <li><a href="loan.php"><i class="fa fa-link"></i> <span>Salary</span></a></li>
-         <li><a href="employeelogfinance.php"><i class="fa fa-link"></i> <span>Employee Log</span></a></li>
+ <li><a href="employeelogfinance.php"><i class="fa fa-link"></i> <span>Employee Log</span></a></li>
           <li><a href="aboutusfinance.php"><i class="fa fa-link"></i> <span>About Us</span></a></li>
       </ul>
       <!-- /.sidebar-menu -->
@@ -301,59 +388,35 @@ require_once('session2.php');
         </div>
         <!-- /.col -->
       </div>
-      <!-- /.row -->
-
-      <div class="row">
-        <div class="col-md-12">
-          <div class="box">
-            <div class="box-header with-border">
-              <h3 class="box-title">Monthly Recap Report</h3>
-
-              <div class="box-tools pull-right">
-                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                </button>
-                <div class="btn-group">
-                  <button type="button" class="btn btn-box-tool dropdown-toggle" data-toggle="dropdown">
-                    <i class="fa fa-wrench"></i></button>
-                  <ul class="dropdown-menu" role="menu">
-                    <li><a href="#">Action</a></li>
-                    <li><a href="#">Another action</a></li>
-                    <li><a href="#">Something else here</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#">Separated link</a></li>
-                  </ul>
-                </div>
-                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-              </div>
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-              <div class="row">
-                <div class="col-md-8">
-                  <p class="text-center">
-                    <strong>Sales: 1 Jan, 2014 - 30 Jul, 2014</strong>
-                  </p>
-
-                  <div class="chart">
-                    <!-- Sales Chart Canvas -->
-                    <canvas id="salesChart" style="height: 180px;"></canvas>
-                  </div>
-                  <!-- /.chart-responsive -->
-                </div>
-                <!-- /.col -->
-                <div class="col-md-4">
-                  
-
-                  <!-- /.progress-group -->
-                </div>
-                <!-- /.col -->
-              </div>
-              <!-- /.row -->
-            </div>
-            <!-- ./box-body -->
-            <div class="box-footer">
-             
-      <!-- /.row -->
+      <!-- /.row --><div class="row">
+<div class="col-md-16">
+<div class="box">
+  <div class="box-header with-border">
+    <h3 class="box-title">Monthly Recap Report</h3>
+    <div class="box-tools">
+      <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i> </button>
+     
+      <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+    </div>
+  </div>
+  <!-- /.box-header -->
+  <div class="box-body">
+    <div class="row">
+      <div class="col-md-12">
+       
+      <div id="piechart3" style="width: 50%; height: 300px; float:left"></div>
+     <div id="piechart1" style="width: 50%; height: 300px; float:left"></div>
+     </div>
+      <!-- /.col -->
+      <div class="col-md-4">
+     
+      </div>
+      <!-- /.col -->
+    </div>
+    <!-- /.row -->
+  </div>
+  <!-- ./box-body -->
+  <div class="box-footer">
 
 
           <!-- /.box -->

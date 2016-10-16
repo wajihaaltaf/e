@@ -134,7 +134,7 @@ require_once('session2.php');
               
               <!-- Menu Footer-->
               <li class="user-footer">
-                <div class="pull-left">  <a href="hrprofile.php" class="btn btn-default btn-flat">Profile</a>
+                <div class="pull-left">  <a href="financeprofile.php" class="btn btn-default btn-flat">Profile</a>
                 </div>
                 <div class="pull-right">
                   <a href="session_logout.php" class="btn btn-default btn-flat">Sign out</a>
@@ -215,7 +215,7 @@ require_once('session2.php');
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Dashboard</li>
+        <li class="active">Employee Log</li>
       </ol>
     </section>
 
@@ -253,7 +253,7 @@ require_once('session2.php');
 						<tr class="edit_tr">
 						<td><?php echo $rec['emp_name']; ?></td>
 						<td><?php echo $rec['emp_email'] ?></td>
-                        <td><a href="empinfo.php <?php echo '?id='.$id; ?> ">Employee detail</a></td>
+                        <td><a href="empinfofinance.php <?php echo '?id='.$id; ?> ">Employee detail</a></td>
 						</tr><?php }?>
 							</table>
 							</div>

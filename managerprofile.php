@@ -21,7 +21,7 @@ $id = $_SESSION['id'];
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>HR | Profile</title><link rel="shortcut icon" href="assets/img/logocalc1.png"><script src="js/blockrightclick.js"></script>
+  <title>Manager | Profile</title><link rel="shortcut icon" href="assets/img/logocalc1.png"><script src="js/blockrightclick.js"></script>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.6 -->
@@ -187,8 +187,9 @@ $id = $_SESSION['id'];
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
-                  <a href="hrprofile.php" class="btn btn-default btn-flat">Profile</a>
+                  <a href="managerprofile.php" class="btn btn-default btn-flat">Profile</a>
                 </div>
+
                 <div class="pull-right">
                   <a href="session_logout.php" class="btn btn-default btn-flat">Sign out</a>
                 </div>
@@ -241,12 +242,11 @@ $id = $_SESSION['id'];
       <!-- /.search form -->
 
       <!-- Sidebar Menu -->
-     <!-- Sidebar Menu -->
       <ul class="sidebar-menu">
         <li class="header">
         </li>
         <!-- Optionally, you can add icons to the links -->
-        <li><a href="hr.php"><i class="fa fa-link"></i> <span>Home</span></a></li>
+        <li class="active"><a href="manager.php"><i class="fa fa-link"></i> <span>Home</span></a></li>
          <li class="treeview">
           <a href="#"><i class="fa fa-link"></i> <span>Recruitment</span>
             <span class="pull-right-container">
@@ -254,33 +254,20 @@ $id = $_SESSION['id'];
             </span>
           </a>
           
-          <ul class="treeview-menu">
-            <li class="active"><a href="test.php">Test</a></li>
-            <li><a href="interview.php">Interview</a></li>
-              <li><a href="managerapproved.php">Managers Approved</a></li>
-            <li><a href="ceoapproved.php">CEO Approved</a></li>
+          <ul class="treeview-menu"> <li><a href="interviewresult.php">Interview Results</a></li>
+              <li><a href="addemp.php">Add Employee</a></li>
+           
           </ul>
         </li>
-        <li class="treeview">
-          <a href="#"><i class="fa fa-link"></i> <span>Request</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          
-          <ul class="treeview-menu">
-            <li><a href="addrequest.php">Do Request</a></li>
-            <li><a href="reqinsert.php">Check Request</a></li>
-          </ul>
-        </li>
-  
-         <li><a href="employeelog.php"><i class="fa fa-link"></i> <span>Employee Log</span></a></li>
-          <li><a href="aboutus.php"><i class="fa fa-link"></i> <span>About Us</span></a></li>
+ <li><a href="leaverequests.php"><i class="fa fa-link"></i> <span>Leave Request</span></a></li>
+         <li><a href="employeelogmanager.php"><i class="fa fa-link"></i> <span>Employee Log</span></a></li>
+          <li><a href="aboutusmanager.php"><i class="fa fa-link"></i> <span>About Us</span></a></li>
       </ul>
       <!-- /.sidebar-menu -->
     </section>
     <!-- /.sidebar -->
   </aside>
+
 
 
   <!-- Content Wrapper. Contains page content -->
@@ -295,7 +282,7 @@ $id = $_SESSION['id'];
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
         <li class="active">Profile</li>
-        
+               <li class="active">Update Profile</li>
       </ol>
     </section>
 
@@ -336,8 +323,8 @@ $id = $_SESSION['id'];
 </form>
 <div class="control-group">
 				<div class="controls" align="center">
-						           				 <a href="update.php <?php echo '?id='.$id; ?>" class="btn btn-success"><i class="glyphicon glyphicon-pencil"></i></a>
-                                                 <a href="hr.php" class="btn btn-danger"><i class="glyphicon glyphicon-pencil"></i></a>
+						           				 <a href="mupdate.php <?php echo '?id='.$id; ?>" class="btn btn-success"><i class="glyphicon glyphicon-pencil"></i></a>
+                                                 <a href="manager.php" class="btn btn-danger"><i class="glyphicon glyphicon-pencil"></i></a>
     <!-- /#wrapper -->
 </div>
 </td></table>
