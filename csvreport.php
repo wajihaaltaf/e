@@ -3,61 +3,100 @@ require_once('config.php');
 require_once('session2.php');
 ?>
 <?php
-if(isset($_POST['register']))
-{
-$category= $_POST['category'];
-if($category == "Dept")
-{
-$user_query = mysqli_query($con,"select * from employee")or die(mysqli_error($con));}
-													while($row = mysqli_fetch_array($user_query)){
-													$module_id = $row['module_id'];
-													$cid = $row['category_id'];
-													$user_query2=mysqli_query($con,"SELECT DATE_FORMAT(exam_date, '%d-%m-%Y') as exam_date from schedule  where module_id='$module_id' and station_id= '$station' and category_id='$cid'");
-													$row = mysqli_fetch_array($user_query2);
-													$dte = $row['exam_date']; 
-														$user_query2=mysqli_query($con,"SELECT STN from station where station_id='$station' ");
-													$row = mysqli_fetch_array($user_query2);
-													$STN = $row['STN']; 
-
+if(isset($_POST['register'])){
+$deptnm=$_POST['abc'];
+if($deptnm == "All Departments"){
 header('Content-Type: text/csv; charset=utf-8');
-header("Content-Disposition: attachment; filename='$category'.csv");
-
-// create a file pointer connected to the output stream
-$output = fopen('php://output', 'w');
-
-// output the column headings
-$no= mysqli_query($con,"SELECT exam_id FROM `schedule` WHERE module_id='$module_id' AND category_id='$cid'");
-$no1 = mysqli_fetch_array($no);
-$ab= $no1['exam_id'];
-
-$yes = mysqli_query($con,"SELECT module.module_name , schedule.exam_date  from schedule , module where schedule.module_id=module.module_id and schedule.module_id='$module_id' and schedule.station_id= '$station' ") or die(mysqli_error($con));
-// fetch the datau
-$row = mysqli_fetch_assoc($yes);
-
-fputcsv($output, $row);
-fputcsv($output, array('Ref_id', 'First Name', 'Module Name','NIC'));
-// fetch the data
-$rows = mysqli_query($con,"SELECT candidate.Ref_id,candidate.cand_full_name,module.module_name,candidate.cand_nic FROM candidate,module,enrollment WHERE module.module_id=enrollment.module_id and enrollment.module_id='$module_id' and candidate.cand_id=enrollment.cand_id") or die(mysqli_error($con));
-$total= mysqli_num_rows($rows);
-$count= ceil($total/$shift); $var=0;
-for ($x = 1; $x <= $shift; $x++)
-{ mysqli_query($con, "INSERT INTO exams_shift ( `exam_id`, `shift_no`) VALUES ('$ab', '$x')")or die(mysql_error());
+header("Content-Disposition: attachment; filename=alldept.csv");
  
-$abc = mysqli_query($con,"SELECT candidate.Ref_id,candidate.cand_id,candidate.cand_full_name,module.module_name,candidate.cand_nic FROM candidate,module,enrollment WHERE module.module_id=enrollment.module_id and enrollment.module_id='$module_id' and candidate.cand_id=enrollment.cand_id  limit $var,$count") or die(mysqli_error($con));
-fputcsv($output, array('shift'.$x));
-$q= mysqli_query($con,"SELECT shift_id FROM `exams_shift` WHERE exam_id= '$ab' AND shift_no= '$x'");
-$a= mysqli_fetch_assoc($q);
-$b= $a['shift_id'];
-while ($row = mysqli_fetch_assoc($abc)){
-$c= $row['cand_id'];
-mysqli_query($con, "INSERT INTO user_shift ( `cand_id`,`shift_id`) VALUES ('$c', '$b')")or die(mysql_error());
- fputcsv($output, $row);
+$output = fopen('php://output', 'w');
+fputcsv($output, array('CEO'));
+fputcsv($output, array('Employee id', 'Name','Department'));
 
+$no= mysql_query("SELECT employee.emp_id, employee.emp_name,department.dept_name FROM employee,department WHERE employee.emp_position='CEO' and employee.dept_id=department.dept_id ") ;
+
+
+while($no1 = mysql_fetch_assoc($no))
+
+{
+fputcsv($output, $no1);
+
+ }
+  fputcsv($output, array(''));
+ fputcsv($output, array('Manager'));
+fputcsv($output, array('Employee id', 'Name','Department'));
+
+$no= mysql_query("SELECT employee.emp_id, employee.emp_name,department.dept_name FROM employee,department WHERE employee.emp_position=
+'Manager' and employee.dept_id=department.dept_id ") ;
+
+
+while($no1 = mysql_fetch_assoc($no))
+
+{
+fputcsv($output, $no1);
+
+
+ }
+  fputcsv($output, array(''));
+ fputcsv($output, array('HR'));
+fputcsv($output, array('Employee id', 'Name','Department'));
+// output the column headings
+//$dept= mysql_query("SELECT dept_id FROM `department` WHERE `dept_name`= '$deptnm'") or die(mysql_error());
+//$row=mysql_fetch_array($dept);
+//$ab= $row['dept_id'];
+
+$no= mysql_query("SELECT employee.emp_id, employee.emp_name,department.dept_name FROM employee,department WHERE employee.emp_position='Admin' and employee.dept_id=department.dept_id ") ;
+
+
+while($no1 = mysql_fetch_assoc($no))
+
+{
+fputcsv($output, $no1);
+
+ }
+  fputcsv($output, array(''));
+ fputcsv($output, array('Finance'));
+fputcsv($output, array('Employee id', 'Name','Department'));
+
+
+$no= mysql_query("SELECT employee.emp_id, employee.emp_name,department.dept_name FROM employee,department WHERE employee.emp_position='Finance' and employee.dept_id=department.dept_id ") ;
+
+
+while($no1 = mysql_fetch_assoc($no))
+
+{
+fputcsv($output, $no1);
+
+ }
+ fclose($output);
+ exit();
 }
-$var=$var+$count;
-}}
-exit();
-}?>
+else {
+header('Content-Type: text/csv; charset=utf-8');
+header("Content-Disposition: attachment; filename='$deptnm.csv");
+ 
+$output = fopen('php://output', 'w');
+fputcsv($output, array('Department: '.$deptnm));
+fputcsv($output, array('Employee id', 'Name','Position'));
+// output the column headings
+$dept= mysql_query("SELECT dept_id FROM `department` WHERE `dept_name`= '$deptnm'") or die(mysql_error());
+$row=mysql_fetch_array($dept);
+$ab= $row['dept_id'];
+
+$no= mysql_query("SELECT emp_id, emp_name,emp_position FROM `employee` where dept_id= '$ab'") ;
+
+
+while($no1 = mysql_fetch_assoc($no))
+
+{
+fputcsv($output, array(''));
+fputcsv($output, $no1);
+
+ }
+ fclose($output);
+ exit();
+} }
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -312,16 +351,23 @@ exit();
         </center>
       </h3>
       <br>
-    <div class="form-group">
-        <label class="col-md-5 control-label">Category:</label>
-        <div class="col-md-3">
-          <select id="brand" name="category" class="form-control" required>
-     <option value="">- select -</option>
-    <option value="Dept">Department</option>
-    <option value="Gender">Gender</option>
-          </select>
-        </div>
-      </div>
+    	<div class="form-group">
+							<label class="col-md-5 control-label" for="room">Department name:</label>  
+							  <div class="col-md-3">
+								<select id="dept_id" name="abc" class="form-control" required/>  
+									<option>All Departments</option>
+								<?php 
+						$query=mysql_query("SELECT * FROM department ORDER by dept_name");
+						while($row=mysql_fetch_array($query))
+						 { 
+						 $sel= "selected";
+						 	?>
+                           
+							<option value="<?php echo $row['dept_name'];?>" <?=$sel?> > <?php echo $row['dept_name'];?> </option>
+							<?php 
+						} ?>
+								</select>
+                                </div></div> 
       
       <div class="control-group">
         <div class="controls" align="center">
