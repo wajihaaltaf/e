@@ -46,9 +46,7 @@ require_once('session2.php');
       <!-- Sidebar toggle button-->
       <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
         <span class="sr-only">Toggle navigation</span>
-      </a>
-      <!-- Navbar Right Menu -->
-      <div class="navbar-custom-menu">
+      </a> <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
           <!-- Messages: style can be found in dropdown.less-->
           <li class="dropdown messages-menu">
@@ -56,9 +54,9 @@ require_once('session2.php');
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
           <i class="fa fa-bell-o"></i>
               <span class="label label-success"> <?php	
-	                   $count_client=mysql_query("select * from tempstore where temp_status=1 ");
+	                   $count_client=mysql_query("select * from test where test_status=1 and inter_taken=0");
 	                   $count = mysql_num_rows($count_client);
-					      $counts_client=mysql_query("select * from leavereq where leave_type='Loan' and leave_approve=0");
+					      $counts_client=mysql_query("select * from tempstore where temp_status=0");
 				 $count = mysql_num_rows($counts_client) + $count;
 
                        echo $count;?>	</span>
@@ -77,27 +75,22 @@ require_once('session2.php');
                         <img src="data:image/jpeg;base64,<?php echo base64_encode($image); ?>" class="img-circle" alt="User Image">
                       </div>
                       <!-- Message title and timestamp -->
-                      <h4>
-                        <?php
-													$user_query = mysql_query("select * from tempstore where temp_status=1 limit 1")or die(mysql_error());
+                      <h4>  <?php
+													$user_query = mysql_query("select * from test where test_status=1 and inter_taken=0 limit 1")or die(mysql_error());
 													while($row = mysql_fetch_array($user_query)){
-													$id = $row['temp_id'];
-													echo $row['name']; ?>													
-                        <small><i class="fa fa-clock-o"></i> 5mints</small>
+													echo $row['candidate_name']; ?>													
+                       
                       </h4>
                       <!-- The message -->
-                      <p><?php echo $row['email']; }?></p>
-                    </a>
+                      <p><?php echo $row['candidate_email']; }?></p></a>
                   </li>
                   <!-- end message -->
                 </ul>
                 <!-- /.menu -->
               </li>
-              <li class="footer"><a href="requestreport.php">See All Notifications</a></li>
+              <li class="footer"><a href="interviewresult.php">See All Notifications</a></li>
             </ul>
-          </li>
-        
-          <!-- User Account Menu -->
+          </li><!-- User Account Menu -->
           <li class="dropdown user user-menu">
             <!-- Menu Toggle Button -->
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -134,7 +127,7 @@ require_once('session2.php');
               
               <!-- Menu Footer-->
               <li class="user-footer">
-                <div class="pull-left">  <a href="hrprofile.php" class="btn btn-default btn-flat">Profile</a>
+                <div class="pull-left">  <a href="managerprofile.php" class="btn btn-default btn-flat">Profile</a>
                 </div>
                 <div class="pull-right">
                   <a href="session_logout.php" class="btn btn-default btn-flat">Sign out</a>
@@ -224,7 +217,7 @@ require_once('session2.php');
 				"".$_SESSION['emp_email']." "; ?></small>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="manager.php"><i class="fa fa-dashboard"></i> Home</a></li>
         <li class="active">About Us</li>
       </ol>
     </section>

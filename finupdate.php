@@ -184,7 +184,7 @@ window.location = "hrprofile.php";
               
               <!-- Menu Footer-->
               <li class="user-footer">
-                <div class="pull-left">  <a href="hrprofile.php" class="btn btn-default btn-flat">Profile</a>
+                <div class="pull-left">                 <a href="financeprofile.php" class="btn btn-default btn-flat">Profile</a>
                 </div>
                 <div class="pull-right">
                   <a href="session_logout.php" class="btn btn-default btn-flat">Sign out</a>
@@ -265,7 +265,7 @@ window.location = "hrprofile.php";
 				"".$_SESSION['emp_email']." "; ?></small>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="ceo.php"><i class="fa fa-dashboard"></i> Home</a></li>
         <li class="active">Reports</li>
          <li class="active">CSV</li>
       </ol>

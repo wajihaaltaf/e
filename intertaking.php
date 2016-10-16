@@ -31,8 +31,10 @@ $id=$_GET['id'];
 		}	
 		
 		if (isset($_POST['update'])){
-	$status=$_POST['gender'];
+	$status=$_POST['radios'];
 	$date=$_POST['idate'];
+	$date=date_create($date);
+	$date=date_format($date,"Y-m-d");
 	if($status == "Pass") $st = 1;
 	else $st = 0;
 	mysql_query("INSERT INTO interview VALUES ('', '$name', '$date', '$st', '$n','$email')")or die(mysql_error());	
@@ -40,7 +42,7 @@ $id=$_GET['id'];
 ?>
 <script>
 alert('Added Successfully');
-window.location = "inter.php";
+window.location = "interviewresult.php";
 </script>
 <?php
 }?>
@@ -49,11 +51,12 @@ window.location = "inter.php";
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>HR | Dashboard</title><link rel="shortcut icon" href="assets/img/logocalc1.png"><script src="js/blockrightclick.js"></script>
+  <title>Manager | Interview</title><link rel="shortcut icon" href="assets/img/logocalc1.png"><script src="js/blockrightclick.js"></script>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.6 -->
   <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+   <link rel="stylesheet" type="text/css" href="css/status.css">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
   <!-- Ionicons -->
@@ -88,9 +91,7 @@ window.location = "inter.php";
       <!-- Sidebar toggle button-->
       <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
         <span class="sr-only">Toggle navigation</span>
-      </a>
-      <!-- Navbar Right Menu -->
-      <div class="navbar-custom-menu">
+      </a> <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
           <!-- Messages: style can be found in dropdown.less-->
           <li class="dropdown messages-menu">
@@ -98,9 +99,9 @@ window.location = "inter.php";
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
           <i class="fa fa-bell-o"></i>
               <span class="label label-success"> <?php	
-	                   $count_client=mysql_query("select * from tempstore where temp_status=1 ");
+	                   $count_client=mysql_query("select * from test where test_status=1 and inter_taken=0");
 	                   $count = mysql_num_rows($count_client);
-					      $counts_client=mysql_query("select * from leavereq where leave_type='Loan' and leave_approve=0");
+					      $counts_client=mysql_query("select * from tempstore where temp_status=0");
 				 $count = mysql_num_rows($counts_client) + $count;
 
                        echo $count;?>	</span>
@@ -119,27 +120,22 @@ window.location = "inter.php";
                         <img src="data:image/jpeg;base64,<?php echo base64_encode($image); ?>" class="img-circle" alt="User Image">
                       </div>
                       <!-- Message title and timestamp -->
-                      <h4>
-                        <?php
-													$user_query = mysql_query("select * from tempstore where temp_status=1 limit 1")or die(mysql_error());
+                      <h4>  <?php
+													$user_query = mysql_query("select * from test where test_status=1 and inter_taken=0 limit 1")or die(mysql_error());
 													while($row = mysql_fetch_array($user_query)){
-													$id = $row['temp_id'];
-													echo $row['name']; ?>													
-                        <small><i class="fa fa-clock-o"></i> 5mints</small>
+													echo $row['candidate_name']; ?>													
+                       
                       </h4>
                       <!-- The message -->
-                      <p><?php echo $row['email']; }?></p>
-                    </a>
+                      <p><?php echo $row['candidate_email']; }?></p></a>
                   </li>
                   <!-- end message -->
                 </ul>
                 <!-- /.menu -->
               </li>
-              <li class="footer"><a href="requestreport.php">See All Notifications</a></li>
+              <li class="footer"><a href="interviewresult.php">See All Notifications</a></li>
             </ul>
-          </li>
-        
-          <!-- User Account Menu -->
+          </li><!-- User Account Menu -->
           <li class="dropdown user user-menu">
             <!-- Menu Toggle Button -->
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -176,7 +172,7 @@ window.location = "inter.php";
               
               <!-- Menu Footer-->
               <li class="user-footer">
-                <div class="pull-left">  <a href="hrprofile.php" class="btn btn-default btn-flat">Profile</a>
+                <div class="pull-left">  <a href="managerprofile.php" class="btn btn-default btn-flat">Profile</a>
                 </div>
                 <div class="pull-right">
                   <a href="session_logout.php" class="btn btn-default btn-flat">Sign out</a>
@@ -267,8 +263,9 @@ window.location = "inter.php";
 				"".$_SESSION['emp_email']." "; ?></small>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Dashboard</li>
+        <li><a href="manager.php"><i class="fa fa-dashboard"></i> Home</a></li>
+         <li class="active">Recruitment</li>
+          <li class="active">Interview Results</li>
       </ol>
     </section>
 
@@ -301,28 +298,24 @@ window.location = "inter.php";
 					<input type="text"  class="form-control" id="emp_email" name="emp_email" value="<?php echo $email?>" placeholder="Email"required>
 				</div>
 				</div>	
-							<div class="form-group">
-							  <label class="col-md-5 control-label" for="rental">Status:</label>
+						<div class="form-group">
+					 <label class="col-md-5 control-label" for="rental">Status:</label>
 							  <div class="col-md-3">
-					<div class="input-group">
-    			<div id="radioBtn" class="btn-group">
-					<a class="btn btn-primary btn-sm notActive" data-toggle="gender" data-title="Pass">Pass</a>
-    				<a class="btn btn-primary btn-sm notActive" data-toggle="gender" data-title="Fail">Fail</a>
-    			</div>
-    				<input type="hidden" name="gender" id="gender">
-    			</div>
-				</div>
-				</div>
+              <input type="radio" id="radio1" name="radios" value="Pass" checked>
+       <label for="radio1">Pass</label>
+    <input type="radio" id="radio2" name="radios"value="Fail">
+       <label for="radio2">Fail</label>
+     </div></div>
                  <div class="form-group">
 							  <label class="col-md-5 control-label">Test Date:</label>
 							  <div class="col-md-3">
-						<input type="date" value="<?php echo $testdate;?>" name="tdate">
+						<input type="date" value="<?php echo $testdate;?>" name="tdate" id="defaultEntry" placeholder="mm/dd/yyyy" required/>
 					</div>
 				</div>
                 <div class="form-group">
 							  <label class="col-md-5 control-label">Interview Date:</label>
 							  <div class="col-md-3">
-						<input type="date" value="<?php echo date("Y-m-d");?>" name="idate">
+						<input type="date" value="<?php echo date("Y/m/d");?>" name="idate" placeholder="mm/dd/yyyy" required/>
 					</div>
 				</div>
                 <div class="control-group">
@@ -578,5 +571,13 @@ window.location = "inter.php";
 <script src="dist/js/pages/dashboard2.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="dist/js/demo.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script type="text/javascript" src="js/jquery.plugin.js"></script>
+<script type="text/javascript" src="js/jquery.dateentry.js"></script>
+<script type="text/javascript">
+$(function () {
+	$('#defaultEntry').dateEntry();
+});
+</script>
 </body>
 </html>

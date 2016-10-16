@@ -15,7 +15,11 @@ $select = "SELECT emp_id FROM leavereq WHERE leave_id= $id";
 		
 		if (isset($_POST['update'])){
 	$sdate= $_POST['ltdate'];
+		$sdate=date_create($sdate);
+	$sdate=date_format($sdate,"Y-m-d");
 	$idate = $_POST['lldate'];
+		$idate=date_create($idate);
+	$idate=date_format($idate,"Y-m-d");
 	$amount = $_POST['lamount'];
 		mysql_query("INSERT INTO `loan` (`loan_id`, `emp_id`, `loan_amount`, `loan_tobbepaid`, `loan_takendate`, `loan_lastdate`, `loan_installment`) VALUES ('', '$ide', '$amount', '$amount', '$sdate', '$idate', '0')")or die(mysql_error());
 		$select = "SELECT max(loan_id) as ld from loan";
@@ -34,7 +38,7 @@ echo $installements;
 ?>
 <script>
 alert('Loan Given Successfully');
-window.location = "adminpage.php";
+window.location = "loan.php";
 </script>
 <?php
 }?>
@@ -44,7 +48,7 @@ window.location = "adminpage.php";
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>HR | Employee LOG</title><link rel="shortcut icon" href="assets/img/logocalc1.png"><script src="js/blockrightclick.js"></script>
+  <title>Finance | Loan</title><link rel="shortcut icon" href="assets/img/logocalc1.png"><script src="js/blockrightclick.js"></script>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.6 -->
@@ -67,6 +71,14 @@ window.location = "adminpage.php";
   <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script type="text/javascript" src="js/jquery.plugin.js"></script>
+<script type="text/javascript" src="js/jquery.dateentry.js"></script>
+<script type="text/javascript">
+$(function () {
+	$('#defaultEntry').dateEntry();
+});
+</script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper"> <header class="main-header">
@@ -93,15 +105,13 @@ window.location = "adminpage.php";
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
           <i class="fa fa-bell-o"></i>
               <span class="label label-success"> <?php	
-	                   $count_client=mysql_query("select * from tempstore where temp_status=1 ");
+	                   $count=0;
+	                   $count_client=mysql_query("select * from leavereq where leave_approve=1 and Leave_type='Loan'");
 	                   $count = mysql_num_rows($count_client);
-					      $counts_client=mysql_query("select * from leavereq where leave_type='Loan' and leave_approve=0");
-				 $count = mysql_num_rows($counts_client) + $count;
-
-                       echo $count;?>	</span>
+					   echo $count;?>	</span>
             </a>
             <ul class="dropdown-menu">
-              <li class="header">You have <?php echo $count; ?> Notifications</li>
+              <li class="header">You have <?php echo $count; ?> Requests</li>
               <li>
                 <!-- inner menu: contains the messages -->
                 <ul class="menu">
@@ -115,22 +125,18 @@ window.location = "adminpage.php";
                       </div>
                       <!-- Message title and timestamp -->
                       <h4>
-                        <?php
-													$user_query = mysql_query("select * from tempstore where temp_status=1 limit 1")or die(mysql_error());
-													while($row = mysql_fetch_array($user_query)){
-													$id = $row['temp_id'];
-													echo $row['name']; ?>													
-                        <small><i class="fa fa-clock-o"></i> 5mints</small>
+                        Loan Requests												
+                        <small><i class="fa fa-clock-o"></i></small>
                       </h4>
                       <!-- The message -->
-                      <p><?php echo $row['email']; }?></p>
+                      <p></p>
                     </a>
                   </li>
                   <!-- end message -->
                 </ul>
                 <!-- /.menu -->
               </li>
-              <li class="footer"><a href="requestreport.php">See All Notifications</a></li>
+              <li class="footer"><a href="loan.php">See All Requests</a></li>
             </ul>
           </li>
         
@@ -171,7 +177,7 @@ window.location = "adminpage.php";
               
               <!-- Menu Footer-->
               <li class="user-footer">
-                <div class="pull-left">  <a href="hrprofile.php" class="btn btn-default btn-flat">Profile</a>
+                <div class="pull-left">  <a href="financeprofile.php" class="btn btn-default btn-flat">Profile</a>
                 </div>
                 <div class="pull-right">
                   <a href="session_logout.php" class="btn btn-default btn-flat">Sign out</a>
@@ -222,48 +228,20 @@ window.location = "adminpage.php";
               </span>
         </div>
       </form>
-      <!-- /.search form -->
 
       <!-- Sidebar Menu -->
     <ul class="sidebar-menu">
         <li class="header">
         </li>
         <!-- Optionally, you can add icons to the links -->
-        <li><a href="hr.php"><i class="fa fa-link"></i> <span>Home</span></a></li>
-         <li class="treeview">
-          <a href="#"><i class="fa fa-link"></i> <span>Recruitment</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          
-          <ul class="treeview-menu">
-            <li><a href="test.php">Test</a></li>
-            <li><a href="interview.php">Interview</a></li>
-              <li><a href="managerapproved.php">Managers Approved</a></li>
-            <li><a href="ceoapproved.php">CEO Approved</a></li>
-          </ul>
-        </li>
-        <li class="treeview">
-          <a href="#"><i class="fa fa-link"></i> <span>Request</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          
-          <ul class="treeview-menu">
-            <li><a href="addrequest.php">Do Request</a></li>
-            <li><a href="reqinsert.php">Check Request</a></li>
-          </ul>
-        </li>
-     
-       <li class="active"><a href="loan.php"><i class="fa fa-link"></i> <span>Loan</span></a></li>
-         <li><a href="employeelog.php"><i class="fa fa-link"></i> <span>Employee Log</span></a></li>
-          <li><a href="aboutus.php"><i class="fa fa-link"></i> <span>About Us</span></a></li>
+        <li><a href="finance.php"><i class="fa fa-link"></i> <span>Home</span></a></li>
+       <li><a href="salary.php"><i class="fa fa-link"></i> <span>Salary</span></a></li>
+        <li class="active"><a href="loan.php"><i class="fa fa-link"></i> <span>Loan</span></a></li>
+        <li><a href="employeelogfinance.php"><i class="fa fa-link"></i> <span>Employee Log</span></a></li>
+          <li><a href="aboutusfinance.php"><i class="fa fa-link"></i> <span>About Us</span></a></li>
       </ul>
       <!-- /.sidebar-menu -->
     </section>
-    <!-- /.sidebar -->
   </aside>
 
 
@@ -277,8 +255,9 @@ window.location = "adminpage.php";
 				"".$_SESSION['emp_email']." "; ?></small>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Dashboard</li>
+        <li><a href="ceo.php"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Loan</li>
+        <li class="active">Loan Transaction</li>
       </ol>
     </section>
 
@@ -293,7 +272,7 @@ window.location = "adminpage.php";
                 <div class="row">
 		<div class="col-md-12">
 			<form class="form-horizontal" role="form" method="post">
-			<h3><center></center></h3>
+			<h3><center>Loan Transaction</center></h3>
 			<br>
 			<div>
 				<div class="form-group">
@@ -307,14 +286,15 @@ window.location = "adminpage.php";
                 <div class="form-group">
 							  <label class="col-md-5 control-label">Loan Taken Date:</label>
 							  <div class="col-md-3">
-						<input type="date" value="<?php echo date("Y-m-d");?>" name="ltdate">
+                                <input type="text" id="defaultEntry" name="ltdate" class="form-control input-md" placeholder="mm/dd/yyyy" value="<?php echo date("m/d/y");?>" required/>
+					
 					</div>
 				</div>
                 
                  <div class="form-group">
 							  <label class="col-md-5 control-label">Loan Last Date:</label>
 							  <div class="col-md-3">
-						<input type="date" name="lldate">
+						<input type="date" name="lldate" id="defaultEntry" class="form-control input-md"  placeholder="mm/dd/yyyy" required />
 					</div>
 				</div>
                 <div class="control-group">
@@ -571,5 +551,6 @@ window.location = "adminpage.php";
 <script src="dist/js/pages/dashboard2.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="dist/js/demo.js"></script>
+
 </body>
 </html>

@@ -9,8 +9,9 @@ require_once('session2.php');
 	$fname=$_POST['fname'];
 	$email=$_POST['nname'];
 	$status=$_POST['radios'];
-	$date=$_POST['bdate'];
-	//echo $status;
+	$date=$_POST['dob'];
+	$date=date_create($date);
+	$date=date_format($date,"Y-m-d");
 	if($status == "Pass") $st = 1;
 	else $st = 0;
 	//echo "INSERT INTO `test` VALUES ('', '$fname', '$date', '$st', '$email','0')";
@@ -27,6 +28,7 @@ window.location = "test.php";
 <html>
 <head>
   <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>HR | Test</title><link rel="shortcut icon" href="assets/img/logocalc1.png"><script src="js/blockrightclick.js"></script>
   <!-- Tell the browser to be responsive to screen width -->
@@ -187,6 +189,7 @@ window.location = "test.php";
 				}
 				?>
                   <small><?php echo $_SESSION['position']; ?></small>
+
                 </p>
               </li>
               <!-- Menu Body -->
@@ -340,15 +343,16 @@ window.location = "test.php";
                 <div class="form-group">
 							  <label class="col-md-5 control-label" for="rental">Email:</label>
 							  <div class="col-md-3">
-						<input type="text" name="nname" id = "nname" class="form-control input-md"  placeholder="Email" required/>
+						<input type="text" name="nname" id = "nname" class="form-control input-md"  placeholder="Email" pattern="[^@]+@[^@]+\.[a-zA-Z]{2,}" required/>
 					</div>
 				</div>
 				<div class="form-group">
-							  <label class="col-md-5 control-label" for="rental">Test Date:</label>
-							  <div class="col-md-3">
-						<input type="date" name="bdate" id = "bdate" title="click to choose a date" class="form-control input-md" placeholder="1900-1-31" required/>
-					</div>
-				</div>
+              <label class="col-md-5 control-label" for="rental">Date of birth:</label>
+              <div class="col-md-3">
+               <input type="text" id="defaultEntry" name="dob" class="form-control input-md" placeholder="mm/dd/yyyy" required/>
+              </div>
+            </div>
+			
 				<div class="control-group">
 				<div class="controls" align="center">
 				<button type="submit" id="submit" name="register" class="btn btn-success">Save</button>
@@ -600,5 +604,14 @@ window.location = "test.php";
 <script src="dist/js/pages/dashboard2.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="dist/js/demo.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script type="text/javascript" src="js/jquery.plugin.js"></script>
+<script type="text/javascript" src="js/jquery.dateentry.js"></script>
+<script type="text/javascript">
+$(function () {
+	$('#defaultEntry').dateEntry();
+});
+</script>
 </body>
+
 </html>

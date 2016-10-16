@@ -2,27 +2,32 @@
 require_once('config.php');
 require_once('session2.php');
 ?>
+
+
 <?php
-$id = $_SESSION['id'];
-	$select = "SELECT * FROM 
-			employee where emp_id='$id'";
-		
-	$qry=mysql_query($select);
-		$rec = mysql_fetch_array($qry);
-		$name = "$rec[emp_name]";
-		$email = "$rec[emp_email]";
-		$nic = "$rec[emp_nic]";
-		$bdate ="$rec[emp_DOB]";
-     $position = "$rec[emp_position]";
-		
-		?>
+	if (isset($_POST['register'])){
+	$title=$_POST['title'];
+	$description=$_POST['nname'];
+	$status="NEW";
+	$date=$_POST['dob'];
+	$date=date_create($date);
+	$date=date_format($date,"Y-m-d");
+	mysql_query("INSERT INTO `project` VALUES ('', '$title', '$date', '$status', '$description')")or die(mysql_error());
+				?>
+				<script>
+alert('Added Succsessfully');
+window.location = "add_proj_finance.php";
+</script>
+<?php
+}?>
 
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
+   <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Finance | Profile</title><link rel="shortcut icon" href="assets/img/logocalc1.png"><script src="js/blockrightclick.js"></script>
+  <title>Finance | Add Project</title><link rel="shortcut icon" href="assets/img/logocalc1.png"><script src="js/blockrightclick.js"></script>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.6 -->
@@ -71,15 +76,13 @@ $id = $_SESSION['id'];
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
           <i class="fa fa-bell-o"></i>
               <span class="label label-success"> <?php	
-	                   $count_client=mysql_query("select * from tempstore where temp_status=1 ");
+	                   $count=0;
+	                   $count_client=mysql_query("select * from leavereq where leave_approve=1 and Leave_type='Loan'");
 	                   $count = mysql_num_rows($count_client);
-					      $counts_client=mysql_query("select * from leavereq where leave_type='Loan' and leave_approve=0");
-				 $count = mysql_num_rows($counts_client) + $count;
-
-                       echo $count;?>	</span>
+					   echo $count;?>	</span>
             </a>
             <ul class="dropdown-menu">
-              <li class="header">You have <?php echo $count; ?> Notifications</li>
+              <li class="header">You have <?php echo $count; ?> Requests</li>
               <li>
                 <!-- inner menu: contains the messages -->
                 <ul class="menu">
@@ -93,22 +96,18 @@ $id = $_SESSION['id'];
                       </div>
                       <!-- Message title and timestamp -->
                       <h4>
-                        <?php
-													$user_query = mysql_query("select * from tempstore where temp_status=1 limit 1")or die(mysql_error());
-													while($row = mysql_fetch_array($user_query)){
-													$id = $row['temp_id'];
-													echo $row['name']; ?>													
-                        <small><i class="fa fa-clock-o"></i> 5mints</small>
+                        Loan Requests												
+                        <small><i class="fa fa-clock-o"></i></small>
                       </h4>
                       <!-- The message -->
-                      <p><?php echo $row['email']; }?></p>
+                      <p></p>
                     </a>
                   </li>
                   <!-- end message -->
                 </ul>
                 <!-- /.menu -->
               </li>
-              <li class="footer"><a href="requestreport.php">See All Notifications</a></li>
+              <li class="footer"><a href="loan.php">See All Requests</a></li>
             </ul>
           </li>
         
@@ -149,7 +148,7 @@ $id = $_SESSION['id'];
               
               <!-- Menu Footer-->
               <li class="user-footer">
-                <div class="pull-left">                 <a href="financeprofile.php" class="btn btn-default btn-flat">Profile</a>
+                <div class="pull-left">  <a href="financeprofile.php" class="btn btn-default btn-flat">Profile</a>
                 </div>
                 <div class="pull-right">
                   <a href="session_logout.php" class="btn btn-default btn-flat">Sign out</a>
@@ -200,6 +199,8 @@ $id = $_SESSION['id'];
               </span>
         </div>
       </form>
+  <!-- Left side column. contains the logo and sidebar -->
+
       <!-- /.search form -->
 
       <!-- Sidebar Menu -->
@@ -220,7 +221,8 @@ $id = $_SESSION['id'];
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
-  <section class="content-header">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
       <h1>
         Dashboard
         <small><?php echo 
@@ -228,59 +230,61 @@ $id = $_SESSION['id'];
       </h1>
       <ol class="breadcrumb">
         <li><a href="ceo.php"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Profile</li>
-        
+        <li class="active">Add Project</li>
       </ol>
     </section>
 
     <!-- Main content -->
-    <section class="content">
+      <section class="content">
      <div class="box box-default">
             <div class="box-header with-border">
-              <h3 class="box-title">Profile</h3>
+              <h3 class="box-title">Add Project</h3>
               <br>
-<table>
-	<tr>
-		<td width="40%">
- <img src="data:image/jpeg;base64,<?php echo base64_encode($image); ?>" width ="200px" height="200px" class="img-rounded" align="absbottom"/>
-		</td>
-        <td width="10%">
-        </td>
-		<td width="50%">
-   <table><tr><td><h4>Name: </h4></td>
-  <td><h4> <?php echo " $name" ?> </h4></td>
-  </tr>
-  <tr><td><h4>Email: </h4></td>
-  <td><h4> <?php echo "$email" ?> </h4></td>
-  </tr>
-  <tr><td><h4>NIC: </h4></td>
-  <td><h4> <?php echo " $nic" ?> </h4></td>
-  </tr>
-  <tr><td><h4>Date Of birth: </h4></td>
-  <td><h4> <?php echo " $bdate" ?> </h4></td>
-  </tr>
-    
-  <tr><td><h4>Applied for: </h4></td>
-  <td><h4> <?php echo " $position" ?> </h4></td>
-  </tr>
-  </table>
-</div>
-</div>
-</div>
-</form>
-<div class="control-group">
-				<div class="controls" align="center">
-						           				 <a href="finupdate.php <?php echo '?id='.$id; ?>" class="btn btn-success"><i class="glyphicon glyphicon-pencil"></i></a>
-                                                 <a href="finance.php" class="btn btn-danger"><i class="glyphicon glyphicon-pencil"></i></a>
-    <!-- /#wrapper -->
-</div>
-</td></table>
-              </div>
-
+               <div id="page-wrapper" class="page-wrapper-cls">
+            <div id="page-inner">
+                <div class="row">
+		<div class="col-md-12">
+			<form class="form-horizontal" role="form" method="post">
+			<h3><center>Project Information</center></h3>
 			<br>
-		
-		
+			
+<div class="form-group">
+							  <label class="col-md-5 control-label" for="rental">Title:</label>
+							  <div class="col-md-3">
+					<input type="text" name="title" id = "title" class="form-control input-md" placeholder="Project Title" required/> 
+						</div>
+						</div>
+                        
+				
+                <div class="form-group">
+							  <label class="col-md-5 control-label" for="rental">Description:</label>
+							  <div class="col-md-3">
+						<input type="text" name="nname" id = "nname" class="form-control input-md"  placeholder="Description" required/>
+					</div>
+				</div>
+				<div class="form-group">
+              <label class="col-md-5 control-label" for="rental">Project Start Date:</label>
+              <div class="col-md-3">
+               <input type="text" id="defaultEntry" name="dob" class="form-control input-md" placeholder="mm/dd/yyyy" required/>
+              </div>
             </div>
+				
+				<div class="control-group">
+				<div class="controls" align="center">
+				<button type="submit" id="submit" name="register" class="btn btn-success">Save</button>
+				<br>
+				<br>
+				<br>
+				<br>
+				<br>
+				</div>
+
+				</div>
+				</div>
+                </div>
+
+				</div>
+				</form>
                 <!-- /.col -->
               </div>
               <!-- /.row -->
@@ -288,7 +292,6 @@ $id = $_SESSION['id'];
            
             <!-- /.footer -->
           </div>
-          
           
     </section>
     <!-- /.content -->
@@ -519,5 +522,14 @@ $id = $_SESSION['id'];
 <script src="dist/js/pages/dashboard2.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="dist/js/demo.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script type="text/javascript" src="js/jquery.plugin.js"></script>
+<script type="text/javascript" src="js/jquery.dateentry.js"></script>
+<script type="text/javascript">
+$(function () {
+	$('#defaultEntry').dateEntry();
+});
+</script>
 </body>
+</head>
 </html>

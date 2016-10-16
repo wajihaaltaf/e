@@ -3,26 +3,48 @@ require_once('config.php');
 require_once('session2.php');
 ?>
 <?php
-$id = $_SESSION['id'];
+$id = $_GET['id'];
 	$select = "SELECT * FROM 
-			employee where emp_id='$id'";
-		
+			leavereq
+			 WHERE leave_id= $id";
+			 	 $result = mysql_fetch_array(mysql_query($select));
 	$qry=mysql_query($select);
-		$rec = mysql_fetch_array($qry);
+		if($qry)
+		{
+		while($rec = mysql_fetch_array($qry)){
+		$empid = "$rec[emp_id]";}
+		
+		$select = "SELECT * FROM employee where emp_id = $empid";
+			 $result = mysql_fetch_array(mysql_query($select));
+	$qry=mysql_query($select);
+		if($qry)
+		{
+		while($rec = mysql_fetch_array($qry)){
 		$name = "$rec[emp_name]";
 		$email = "$rec[emp_email]";
 		$nic = "$rec[emp_nic]";
 		$bdate ="$rec[emp_DOB]";
-     $position = "$rec[emp_position]";
-		
-		?>
-
+		$position = "$rec[emp_position]";
+		$img = "$rec[emp_image]";
+		}
+		}
+		}
+		if (isset($_POST['update']))
+		{
+		mysql_query("UPDATE `leavereq` SET `leave_approve` = '1' WHERE `leavereq`.`leave_id` = $id;")or die(mysql_error());
+				?>
+				<script>
+alert('Approved Succsessfully');
+window.location = "leaverequests.php";
+</script>
+<?php }
+?>
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Finance | Profile</title><link rel="shortcut icon" href="assets/img/logocalc1.png"><script src="js/blockrightclick.js"></script>
+  <title>Manager | Leave Approve</title><link rel="shortcut icon" href="assets/img/logocalc1.png"><script src="js/blockrightclick.js"></script>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.6 -->
@@ -61,9 +83,7 @@ $id = $_SESSION['id'];
       <!-- Sidebar toggle button-->
       <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
         <span class="sr-only">Toggle navigation</span>
-      </a>
-      <!-- Navbar Right Menu -->
-      <div class="navbar-custom-menu">
+      </a> <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
           <!-- Messages: style can be found in dropdown.less-->
           <li class="dropdown messages-menu">
@@ -71,9 +91,9 @@ $id = $_SESSION['id'];
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
           <i class="fa fa-bell-o"></i>
               <span class="label label-success"> <?php	
-	                   $count_client=mysql_query("select * from tempstore where temp_status=1 ");
+	                   $count_client=mysql_query("select * from test where test_status=1 and inter_taken=0");
 	                   $count = mysql_num_rows($count_client);
-					      $counts_client=mysql_query("select * from leavereq where leave_type='Loan' and leave_approve=0");
+					      $counts_client=mysql_query("select * from tempstore where temp_status=0");
 				 $count = mysql_num_rows($counts_client) + $count;
 
                        echo $count;?>	</span>
@@ -92,27 +112,22 @@ $id = $_SESSION['id'];
                         <img src="data:image/jpeg;base64,<?php echo base64_encode($image); ?>" class="img-circle" alt="User Image">
                       </div>
                       <!-- Message title and timestamp -->
-                      <h4>
-                        <?php
-													$user_query = mysql_query("select * from tempstore where temp_status=1 limit 1")or die(mysql_error());
+                      <h4>  <?php
+													$user_query = mysql_query("select * from test where test_status=1 and inter_taken=0 limit 1")or die(mysql_error());
 													while($row = mysql_fetch_array($user_query)){
-													$id = $row['temp_id'];
-													echo $row['name']; ?>													
-                        <small><i class="fa fa-clock-o"></i> 5mints</small>
+													echo $row['candidate_name']; ?>													
+                       
                       </h4>
                       <!-- The message -->
-                      <p><?php echo $row['email']; }?></p>
-                    </a>
+                      <p><?php echo $row['candidate_email']; }?></p></a>
                   </li>
                   <!-- end message -->
                 </ul>
                 <!-- /.menu -->
               </li>
-              <li class="footer"><a href="requestreport.php">See All Notifications</a></li>
+              <li class="footer"><a href="interviewresult.php">See All Notifications</a></li>
             </ul>
-          </li>
-        
-          <!-- User Account Menu -->
+          </li><!-- User Account Menu -->
           <li class="dropdown user user-menu">
             <!-- Menu Toggle Button -->
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -149,7 +164,7 @@ $id = $_SESSION['id'];
               
               <!-- Menu Footer-->
               <li class="user-footer">
-                <div class="pull-left">                 <a href="financeprofile.php" class="btn btn-default btn-flat">Profile</a>
+                <div class="pull-left">  <a href="managerprofile.php" class="btn btn-default btn-flat">Profile</a>
                 </div>
                 <div class="pull-right">
                   <a href="session_logout.php" class="btn btn-default btn-flat">Sign out</a>
@@ -203,33 +218,45 @@ $id = $_SESSION['id'];
       <!-- /.search form -->
 
       <!-- Sidebar Menu -->
-    <ul class="sidebar-menu">
+     <ul class="sidebar-menu">
         <li class="header">
         </li>
-        <!-- Optionally, you can add icons to the links -->
-        <li class="active"><a href="finance.php"><i class="fa fa-link"></i> <span>Home</span></a></li>
-       <li><a href="salary.php"><i class="fa fa-link"></i> <span>Salary</span></a></li>
-        <li><a href="loan.php"><i class="fa fa-link"></i> <span>Loan</span></a></li>
-        <li><a href="employeelogfinance.php"><i class="fa fa-link"></i> <span>Employee Log</span></a></li>
-          <li><a href="aboutusfinance.php"><i class="fa fa-link"></i> <span>About Us</span></a></li>
+        <!-- Optionally, you can add icons to the links -->   <li><a href="manager.php"><i class="fa fa-link"></i> <span>Home</span></a></li>
+         <li class="treeview">
+          <a href="#"><i class="fa fa-link"></i> <span>Recruitment</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          
+          <ul class="treeview-menu">
+           
+            <li><a href="interviewresult.php">Interview Results</a></li>
+              <li><a href="addemp.php">Add Employee</a></li>
+           
+          </ul>
+        </li>
+ <li><a href="leaverequests.php"><i class="fa fa-link"></i> <span>Leave Request</span></a></li>
+         <li><a href="employeelogmanager.php"><i class="fa fa-link"></i> <span>Employee Log</span></a></li>
+          <li><a href="aboutusmanager.php"><i class="fa fa-link"></i> <span>About Us</span></a></li>
       </ul>
-      <!-- /.sidebar-menu -->
     </section>
+    <!-- /.sidebar -->
   </aside>
 
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
-  <section class="content-header">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
       <h1>
         Dashboard
         <small><?php echo 
 				"".$_SESSION['emp_email']." "; ?></small>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="ceo.php"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Profile</li>
-        
+        <li><a href="manager.php"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Requests</li>
       </ol>
     </section>
 
@@ -237,12 +264,27 @@ $id = $_SESSION['id'];
     <section class="content">
      <div class="box box-default">
             <div class="box-header with-border">
-              <h3 class="box-title">Profile</h3>
-              <br>
+              <h3 class="box-title">LEAVE REQUESTS</h3>
+
+            
+       
+       
+    <div id="page-wrapper" class="page-wrapper-cls">
+       
+       
+         
+            <div id="page-inner">
+       
+                <div class="row">
+		
+        <div class="col-md-12">
+			<form class="form-horizontal" role="form" method="post">
+			<h3><center>Employee Information</center></h3>
+			<br> 
 <table>
 	<tr>
 		<td width="40%">
- <img src="data:image/jpeg;base64,<?php echo base64_encode($image); ?>" width ="200px" height="200px" class="img-rounded" align="absbottom"/>
+ <img src="data:image/jpeg;base64,<?php echo base64_encode($img); ?>" width ="200px" height="200px" class="img-rounded" align="absbottom"/>
 		</td>
         <td width="10%">
         </td>
@@ -259,8 +301,7 @@ $id = $_SESSION['id'];
   <tr><td><h4>Date Of birth: </h4></td>
   <td><h4> <?php echo " $bdate" ?> </h4></td>
   </tr>
-    
-  <tr><td><h4>Applied for: </h4></td>
+  <tr><td><h4>Working as: </h4></td>
   <td><h4> <?php echo " $position" ?> </h4></td>
   </tr>
   </table>
@@ -270,17 +311,11 @@ $id = $_SESSION['id'];
 </form>
 <div class="control-group">
 				<div class="controls" align="center">
-						           				 <a href="finupdate.php <?php echo '?id='.$id; ?>" class="btn btn-success"><i class="glyphicon glyphicon-pencil"></i></a>
-                                                 <a href="finance.php" class="btn btn-danger"><i class="glyphicon glyphicon-pencil"></i></a>
+						           				 <button name="update" class="btn btn-success">Approve</button>
+												 <a button id="cancel" name="cancel" class="btn btn-danger" href="leavedisapprove.php<?php echo '?id='.$id; ?>" >Disapprove</button></a>
     <!-- /#wrapper -->
 </div>
 </td></table>
-              </div>
-
-			<br>
-		
-		
-            </div>
                 <!-- /.col -->
               </div>
               <!-- /.row -->
@@ -288,7 +323,6 @@ $id = $_SESSION['id'];
            
             <!-- /.footer -->
           </div>
-          
           
     </section>
     <!-- /.content -->
