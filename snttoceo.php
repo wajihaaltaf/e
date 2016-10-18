@@ -42,7 +42,7 @@ $select = "SELECT * FROM
 				?>
 				<script>
 alert('Added Succsessfully');
-window.location = "adminpage.php";
+window.location = "hr.php";
 </script>
 <?php
 }?>
@@ -57,6 +57,7 @@ window.location = "adminpage.php";
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.6 -->
   <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+   <link rel="stylesheet" type="text/css" href="css/status.css">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
   <!-- Ionicons -->
@@ -100,13 +101,16 @@ window.location = "adminpage.php";
             <!-- Menu toggle button -->
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
           <i class="fa fa-bell-o"></i>
-              <span class="label label-success"> <?php	
-	                   $count_client=mysql_query("select * from tempstore where temp_status=1 ");
+              <span class="label label-success">   <?php	
+	                   $count_client=mysql_query("select * from interview where inter_status=1 ");
 	                   $count = mysql_num_rows($count_client);
-					      $counts_client=mysql_query("select * from leavereq where leave_type='Loan' and leave_approve=0");
-				 $count = mysql_num_rows($counts_client) + $count;
-
-                       echo $count;?>	</span>
+					    $count_client=mysql_query("select * from tempstore where temp_status=1");
+	                   $counts = mysql_num_rows($count_client);
+					     $count_client=mysql_query("select * from tempstore where temp_status=1  ");
+	                   $countss= mysql_num_rows($count_client);
+					   $count=$count+$counts+$countss;
+					   echo $count;
+                       ?>		</span>
             </a>
             <ul class="dropdown-menu">
               <li class="header">You have <?php echo $count; ?> Notifications</li>
@@ -123,25 +127,60 @@ window.location = "adminpage.php";
                       </div>
                       <!-- Message title and timestamp -->
                       <h4>
-                        <?php
-													$user_query = mysql_query("select * from tempstore where temp_status=1 limit 1")or die(mysql_error());
-													while($row = mysql_fetch_array($user_query)){
-													$id = $row['temp_id'];
-													echo $row['name']; ?>													
+                       Recruitment 												
                         <small><i class="fa fa-clock-o"></i> 5mints</small>
                       </h4>
                       <!-- The message -->
-                      <p><?php echo $row['email']; }?></p>
+                      <p></p>
+                    </a>
+                  </li>
+                  <!-- end message -->
+                </ul>
+                <!-- /.menu -->
+              </li> <li class="footer"><a href="interview.php">See All Recruitment Notifications</a></li>
+            </ul>
+          </li>
+         <li class="dropdown notifications-menu">
+            <!-- Menu toggle button -->
+            
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+          <i class="fa fa-envelope-o"></i>
+              <span class="label label-success"> <?php	
+					  $count=0;
+	                   $count_client=mysql_query("select * from leavereq where leave_approve=1 and Leave_type='Leave'");
+	                   $count = mysql_num_rows($count_client);
+					    $count_client=mysql_query("select * from leavereq where leave_approve=1 and Leave_type='Other'");
+	                   $count = mysql_num_rows($count_client) + $count;
+                     echo $count;  ?>	</span>
+            </a>
+            <ul class="dropdown-menu">
+              <li class="header">You have <?php echo $count; ?> Requests</li>
+              <li>
+                <!-- inner menu: contains the messages -->
+                <ul class="menu">
+                  <li><!-- start message -->
+                    <a href="#">
+                      <div class="pull-left">
+                        <!-- User Image -->
+                       
+                      </div>
+                      <!-- Message title and timestamp -->
+                      <h4>
+                        Check Request    												
+                        <small><i class="fa fa-clock-o"></i> <?php echo $count; ?></small>
+                      </h4>
+                      <!-- The message -->
+                      <p></p>
                     </a>
                   </li>
                   <!-- end message -->
                 </ul>
                 <!-- /.menu -->
               </li>
-              <li class="footer"><a href="requestreport.php">See All Notifications</a></li>
+              <li class="footer"><a href="reqinsert.php">See All Requests</a></li>
             </ul>
           </li>
-        
+          
           <!-- User Account Menu -->
           <li class="dropdown user user-menu">
             <!-- Menu Toggle Button -->
@@ -170,16 +209,17 @@ window.location = "adminpage.php";
 				echo 
 				"".$_SESSION['emp_email']." ";
 				}
-
 				?>
                   <small><?php echo $_SESSION['position']; ?></small>
+
                 </p>
               </li>
               <!-- Menu Body -->
               
               <!-- Menu Footer-->
               <li class="user-footer">
-                <div class="pull-left">  <a href="hrprofile.php" class="btn btn-default btn-flat">Profile</a>
+                <div class="pull-left">
+                  <a href="hrprofile.php" class="btn btn-default btn-flat">Profile</a>
                 </div>
                 <div class="pull-right">
                   <a href="session_logout.php" class="btn btn-default btn-flat">Sign out</a>
@@ -230,6 +270,7 @@ window.location = "adminpage.php";
               </span>
         </div>
       </form>
+      <!-- /.search form -->
       <!-- /.search form -->
 
       <!-- Sidebar Menu -->
@@ -285,7 +326,8 @@ window.location = "adminpage.php";
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Dashboard</li>
+        <li class="active">Recruitment</li>
+        <li class="active">Sent to CEO</li>
       </ol>
     </section>
 
@@ -307,9 +349,10 @@ window.location = "adminpage.php";
 							  <label class="col-md-5 control-label">Position:</label>  
 							  <div class="col-md-3">
 						<select id="room_id" name="room_id" class="form-control" required>
-							<option></option>
+							
 								<option>Manager</option>
                                 <option>Admin</option>
+                                <option>Finance</option>
 				</select>	
                 </div>
 			</div>
@@ -356,19 +399,14 @@ window.location = "adminpage.php";
 					<input type="text" name="mname" id = "mname" class="form-control input-md"  placeholder="username" required/> 
 					</div>
 					</div>
-				<div>
-					<div class="form-group">
-							  <label class="col-md-5 control-label">Gender:</label>
+				<div class="form-group">
+					 <label class="col-md-5 control-label" for="rental">Status:</label>
 							  <div class="col-md-3">
-					<div class="input-group">
-    			<div id="radioBtn" class="btn-group">
-					<a class="btn btn-primary btn-sm notActive" data-toggle="gender" data-title="Male">Male</a>
-    				<a class="btn btn-primary btn-sm notActive" data-toggle="gender" data-title="Female">Female</a>
-    			</div>
-    				<input type="hidden" name="gender" id="gender">
-    			</div>
-				</div>
-				</div>
+              <input type="radio" id="radio1" name="gender" value="Male" checked>
+       <label for="radio1">Male</label>
+    <input type="radio" id="radio2" name="gender"value="Female">
+       <label for="radio2">Female</label>
+     </div></div>
                 <div class="form-group">
 							  <label class="col-md-5 control-label">Email:</label>
 							  <div class="col-md-3">
@@ -384,7 +422,7 @@ window.location = "adminpage.php";
 				<div class="form-group">
 							  <label class="col-md-5 control-label" for="rental">Birth Date:</label>
 							  <div class="col-md-3">
-						<input type="date" name="bdate" id = "bdate" title="click to choose a date" class="form-control input-md" placeholder="1900-1-31" value = "<?php echo $bdate; ?>" required/>
+						<input type="date" name="bdate" id = "bdate" title="click to choose a date" class="form-control input-md" placeholder="yyyy-mm-dd" pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" title="YYYY-MM-DD" value = "<?php echo $bdate; ?>" required/>
 					</div>
 				</div>
 				<div class="form-group">
@@ -425,13 +463,13 @@ window.location = "adminpage.php";
               <div class="form-group">
 							  <label class="col-md-5 control-label" for="rental">Contract Start Date:</label>
 							  <div class="col-md-3">
-						<input type="date" name="cdate" id = "cdate" title="click to choose a date" class="form-control input-md" placeholder="1900-1-31" value = "<?php echo date("Y-m-d");?>" required/>
+						<input type="date" name="cdate" id = "cdate" title="click to choose a date" class="form-control input-md" placeholder="yyyy-mm-dd" pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" title="YYYY-MM-DD" value = "<?php echo date("Y-m-d");?>" required/>
 					</div>
 				</div>
                   <div class="form-group">
 							  <label class="col-md-5 control-label" for="rental">Contract End Date:</label>
 							  <div class="col-md-3">
-						<input type="date" name="edate" id = "cdate" title="click to choose a date" class="form-control input-md" placeholder="1900-1-31" required/>
+						<input type="date" name="edate" id = "cdate" title="click to choose a date" class="form-control input-md" placeholder="yyyy-mm-dd" pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" title="YYYY-MM-DD" required/>
 					</div>
 				</div>
                 <div class="form-group">

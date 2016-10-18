@@ -68,25 +68,20 @@ $id = $_GET['id'];
       <!-- Sidebar toggle button-->
       <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
         <span class="sr-only">Toggle navigation</span>
-      </a>
-      <!-- Navbar Right Menu -->
-      <div class="navbar-custom-menu">
+      </a> <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
           <!-- Messages: style can be found in dropdown.less-->
           <li class="dropdown messages-menu">
             <!-- Menu toggle button -->
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
           <i class="fa fa-bell-o"></i>
-              <span class="label label-success">   <?php	
-	                   $count_client=mysql_query("select * from interview where inter_status=1 ");
+              <span class="label label-success"> <?php	
+	                   $count_client=mysql_query("select * from test where test_status=1 and inter_taken=0");
 	                   $count = mysql_num_rows($count_client);
-					    $count_client=mysql_query("select * from tempstore where temp_status=1");
-	                   $counts = mysql_num_rows($count_client);
-					     $count_client=mysql_query("select * from tempstore where temp_status=1  ");
-	                   $countss= mysql_num_rows($count_client);
-					   $count=$count+$counts+$countss;
-					   echo $count;
-                       ?>		</span>
+					      $counts_client=mysql_query("select * from tempstore where temp_status=0");
+				 $count = mysql_num_rows($counts_client) + $count;
+
+                       echo $count;?>	</span>
             </a>
             <ul class="dropdown-menu">
               <li class="header">You have <?php echo $count; ?> Notifications</li>
@@ -102,62 +97,22 @@ $id = $_GET['id'];
                         <img src="data:image/jpeg;base64,<?php echo base64_encode($image); ?>" class="img-circle" alt="User Image">
                       </div>
                       <!-- Message title and timestamp -->
-                      <h4>
-                       Recruitment 												
-                        <small><i class="fa fa-clock-o"></i> 5mints</small>
-                      </h4>
-                      <!-- The message -->
-                      <p></p>
-                    </a>
-                  </li>
-                  <!-- end message -->
-                </ul>
-                <!-- /.menu -->
-              </li> <li class="footer"><a href="interview.php">See All Recruitment Notifications</a></li>
-            </ul>
-          </li>
-         <li class="dropdown notifications-menu">
-            <!-- Menu toggle button -->
-            
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-          <i class="fa fa-envelope-o"></i>
-              <span class="label label-success"> <?php	
-					  $count=0;
-	                   $count_client=mysql_query("select * from leavereq where leave_approve=1 and Leave_type='Leave'");
-	                   $count = mysql_num_rows($count_client);
-					    $count_client=mysql_query("select * from leavereq where leave_approve=1 and Leave_type='Other'");
-	                   $count = mysql_num_rows($count_client) + $count;
-                     echo $count;  ?>	</span>
-            </a>
-            <ul class="dropdown-menu">
-              <li class="header">You have <?php echo $count; ?> Requests</li>
-              <li>
-                <!-- inner menu: contains the messages -->
-                <ul class="menu">
-                  <li><!-- start message -->
-                    <a href="#">
-                      <div class="pull-left">
-                        <!-- User Image -->
+                      <h4>  <?php
+													$user_query = mysql_query("select * from test where test_status=1 and inter_taken=0 limit 1")or die(mysql_error());
+													while($row = mysql_fetch_array($user_query)){
+													echo $row['candidate_name']; ?>													
                        
-                      </div>
-                      <!-- Message title and timestamp -->
-                      <h4>
-                        Check Request    												
-                        <small><i class="fa fa-clock-o"></i> <?php echo $count; ?></small>
                       </h4>
                       <!-- The message -->
-                      <p></p>
-                    </a>
+                      <p><?php echo $row['candidate_email']; }?></p></a>
                   </li>
                   <!-- end message -->
                 </ul>
                 <!-- /.menu -->
               </li>
-              <li class="footer"><a href="reqinsert.php">See All Requests</a></li>
+              <li class="footer"><a href="interviewresult.php">See All Notifications</a></li>
             </ul>
-          </li>
-          
-          <!-- User Account Menu -->
+          </li><!-- User Account Menu -->
           <li class="dropdown user user-menu">
             <!-- Menu Toggle Button -->
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -194,8 +149,7 @@ $id = $_GET['id'];
               
               <!-- Menu Footer-->
               <li class="user-footer">
-                <div class="pull-left">
-                  <a href="hrprofile.php" class="btn btn-default btn-flat">Profile</a>
+                <div class="pull-left">  <a href="managerprofile.php" class="btn btn-default btn-flat">Profile</a>
                 </div>
                 <div class="pull-right">
                   <a href="session_logout.php" class="btn btn-default btn-flat">Sign out</a>
@@ -246,7 +200,6 @@ $id = $_GET['id'];
               </span>
         </div>
       </form>
-      <!-- /.search form -->
 
       <!-- Sidebar Menu -->
          <ul class="sidebar-menu">

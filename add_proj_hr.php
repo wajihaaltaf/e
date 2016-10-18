@@ -2,63 +2,28 @@
 require_once('config.php');
 require_once('session2.php');
 ?>
-<?php
-if(isset($_GET['id']))
-{
-$emp_id=$_SESSION['id'];
-	$user_query = mysql_query("select * from employee where emp_id=$emp_id")or die(mysql_error());
-													while($row = mysql_fetch_array($user_query)){
-													$empname = $row['emp_name'];
-													
-												$gender = $row['emp_gender'];
-											        $empnic = $row['emp_nic'];
-													$empdob = $row['emp_DOB'];
-													$empemail = $row['emp_email'];
-													$empcuraddress = $row['emp_address'];
-													$password = $row['emp_password'];
-													
-													}}
-	if (isset($_POST['update'])){
-		if (($_POST['emp_full_name'] == '')or ($_POST['emp_dob'] == '')  or ($_POST['emp_nic'] == '') or ($_POST['password'] == '')or ($_POST['emp_current_address'] == '') or ($_POST['emp_email'] == '') )
-			{
-			?> <script>
-alert('Error Occured while updating');
-window.location = "updateprofile.php";
-</script>
-			<?php
-			exit();
-			}
-	else{ 
-		$firstname = addslashes("$_POST[emp_full_name]");
-	   $dob = addslashes("$_POST[emp_dob]");
-		$nic = addslashes("$_POST[emp_nic]");
-		$passw = md5(addslashes("$_POST[password]"));
-		$empcuraddress = addslashes("$_POST[emp_current_address]");
-		$email= addslashes("$_POST[emp_email]");
-		if($password == $passw) {
-		mysql_query("UPDATE employee SET emp_name ='$firstname', emp_DOB ='$dob', emp_nic = '$nic',emp_email ='$email',emp_address='$empcuraddress' WHERE emp_id = '$emp_id'")or die(mysql_error()); 
-		
-?>
-<script>
-alert('Updated Successfully');
-window.location = "ceoprofile.php";
-</script>
-<?php
-}
-else {
-?>
-<script>
-alert('Password doesnot match with eachother');
-window.location = "ceoprofile.php";
-</script>
-<?php }}}?>
 
+<?php
+	if (isset($_POST['register'])){
+	$title=$_POST['title'];
+	$description=$_POST['nname'];
+	
+	$date=$_POST['dob'];
+	mysql_query("INSERT INTO `project` VALUES ('', '$title', '$date', '', '$description')")or die(mysql_error());
+				?>
+				<script>
+alert('Added Succsessfully');
+window.location = "add_proj_hr.php";
+</script>
+<?php
+}?>
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>CEO | Profile</title><link rel="shortcut icon" href="assets/img/logocalc1.png"><script src="js/blockrightclick.js"></script>
+  <title>HR | Add Project</title><link rel="shortcut icon" href="assets/img/logocalc1.png"><script src="js/blockrightclick.js"></script>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.6 -->
@@ -106,13 +71,16 @@ window.location = "ceoprofile.php";
             <!-- Menu toggle button -->
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
           <i class="fa fa-bell-o"></i>
-              <span class="label label-success"> <?php	
-	                   $count_client=mysql_query("select * from tempstore where temp_status=1 ");
+              <span class="label label-success">   <?php	
+	                   $count_client=mysql_query("select * from interview where inter_status=1 ");
 	                   $count = mysql_num_rows($count_client);
-					      $counts_client=mysql_query("select * from leavereq where leave_type='Loan' and leave_approve=0");
-				 $count = mysql_num_rows($counts_client) + $count;
-
-                       echo $count;?>	</span>
+					    $count_client=mysql_query("select * from tempstore where temp_status=1");
+	                   $counts = mysql_num_rows($count_client);
+					     $count_client=mysql_query("select * from tempstore where temp_status=1  ");
+	                   $countss= mysql_num_rows($count_client);
+					   $count=$count+$counts+$countss;
+					   echo $count;
+                       ?>		</span>
             </a>
             <ul class="dropdown-menu">
               <li class="header">You have <?php echo $count; ?> Notifications</li>
@@ -129,25 +97,60 @@ window.location = "ceoprofile.php";
                       </div>
                       <!-- Message title and timestamp -->
                       <h4>
-                        <?php
-													$user_query = mysql_query("select * from tempstore where temp_status=1 limit 1")or die(mysql_error());
-													while($row = mysql_fetch_array($user_query)){
-													$id = $row['temp_id'];
-													echo $row['name']; ?>													
+                       Recruitment 												
                         <small><i class="fa fa-clock-o"></i> 5mints</small>
                       </h4>
                       <!-- The message -->
-                      <p><?php echo $row['email']; }?></p>
+                      <p></p>
+                    </a>
+                  </li>
+                  <!-- end message -->
+                </ul>
+                <!-- /.menu -->
+              </li> <li class="footer"><a href="interview.php">See All Recruitment Notifications</a></li>
+            </ul>
+          </li>
+         <li class="dropdown notifications-menu">
+            <!-- Menu toggle button -->
+            
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+          <i class="fa fa-envelope-o"></i>
+              <span class="label label-success"> <?php	
+					  $count=0;
+	                   $count_client=mysql_query("select * from leavereq where leave_approve=1 and Leave_type='Leave'");
+	                   $count = mysql_num_rows($count_client);
+					    $count_client=mysql_query("select * from leavereq where leave_approve=1 and Leave_type='Other'");
+	                   $count = mysql_num_rows($count_client) + $count;
+                     echo $count;  ?>	</span>
+            </a>
+            <ul class="dropdown-menu">
+              <li class="header">You have <?php echo $count; ?> Requests</li>
+              <li>
+                <!-- inner menu: contains the messages -->
+                <ul class="menu">
+                  <li><!-- start message -->
+                    <a href="#">
+                      <div class="pull-left">
+                        <!-- User Image -->
+                       
+                      </div>
+                      <!-- Message title and timestamp -->
+                      <h4>
+                        Check Request    												
+                        <small><i class="fa fa-clock-o"></i> <?php echo $count; ?></small>
+                      </h4>
+                      <!-- The message -->
+                      <p></p>
                     </a>
                   </li>
                   <!-- end message -->
                 </ul>
                 <!-- /.menu -->
               </li>
-              <li class="footer"><a href="requestreport.php">See All Notifications</a></li>
+              <li class="footer"><a href="reqinsert.php">See All Requests</a></li>
             </ul>
           </li>
-        
+          
           <!-- User Account Menu -->
           <li class="dropdown user user-menu">
             <!-- Menu Toggle Button -->
@@ -185,7 +188,8 @@ window.location = "ceoprofile.php";
               
               <!-- Menu Footer-->
               <li class="user-footer">
-                <div class="pull-left">  <a href="hrprofile.php" class="btn btn-default btn-flat">Profile</a>
+                <div class="pull-left">
+                  <a href="hrprofile.php" class="btn btn-default btn-flat">Profile</a>
                 </div>
                 <div class="pull-right">
                   <a href="session_logout.php" class="btn btn-default btn-flat">Sign out</a>
@@ -239,29 +243,41 @@ window.location = "ceoprofile.php";
       <!-- /.search form -->
 
       <!-- Sidebar Menu -->
-  <ul class="sidebar-menu">
+   <ul class="sidebar-menu">
         <li class="header">
         </li>
         <!-- Optionally, you can add icons to the links -->
-        <li><a href="ceo.php"><i class="fa fa-link"></i> <span>Home</span></a></li>
-         
-        <li class="treeview">
-          <a href="#"><i class="fa fa-link"></i> <span>Notifications</span>
+        <li><a href="hr.php"><i class="fa fa-link"></i> <span>Home</span></a></li>
+         <li class="treeview">
+          <a href="#"><i class="fa fa-link"></i> <span>Recruitment</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           
           <ul class="treeview-menu">
-            <li><a href="requestreport.php">Request</a></li>
-            <li><a href="graphreport.php">Graphical Report</a></li>
-            <li class="active"><a href="csvreport.php">CSV Report</a></li>
+            <li><a href="test.php">Test</a></li>
+            <li><a href="interview.php">Interview</a></li>
+              <li><a href="managerapproved.php">Managers Approved</a></li>
+            <li><a href="ceoapproved.php">CEO Approved</a></li>
           </ul>
         </li>
-     
-         <li><a href="employeelogceo.php"><i class="fa fa-link"></i> <span>Employee Log</span></a></li>
-          <li><a href="aboutusceo.php"><i class="fa fa-link"></i> <span>About Us</span></a></li>
+        <li class="treeview">
+          <a href="#"><i class="fa fa-link"></i> <span>Request</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          
+          <ul class="treeview-menu">
+            <li><a href="addrequest.php">Do Request</a></li>
+            <li><a href="reqinsert.php">Check Request</a></li>
+          </ul>
+        </li>
+         <li><a href="employeelog.php"><i class="fa fa-link"></i> <span>Employee Log</span></a></li>
+          <li class="active"><a href="aboutus.php"><i class="fa fa-link"></i> <span>About Us</span></a></li>
       </ul>
+      <!-- /.sidebar-menu -->
     </section>
     <!-- /.sidebar -->
   </aside>
@@ -277,88 +293,68 @@ window.location = "ceoprofile.php";
 				"".$_SESSION['emp_email']." "; ?></small>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Reports</li>
-         <li class="active">CSV</li>
+        <li><a href="hr.php"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">About Us</li>
       </ol>
     </section>
 
     <!-- Main content -->
-    <section class="content">
+     <section class="content">
      <div class="box box-default">
             <div class="box-header with-border">
-              <h3 class="box-title">Update Profile</h3>
-
-            
-                <!-- /.col -->
-               
-                <!-- Page Heading -->
-  <div id="page-wrapper" class="page-wrapper-cls">
+              <h3 class="box-title">Test</h3>
+              <br>
+               <div id="page-wrapper" class="page-wrapper-cls">
             <div id="page-inner">
                 <div class="row">
 		<div class="col-md-12">
 			<form class="form-horizontal" role="form" method="post">
-			<h3><center>Edit Information</center></h3>
-			<br>									
-			<div> 
-					<div class="form-group">
-							  <label class="col-md-5 control-label" for="rental">First Name:</label>
+			<h3><center>Project Information</center></h3>
+			<br>
+			
+<div class="form-group">
+							  <label class="col-md-5 control-label" for="rental">Title:</label>
 							  <div class="col-md-3">
-					<input type="text" name="emp_full_name" id = "fname" class="form-control input-md" placeholder="please enter first name" pattern="[A-Za-z. ]{1,50}" value= "<?php echo $empname; ?>" required/> 
+					<input type="text" name="title" id = "title" class="form-control input-md" placeholder="Project Title" required/> 
 						</div>
 						</div>
-						
-                 
-                      
+                        
+				
                 <div class="form-group">
-							  <label class="col-md-5 control-label">Email:</label>
+							  <label class="col-md-5 control-label" for="rental">Description:</label>
 							  <div class="col-md-3">
-						<input type="text" name="emp_email" id = "email" class="form-control input-md"  placeholder="Email" pattern="[^@]+@[^@]+\.[a-zA-Z]{2,}" title="Incorrect Email" value="<?php echo $empemail; ?>"required/>
+						<input type="text" name="nname" id = "nname" class="form-control input-md"  placeholder="Description" required/>
 					</div>
 				</div>
-                 <div class="form-group">
-							  <label class="col-md-5 control-label">NIC: [14Digit Number]</label>
-							  <div class="col-md-3">
-						<input type="text" name="emp_nic" id = "nic" class="form-control input-md"  placeholder="NIC" title="Numbers Only" value="<?php echo $empnic; ?>" required/>
-					</div>
-				</div>	
 				<div class="form-group">
-							  <label class="col-md-5 control-label" for="rental">Date of birth:</label>
-							  <div class="col-md-3">
-						<input type="date" name="emp_dob" id = "bdate" title="click to choose a date" class="form-control input-md" placeholder="yyyy-mm-dd" pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" title="YYYY-MM-DD" value = <?php echo $empdob; ?> required/>
-					</div>
-				</div>
-               
-                <div class="form-group">
-							  <label class="col-md-5 control-label" for="rental">Address:</label>
-							  <div class="col-md-3">
-						<input type="text" name="emp_current_address" id = "address" class="form-control input-md" placeholder="Current Address" pattern="[A-Za-z0-9.#/\-_,' ]{6,50}"  value="<?php echo $empcuraddress; ?>" required/>
-					</div>
-				</div>
-		
-        		
- <div class="form-group">
-							  <label class="col-md-5 control-label" for="rental">Password:</label>
-							  <div class="col-md-3">
-						<input type="password" name="password" id = "password" class="form-control input-md" placeholder="Password" title="Should be atleast six characters with atleast 1 special character"  required/>
-					</div>
-				</div>
-               <div class="control-group">
+              <label class="col-md-5 control-label" for="rental">Project Start Date:</label>
+              <div class="col-md-3">
+               <input type="text" id="defaultEntry" name="dob" class="form-control input-md" placeholder="mm/dd/yyyy" required/>
+              </div>
+            </div>
+				
+				<div class="control-group">
 				<div class="controls" align="center">
-						           				 <button name="update" class="btn btn-success">Update</button>
-												 <a button id="cancel" name="cancel" class="btn btn-danger" href="ceo.php" >Cancel</button></a>
-						           			 </div></div>
-											 <br>
-											 <br>
-											 <br>
-											 <br>
-                                   
-									</tr>
-									</tbody>
-						            </div>
-									</center>
-                                 </form>      
-                                    
+				<button type="submit" id="submit" name="register" class="btn btn-success">Save</button>
+				<br>
+				<br>
+				<br>
+				<br>
+				<br>
+				</div>
+
+				</div>
+
+				</div>
+				</form>
+                <!-- /.col -->
+              </div>
+              <!-- /.row -->
+            </div>
+           
+            <!-- /.footer -->
+          </div>
+          
     </section>
     <!-- /.content -->
   </div>
@@ -589,4 +585,17 @@ window.location = "ceoprofile.php";
 <!-- AdminLTE for demo purposes -->
 <script src="dist/js/demo.js"></script>
 </body>
+<head>
+<title>jQuery Date Entry</title>
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script type="text/javascript" src="js/jquery.plugin.js"></script>
+<script type="text/javascript" src="js/jquery.dateentry.js"></script>
+<script type="text/javascript">
+$(function () {
+	$('#defaultEntry').dateEntry();
+});
+</script>
+</head>
+
 </html>

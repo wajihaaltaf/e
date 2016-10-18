@@ -1,9 +1,8 @@
 <?php
 require_once('config.php');
 require_once('session2.php');
-$email=$_POST['emailto'];
-$subject=$_POST['subject'];
-$message=$_POST['message'];?>
+$email=$_GET['email'];
+?>
 
 <?php
 require_once 'PHPMailer/PHPMailerAutoload.php';
@@ -38,14 +37,16 @@ function smtpmailer($to, $from, $from_name, $subject, $body) {
 		return true;
 	}
 }
-if (smtpmailer($email, 'techrisersnedcis@gmail.com', $subject, 'HRMS', $message)) {
-	// Finish the page:
-     $msg='<div class="success">!Mail Sent Successfully </div>';	
-}
+$message = " You are successfully Recruited for employee\n\n";
+                $message .= WEBSITE_URL . '/HRMS/index.php?email=';	
+		
+
+if (smtpmailer($email, 'techrisersnedcis@gmail.com', 'HRMS| Employee', 'Congratulations', $message)) {
+	}
 ?>
 <script>
 alert('Mail Sent Succsessfully');
-window.location = "manager.php";
+window.location = "ceoapproved.php";
 </script>
 
 

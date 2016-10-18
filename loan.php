@@ -136,9 +136,6 @@ require_once('session2.php');
               </li>
             </ul>
           </li>
-              </li>
-            </ul>
-          </li>
          
           <!-- Control Sidebar Toggle Button -->
           <li>

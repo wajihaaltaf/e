@@ -163,9 +163,9 @@ require_once('session2.php');
 				echo 
 				"".$_SESSION['emp_email']." ";
 				}
-
 				?>
                   <small><?php echo $_SESSION['position']; ?></small>
+
                 </p>
               </li>
               <!-- Menu Body -->
@@ -224,7 +224,8 @@ require_once('session2.php');
               </span>
         </div>
       </form>
-      <!-- /.search form -->
+  <!-- Left side column. contains the logo and sidebar -->
+ 
 
       <!-- Sidebar Menu -->
       <ul class="sidebar-menu">
@@ -280,7 +281,7 @@ require_once('session2.php');
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Dashboard</li>
+        <li class="active">Recruitment</li>
       </ol>
     </section>
 

@@ -289,7 +289,7 @@ require_once('session2.php');
 						<tr class="edit_tr">
 						<td><?php echo $rec['emp_name']; ?></td>
 						<td><?php echo $rec['emp_email'] ?></td>
-                        <td><a href="empinfo.php <?php echo '?id='.$id; ?> ">Employee detail</a></td>
+                        <td><a href="empinfomanager.php <?php echo '?id='.$id; ?> ">Employee detail</a></td>
 						</tr><?php }?>
 							</table>
 							</div>

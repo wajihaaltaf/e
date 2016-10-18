@@ -9,7 +9,7 @@ $id = $_GET['id'];
 	$position=$_POST['room_id'];
 	$fname=$_POST['fname'];
 	$email=$_POST['nname'];
-	$gender=$_POST['gender'];
+	$gender=$_POST['radios'];
 	$bdate=$_POST['bdate'];
 	$address=$_POST['address'];
 	$contact=$_POST['contact'];
@@ -47,12 +47,14 @@ window.location = "interview.php";
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">
+  <link rel="stylesheet" type="text/css" href="css/status.css">
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
   <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  
   <![endif]-->
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -340,19 +342,15 @@ window.location = "interview.php";
 						</div>
 						</div>
 						
-				<div>
+				
 					<div class="form-group">
-							  <label class="col-md-5 control-label" for="rental">Gender:</label>
+					 <label class="col-md-5 control-label" for="rental">Status:</label>
 							  <div class="col-md-3">
-					<div class="input-group">
-    			<div id="radioBtn" class="btn-group">
-					<a class="btn btn-primary btn-sm notActive" data-toggle="gender" data-title="Male">Male</a>
-    				<a class="btn btn-primary btn-sm notActive" data-toggle="gender" data-title="Female">Female</a>
-    			</div>
-    				<input type="hidden" name="gender" id="gender">
-    			</div>
-				</div>
-				</div>
+              <input type="radio" id="radio1" name="radios" value="Male" checked>
+       <label for="radio1">Male</label>
+    <input type="radio" id="radio2" name="radios"value="Female">
+       <label for="radio2">Female</label>
+     </div></div>
                 <div class="form-group">
 							  <label class="col-md-5 control-label" for="rental">Email:</label>
 							  <div class="col-md-3">
@@ -362,7 +360,7 @@ window.location = "interview.php";
 				<div class="form-group">
 							  <label class="col-md-5 control-label" for="rental">Birth Date:</label>
 							  <div class="col-md-3">
-						<input type="date" name="bdate" id = "bdate" title="click to choose a date" class="form-control input-md" placeholder="1900-1-31" required/>
+						<input type="date" name="bdate" id = "bdate" title="click to choose a date" class="form-control input-md" placeholder="yyyy-mm-dd" pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" title="YYYY-MM-DD" required/>
 					</div>
 				</div>
                 

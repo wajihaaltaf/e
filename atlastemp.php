@@ -58,11 +58,11 @@ $select = "SELECT * FROM tempstore WHERE temp_id= $ide";
 		$eid = "$rec[eid]";}
 		
 	mysql_query("INSERT INTO `salary` (`sal_id`, `emp_id`, `sal_amount`, `sal_bonus`, `sal_deduct`) VALUES (NULL, '$eid', '$salary', '0', '0')")or die(mysql_error());
-				
+				mysql_query("Delete FROM tempstore WHERE temp_id= $ide")or die(mysql_error());
 				?>
 				<script>
 alert('Added Succsessfully');
-window.location = "adminpage.php";
+window.location = "finalemail.php<?php echo '?email='.$email; ?>";
 </script>
 <?php
 }}?>
@@ -88,6 +88,7 @@ window.location = "adminpage.php";
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">
+  <link rel="stylesheet" type="text/css" href="css/status.css">
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -328,7 +329,7 @@ window.location = "adminpage.php";
 							  <label class="col-md-5 control-label">Position:</label>  
 							  <div class="col-md-3">
 						<select id="room_id" name="room_id" class="form-control" required>
-							<option></option>
+							<option>Finance</option>
 								<option>Manager</option>
                                 <option>Admin</option>
 				</select>	
@@ -378,17 +379,14 @@ window.location = "adminpage.php";
 					</div>
 					</div>
 				<div>
-					<div class="form-group">
-							  <label class="col-md-5 control-label">Gender:</label>
+				<div class="form-group">
+					 <label class="col-md-5 control-label" for="rental">Status:</label>
 							  <div class="col-md-3">
-					<div class="input-group">
-    			<div id="radioBtn" class="btn-group">
-					<a class="btn btn-primary btn-sm notActive" data-toggle="gender" data-title="Male">Male</a>
-    				<a class="btn btn-primary btn-sm notActive" data-toggle="gender" data-title="Female">Female</a>
-    			</div>
-    				<input type="hidden" name="gender" id="gender" >
-    			</div>
-				</div>
+              <input type="radio" id="radio1" name="gender" value="Male" checked>
+       <label for="radio1">Male</label>
+    <input type="radio" id="radio2" name="gender"value="Female">
+       <label for="radio2">Female</label>
+     </div></div>
 				</div>
                 <div class="form-group">
 							  <label class="col-md-5 control-label">Email:</label>
@@ -405,7 +403,7 @@ window.location = "adminpage.php";
 				<div class="form-group">
 							  <label class="col-md-5 control-label" for="rental">Birth Date:</label>
 							  <div class="col-md-3">
-						<input type="date" name="bdate" id = "bdate" title="click to choose a date" class="form-control input-md" placeholder="1900-1-31" value = "<?php echo $bdate; ?>" required/>
+						<input type="date" name="bdate" id = "bdate" title="click to choose a date" class="form-control input-md" placeholder="yyyy-mm-dd" pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" title="YYYY-MM-DD" value = "<?php echo $bdate; ?>" required/>
 					</div>
 				</div>
 				<div class="form-group">
@@ -446,13 +444,13 @@ window.location = "adminpage.php";
               <div class="form-group">
 							  <label class="col-md-5 control-label" for="rental">Contract Start Date:</label>
 							  <div class="col-md-3">
-						<input type="date" name="cdate" id = "cdate" title="click to choose a date" class="form-control input-md" placeholder="1900-1-31" value = "<?php echo date("Y-m-d");?>" required/>
+						<input type="date" name="cdate" id = "cdate" title="click to choose a date" class="form-control input-md" placeholder="yyyy-mm-dd" pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" title="YYYY-MM-DD" value = "<?php echo date("Y-m-d");?>" required/>
 					</div>
 				</div>
                   <div class="form-group">
 							  <label class="col-md-5 control-label" for="rental">Contract End Date:</label>
 							  <div class="col-md-3">
-						<input type="date" name="edate" id = "cdate" title="click to choose a date" class="form-control input-md" placeholder="1900-1-31"  value="<?php echo $edate; ?>"required/>
+						<input type="date" name="edate" id = "cdate" title="click to choose a date" class="form-control input-md" placeholder="yyyy-mm-dd" pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" title="YYYY-MM-DD" value="<?php echo $edate; ?>"required/>
 					</div>
 				</div>
                 <div class="form-group">

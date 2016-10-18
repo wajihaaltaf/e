@@ -23,7 +23,7 @@ $emp_id=$_SESSION['id'];
 			{
 			?> <script>
 alert('Error Occured while updating');
-window.location = "updateprofile.php";
+window.location = "managerprofile.php";
 </script>
 			<?php
 			exit();
@@ -41,7 +41,7 @@ window.location = "updateprofile.php";
 ?>
 <script>
 alert('Updated Successfully');
-window.location = "ceoprofile.php";
+window.location = "managerprofile.php";
 </script>
 <?php
 }
@@ -49,7 +49,7 @@ else {
 ?>
 <script>
 alert('Password doesnot match with eachother');
-window.location = "ceoprofile.php";
+window.location = "managerprofile.php";
 </script>
 <?php }}}?>
 
@@ -271,8 +271,8 @@ window.location = "ceoprofile.php";
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Reports</li>
-         <li class="active">CSV</li>
+        <li class="active">Profile</li>
+          <li class="active">Update Profile</li>
       </ol>
     </section>
 
@@ -318,7 +318,7 @@ window.location = "ceoprofile.php";
 				<div class="form-group">
 							  <label class="col-md-5 control-label" for="rental">Date of birth:</label>
 							  <div class="col-md-3">
-						<input type="date" name="emp_dob" id = "bdate" title="click to choose a date" class="form-control input-md" placeholder="1900-1-31" value = <?php echo $empdob; ?> required/>
+						<input type="date" name="emp_dob" id = "bdate" title="click to choose a date" class="form-control input-md" placeholder="yyyy-mm-dd" pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" title="YYYY-MM-DD" value = <?php echo $empdob; ?> required/>
 					</div>
 				</div>
                

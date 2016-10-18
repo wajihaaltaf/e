@@ -349,7 +349,7 @@ window.location = "test.php";
 				<div class="form-group">
               <label class="col-md-5 control-label" for="rental">Date of birth:</label>
               <div class="col-md-3">
-               <input type="text" id="defaultEntry" name="dob" class="form-control input-md" placeholder="mm/dd/yyyy" required/>
+               <input type="text" id="defaultEntry" name="dob" class="form-control input-md" placeholder="yyyy-mm-dd" pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" title="YYYY-MM-DD" required/>
               </div>
             </div>
 			
@@ -604,14 +604,7 @@ window.location = "test.php";
 <script src="dist/js/pages/dashboard2.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="dist/js/demo.js"></script>
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<script type="text/javascript" src="js/jquery.plugin.js"></script>
-<script type="text/javascript" src="js/jquery.dateentry.js"></script>
-<script type="text/javascript">
-$(function () {
-	$('#defaultEntry').dateEntry();
-});
-</script>
+
 </body>
 
 </html>

@@ -11,7 +11,7 @@ require_once 'PHPMailer/PHPMailerAutoload.php';
 define('GUSER', 'bisma@laraveldevelopers.co'); // GMail username
 define('GPWD', 'Bisma2015'); // GMail password
 DEFINE('WEBSITE_URL', 'http://localhost');
-$email="bisma.ayaz@yahoo.com";
+
 
 function smtpmailer($to, $from, $from_name, $subject, $body) { 
 	global $error;

@@ -71,15 +71,13 @@ $id = $_SESSION['id'];
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
           <i class="fa fa-bell-o"></i>
               <span class="label label-success"> <?php	
-	                   $count_client=mysql_query("select * from tempstore where temp_status=1 ");
+	                   $count=0;
+	                   $count_client=mysql_query("select * from leavereq where leave_approve=1 and Leave_type='Loan'");
 	                   $count = mysql_num_rows($count_client);
-					      $counts_client=mysql_query("select * from leavereq where leave_type='Loan' and leave_approve=0");
-				 $count = mysql_num_rows($counts_client) + $count;
-
-                       echo $count;?>	</span>
+					   echo $count;?>	</span>
             </a>
             <ul class="dropdown-menu">
-              <li class="header">You have <?php echo $count; ?> Notifications</li>
+              <li class="header">You have <?php echo $count; ?> Requests</li>
               <li>
                 <!-- inner menu: contains the messages -->
                 <ul class="menu">
@@ -93,22 +91,18 @@ $id = $_SESSION['id'];
                       </div>
                       <!-- Message title and timestamp -->
                       <h4>
-                        <?php
-													$user_query = mysql_query("select * from tempstore where temp_status=1 limit 1")or die(mysql_error());
-													while($row = mysql_fetch_array($user_query)){
-													$id = $row['temp_id'];
-													echo $row['name']; ?>													
-                        <small><i class="fa fa-clock-o"></i> 5mints</small>
+                        Loan Requests												
+                        <small><i class="fa fa-clock-o"></i></small>
                       </h4>
                       <!-- The message -->
-                      <p><?php echo $row['email']; }?></p>
+                      <p></p>
                     </a>
                   </li>
                   <!-- end message -->
                 </ul>
                 <!-- /.menu -->
               </li>
-              <li class="footer"><a href="requestreport.php">See All Notifications</a></li>
+              <li class="footer"><a href="loan.php">See All Requests</a></li>
             </ul>
           </li>
         
@@ -149,7 +143,7 @@ $id = $_SESSION['id'];
               
               <!-- Menu Footer-->
               <li class="user-footer">
-                <div class="pull-left">                 <a href="financeprofile.php" class="btn btn-default btn-flat">Profile</a>
+                <div class="pull-left">  <a href="financeprofile.php" class="btn btn-default btn-flat">Profile</a>
                 </div>
                 <div class="pull-right">
                   <a href="session_logout.php" class="btn btn-default btn-flat">Sign out</a>

@@ -2,63 +2,49 @@
 require_once('config.php');
 require_once('session2.php');
 ?>
-<?php
-if(isset($_GET['id']))
-{
-$emp_id=$_SESSION['id'];
-	$user_query = mysql_query("select * from employee where emp_id=$emp_id")or die(mysql_error());
-													while($row = mysql_fetch_array($user_query)){
-													$empname = $row['emp_name'];
-													
-												$gender = $row['emp_gender'];
-											        $empnic = $row['emp_nic'];
-													$empdob = $row['emp_DOB'];
-													$empemail = $row['emp_email'];
-													$empcuraddress = $row['emp_address'];
-													$password = $row['emp_password'];
-													
-													}}
-	if (isset($_POST['update'])){
-		if (($_POST['emp_full_name'] == '')or ($_POST['emp_dob'] == '')  or ($_POST['emp_nic'] == '') or ($_POST['password'] == '')or ($_POST['emp_current_address'] == '') or ($_POST['emp_email'] == '') )
-			{
-			?> <script>
-alert('Error Occured while updating');
-window.location = "updateprofile.php";
-</script>
-			<?php
-			exit();
-			}
-	else{ 
-		$firstname = addslashes("$_POST[emp_full_name]");
-	   $dob = addslashes("$_POST[emp_dob]");
-		$nic = addslashes("$_POST[emp_nic]");
-		$passw = md5(addslashes("$_POST[password]"));
-		$empcuraddress = addslashes("$_POST[emp_current_address]");
-		$email= addslashes("$_POST[emp_email]");
-		if($password == $passw) {
-		mysql_query("UPDATE employee SET emp_name ='$firstname', emp_DOB ='$dob', emp_nic = '$nic',emp_email ='$email',emp_address='$empcuraddress' WHERE emp_id = '$emp_id'")or die(mysql_error()); 
-		
-?>
-<script>
-alert('Updated Successfully');
-window.location = "ceoprofile.php";
-</script>
-<?php
-}
-else {
-?>
-<script>
-alert('Password doesnot match with eachother');
-window.location = "ceoprofile.php";
-</script>
-<?php }}}?>
 
+<?php
+$id = $_GET['id'];
+	$select = "SELECT * FROM 
+			leavereq
+			 WHERE leave_id= $id";
+			 	 $result = mysql_fetch_array(mysql_query($select));
+	$qry=mysql_query($select);
+		if($qry)
+		{
+		while($rec = mysql_fetch_array($qry)){
+		$empid = "$rec[emp_id]";}
+		
+		$select = "SELECT * FROM employee where emp_id = $empid";
+			 $result = mysql_fetch_array(mysql_query($select));
+	$qry=mysql_query($select);
+		if($qry)
+		{
+		while($rec = mysql_fetch_array($qry)){
+		$name = "$rec[emp_name]";
+		$email = "$rec[emp_email]";
+		$nic = "$rec[emp_nic]";
+		$bdate ="$rec[emp_DOB]";
+		$position = "$rec[emp_position]";
+		}
+		}
+		}
+		if (isset($_POST['update']))
+		{
+		mysql_query("UPDATE `leavereq` SET `leave_approve` = '1' WHERE `leavereq`.`leave_id` = $id;")or die(mysql_error());
+				?>
+				<script>
+alert('Approved Succsessfully');
+window.location = "requestreport.php";
+</script>
+<?php }
+?>
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>CEO | Profile</title><link rel="shortcut icon" href="assets/img/logocalc1.png"><script src="js/blockrightclick.js"></script>
+  <title>CEO | Loan Approve</title><link rel="shortcut icon" href="assets/img/logocalc1.png"><script src="js/blockrightclick.js"></script>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.6 -->
@@ -185,7 +171,7 @@ window.location = "ceoprofile.php";
               
               <!-- Menu Footer-->
               <li class="user-footer">
-                <div class="pull-left">  <a href="hrprofile.php" class="btn btn-default btn-flat">Profile</a>
+                <div class="pull-left">  <a href="ceoprofile.php" class="btn btn-default btn-flat">Profile</a>
                 </div>
                 <div class="pull-right">
                   <a href="session_logout.php" class="btn btn-default btn-flat">Sign out</a>
@@ -255,12 +241,12 @@ window.location = "ceoprofile.php";
           <ul class="treeview-menu">
             <li><a href="requestreport.php">Request</a></li>
             <li><a href="graphreport.php">Graphical Report</a></li>
-            <li class="active"><a href="csvreport.php">CSV Report</a></li>
+            <li><a href="csvreport.php">CSV Report</a></li>
           </ul>
         </li>
      
          <li><a href="employeelogceo.php"><i class="fa fa-link"></i> <span>Employee Log</span></a></li>
-          <li><a href="aboutusceo.php"><i class="fa fa-link"></i> <span>About Us</span></a></li>
+          <li class="active"><a href="aboutusceo.php"><i class="fa fa-link"></i> <span>About Us</span></a></li>
       </ul>
     </section>
     <!-- /.sidebar -->
@@ -278,8 +264,7 @@ window.location = "ceoprofile.php";
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Reports</li>
-         <li class="active">CSV</li>
+        <li class="active">Loan Approve</li>
       </ol>
     </section>
 
@@ -287,78 +272,73 @@ window.location = "ceoprofile.php";
     <section class="content">
      <div class="box box-default">
             <div class="box-header with-border">
-              <h3 class="box-title">Update Profile</h3>
+              <h3 class="box-title">Loan Approve Request</h3>
 
             
                 <!-- /.col -->
                
                 <!-- Page Heading -->
+                <div>
   <div id="page-wrapper" class="page-wrapper-cls">
+         
             <div id="page-inner">
+       
                 <div class="row">
-		<div class="col-md-12">
-			<form class="form-horizontal" role="form" method="post">
-			<h3><center>Edit Information</center></h3>
-			<br>									
-			<div> 
-					<div class="form-group">
-							  <label class="col-md-5 control-label" for="rental">First Name:</label>
-							  <div class="col-md-3">
-					<input type="text" name="emp_full_name" id = "fname" class="form-control input-md" placeholder="please enter first name" pattern="[A-Za-z. ]{1,50}" value= "<?php echo $empname; ?>" required/> 
-						</div>
-						</div>
-						
-                 
-                      
-                <div class="form-group">
-							  <label class="col-md-5 control-label">Email:</label>
-							  <div class="col-md-3">
-						<input type="text" name="emp_email" id = "email" class="form-control input-md"  placeholder="Email" pattern="[^@]+@[^@]+\.[a-zA-Z]{2,}" title="Incorrect Email" value="<?php echo $empemail; ?>"required/>
-					</div>
-				</div>
-                 <div class="form-group">
-							  <label class="col-md-5 control-label">NIC: [14Digit Number]</label>
-							  <div class="col-md-3">
-						<input type="text" name="emp_nic" id = "nic" class="form-control input-md"  placeholder="NIC" title="Numbers Only" value="<?php echo $empnic; ?>" required/>
-					</div>
-				</div>	
-				<div class="form-group">
-							  <label class="col-md-5 control-label" for="rental">Date of birth:</label>
-							  <div class="col-md-3">
-						<input type="date" name="emp_dob" id = "bdate" title="click to choose a date" class="form-control input-md" placeholder="yyyy-mm-dd" pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" title="YYYY-MM-DD" value = <?php echo $empdob; ?> required/>
-					</div>
-				</div>
-               
-                <div class="form-group">
-							  <label class="col-md-5 control-label" for="rental">Address:</label>
-							  <div class="col-md-3">
-						<input type="text" name="emp_current_address" id = "address" class="form-control input-md" placeholder="Current Address" pattern="[A-Za-z0-9.#/\-_,' ]{6,50}"  value="<?php echo $empcuraddress; ?>" required/>
-					</div>
-				</div>
 		
-        		
- <div class="form-group">
-							  <label class="col-md-5 control-label" for="rental">Password:</label>
-							  <div class="col-md-3">
-						<input type="password" name="password" id = "password" class="form-control input-md" placeholder="Password" title="Should be atleast six characters with atleast 1 special character"  required/>
-					</div>
-				</div>
-               <div class="control-group">
+        <div class="col-md-12">
+			<form class="form-horizontal" role="form" method="post">
+			<h3><center>Employee Information</center></h3>
+			<br> 
+<table>
+	<tr>
+		<td width="40%">
+ <img src="data:image/jpeg;base64,<?php echo base64_encode($image); ?>" width ="200px" height="200px" class="img-rounded" align="absbottom"/>
+		</td>
+        <td width="10%">
+        </td>
+		<td width="50%">
+   <table><tr><td><h4>Name: </h4></td>
+  <td><h4> <?php echo " $name" ?> </h4></td>
+  </tr>
+  <tr><td><h4>Email: </h4></td>
+  <td><h4> <?php echo "$email" ?> </h4></td>
+  </tr>
+  <tr><td><h4>NIC: </h4></td>
+  <td><h4> <?php echo " $nic" ?> </h4></td>
+  </tr>
+  <tr><td><h4>Date Of birth: </h4></td>
+  <td><h4> <?php echo " $bdate" ?> </h4></td>
+  </tr>
+  <tr><td><h4>Working as: </h4></td>
+  <td><h4> <?php echo " $position" ?> </h4></td>
+  </tr>
+  </table>
+</div>
+</div>
+</div>
+</form>
+<div class="control-group">
 				<div class="controls" align="center">
-						           				 <button name="update" class="btn btn-success">Update</button>
-												 <a button id="cancel" name="cancel" class="btn btn-danger" href="ceo.php" >Cancel</button></a>
-						           			 </div></div>
-											 <br>
-											 <br>
-											 <br>
-											 <br>
-                                   
-									</tr>
-									</tbody>
-						            </div>
-									</center>
-                                 </form>      
-                                    
+						           				 <button name="update" class="btn btn-success">Approve</button>
+												 <a button id="cancel" name="cancel" class="btn btn-danger" href="disapproveloan.php<?php echo '?id='.$id; ?>" >Disapprove</button></a>
+    <!-- /#wrapper -->
+</div>
+</td></table>
+								
+              </div>
+
+			<br>
+		
+		
+            </div>
+                <!-- /.col -->
+              </div>
+              <!-- /.row -->
+            </div>
+           
+            <!-- /.footer -->
+          </div>
+          
     </section>
     <!-- /.content -->
   </div>

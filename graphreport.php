@@ -314,8 +314,9 @@ $select = "SELECT COUNT(*) as COUNTING,emp_position FROM `employee` GROUP by emp
 				"".$_SESSION['emp_email']." "; ?></small>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Dashboard</li>
+        <li><a href="ceo.php"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Report</li>
+           <li class="active">Graphical Report</li>
       </ol>
     </section>
 

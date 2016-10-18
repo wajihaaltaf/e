@@ -8,6 +8,37 @@ if (isset($_GET['key']) && (strlen($_GET['key']) == 32))//The Activation key wil
 {
     $key = $_GET['key'];
 }
+if(isset($_POST['update']))
+{
+
+$pwd1=$_POST['pwd1'];
+$pwd2=$_POST['pwd2'];
+if ($pwd1=="" || $email == "")
+{ ?>
+<script>
+alert('An error occured while updating. Check Your link again');
+window.location = "index.php";
+</script>
+<?php exit(); }
+
+if ($pwd1 == $pwd2)
+{
+$pwd1=md5($pwd1);
+mysql_query("UPDATE employee SET emp_password='$pwd1' where emp_email='$email'")or die(mysql_error());
+?>
+<script>
+alert('Password Updated Successfully');
+window.location = "index.php";
+</script>
+<?php exit(); }
+else {
+?>
+<script>
+alert('An error occured while updating. Check Your link again');
+window.location = "index.php";
+</script>
+<?php exit(); }
+}
 
 ?>
 <!DOCTYPE html>
@@ -76,6 +107,7 @@ if (isset($_GET['key']) && (strlen($_GET['key']) == 32))//The Activation key wil
     <label class="col-md-5 control-label" for="rental">New:</label>
     <div class="col-md-3">
      
+      
       <input type="password" placeholder="Password" id="password" class="form-control input-md" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" name="pwd1" 
                 title="Password should contain an upper case letter, a lower case letter, a number and a special character. Length should be atleast 8 characters" name="password" 
 required />

@@ -309,13 +309,13 @@ window.location = "interviewresult.php";
                  <div class="form-group">
 							  <label class="col-md-5 control-label">Test Date:</label>
 							  <div class="col-md-3">
-						<input type="date" value="<?php echo $testdate;?>" name="tdate" id="defaultEntry" placeholder="mm/dd/yyyy" required/>
+						<input type="date" value="<?php echo $testdate;?>" name="tdate" id="defaultEntry" placeholder="yyyy-mm-dd" pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" title="YYYY-MM-DD" required/>
 					</div>
 				</div>
                 <div class="form-group">
 							  <label class="col-md-5 control-label">Interview Date:</label>
 							  <div class="col-md-3">
-						<input type="date" value="<?php echo date("Y/m/d");?>" name="idate" placeholder="mm/dd/yyyy" required/>
+						<input type="date" value="<?php echo date("Y-m-d");?>" name="idate" placeholder="yyyy-mm-dd" pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" title="YYYY-MM-DD" required/>
 					</div>
 				</div>
                 <div class="control-group">
@@ -571,13 +571,6 @@ window.location = "interviewresult.php";
 <script src="dist/js/pages/dashboard2.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="dist/js/demo.js"></script>
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<script type="text/javascript" src="js/jquery.plugin.js"></script>
-<script type="text/javascript" src="js/jquery.dateentry.js"></script>
-<script type="text/javascript">
-$(function () {
-	$('#defaultEntry').dateEntry();
-});
-</script>
+
 </body>
 </html>
