@@ -76,7 +76,7 @@ window.location = "index.php";
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/scripts.js"></script>
-<title>HRMS | Reset Password</title>
+<title>ERP | Reset Password</title>
 <!-- Bootstrap Core CSS -->
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <!-- Custom Fonts -->

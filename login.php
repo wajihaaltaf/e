@@ -1,5 +1,5 @@
 <?php
-mysql_select_db('hrms',mysql_connect('localhost','root',''))or die(mysql_error());
+mysql_select_db('erp',mysql_connect('localhost','root',''))or die(mysql_error());
 ?>
 <?php
 //Start session
@@ -19,9 +19,8 @@ session_start();
 $password=md5($password);
 		//Create query
 	$qry="SELECT * from `employee` WHERE (emp_username = '$username' or emp_email = '$username') and emp_password = '$password' and emp_isapprove=1 and emp_status=1";
-	$result=mysql_query($qry);
-	echo $qry;
 	
+	$result=mysql_query($qry);
 	
 if($result) {
 		if(mysql_num_rows($result) > 0 ) {
@@ -51,6 +50,8 @@ $qry=mysql_query($select);
 			header("location: ceo.php?");
 			else if($position == "Finance")
 			header("location: finance.php?");
+			else if($position == "Sales")
+			header("location: sales.php?");
 			exit();
 			}
 		

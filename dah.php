@@ -32,10 +32,10 @@ function smtpmailer($to, $from, $from_name, $subject, $body) {
 
 
 				$message = " To Reset Password, please click on this link:\n\n";
-                $message .= WEBSITE_URL . '/HRMS/reset.php?email=' . urlencode($email) . "";	
+                $message .= WEBSITE_URL . '/erp/reset.php?email=' . urlencode($email) . "";	
 		
 
-if (smtpmailer($email, 'techrisersnedcis@gmail.com', 'HRMS| Reset Password', 'FORGET PASSWORD', $message)) {
+if (smtpmailer($email, 'techrisersnedcis@gmail.com', 'ERP | Reset Password', 'FORGET PASSWORD', $message)) {
 	// Finish the page:
      $msg='<div class="success">! Reset Password email has been sent to '.$email.' Please click on the Link to Reset Your Password </div>';	
 }

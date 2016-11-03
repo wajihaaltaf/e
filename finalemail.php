@@ -38,10 +38,10 @@ function smtpmailer($to, $from, $from_name, $subject, $body) {
 	}
 }
 $message = " You are successfully Recruited for employee\n\n";
-                $message .= WEBSITE_URL . '/HRMS/index.php?email=';	
+                $message .= WEBSITE_URL . '/erp/index.php?email=';	
 		
 
-if (smtpmailer($email, 'techrisersnedcis@gmail.com', 'HRMS| Employee', 'Congratulations', $message)) {
+if (smtpmailer($email, 'techrisersnedcis@gmail.com', 'ERP | Employee', 'Congratulations', $message)) {
 	}
 ?>
 <script>

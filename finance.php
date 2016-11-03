@@ -8,8 +8,9 @@ require_once('session2.php');
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Finance | Dashboard</title><link rel="shortcut icon" href="assets/img/logocalc1.png"><script src="js/blockrightclick.js"></script>
+  <title>Finance | Dashboard</title><link rel="shortcut icon" href="assets/img/logocalc1.png">
   <!-- Tell the browser to be responsive to screen width -->
+  <script src="js/blockrightclick.js"></script>
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.6 -->
   <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
@@ -24,92 +25,43 @@ require_once('session2.php');
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
       google.charts.load('current', {'packages':['corechart']});
-      google.charts.setOnLoadCallback(drawChart);
-      function drawChart() {
+      google.charts.setOnLoadCallback(drawVisualization);
 
+
+      function drawVisualization() {
+        // Some raw data (not necessarily accurate)
         var data = google.visualization.arrayToDataTable([
-          ['Gender', 'fd'],
-<?php 
-$select = "SELECT COUNT(*) as COUNTING,emp_gender FROM `employee` GROUP by emp_gender";
-			//$result = mysql_fetch_array(mysql_query($select));
+         ['Date', 'Profit', 'Loss', 'Average'],
+		     <?php 
+$select = "SELECT SUM(`payment_debit`) AS 'Profit', SUM(`payment_credit`) AS 'Loss', DATE_FORMAT(`payment_date`, '%d-%m-%y') AS Date FROM payment GROUP BY(DATE_FORMAT(`payment_date`, '%d-%m-%y'))";
 	$qry=mysql_query($select);
 		while($rec = mysql_fetch_array($qry)){
-		$uname = "$rec[COUNTING]";
-		$gender = "$rec[emp_gender]";
-		?>
-          ['<?php echo $gender; ?>',    <?php echo $uname; ?>],
+		$profit = "$rec[Profit]";
+		$loss = "$rec[Loss]";
+	 $date="$rec[Date]";
+	 $average=$profit+$loss;
+	 $average=$average/2;
+		?>  
+          ['<?php echo $date; ?>',<?php echo $profit; ?>,<?php echo $loss; ?>,<?php echo $average; ?>],
 <?php } ?>
-        ]);
-        var options = {
-          title: 'Male to Female Employees'
-        };
+    
+  ]);
+       
 
-        var chart = new google.visualization.PieChart(document.getElementById('piechart1'));
-
-        chart.draw(data, options);
-	  var data = google.visualization.arrayToDataTable([
-          ['Position', 'fd'],
-<?php 
-$select = "SELECT DATE_FORMAT(NOW(), '%Y') - DATE_FORMAT(emp_DOB, '%Y') - (DATE_FORMAT(NOW(), '00-%m-%d') < DATE_FORMAT(emp_DOB, '00-%m-%d')) AS age FROM employee group by age";
-			//$result = mysql_fetch_array(mysql_query($select));
-	$qry=mysql_query($select);
-		while($rec = mysql_fetch_array($qry)){
-		$uname = "$rec[age]";
-		?>
-          ['<?php echo $uname; ?>',    <?php echo $uname; ?>],
-<?php } ?>
-        ]);
-        var options = {
-          title: 'Employees by Age'
-        };
-
-        var chart = new google.visualization.PieChart(document.getElementById('piechart3'));
-
-        chart.draw(data, options);
-		var data = google.visualization.arrayToDataTable([
-          ['Department', 'fd'],
-<?php 
-$select = "SELECT count(employee.emp_id) as COUNTING, employee.dept_id, department.dept_name as name FROM employee, department where employee.dept_id = department.dept_id group by employee.dept_id ";
-			//$result = mysql_fetch_array(mysql_query($select));
-	$qry=mysql_query($select);
-		while($rec = mysql_fetch_array($qry)){
-		$uname = "$rec[COUNTING]";
-		$gender = "$rec[name]";
-		?>
-          ['<?php echo $gender; ?>',    <?php echo $uname; ?>],
-<?php } ?>
-        ]);
-        var options = {
-          title: 'Employees by Department'
-        };
-
-        var chart = new google.visualization.PieChart(document.getElementById('piechart2'));
-
-        chart.draw(data, options);
-			  var data = google.visualization.arrayToDataTable([
-          ['Position', 'fd'],
-<?php 
-$select = "SELECT COUNT(*) as COUNTING,emp_position FROM `employee` GROUP by emp_position";
-			//$result = mysql_fetch_array(mysql_query($select));
-	$qry=mysql_query($select);
-		while($rec = mysql_fetch_array($qry)){
-		$uname = "$rec[COUNTING]";
-		$gender = "$rec[emp_position]";
-		?>
-          ['<?php echo $gender; ?>',    <?php echo $uname; ?>],
-<?php } ?>
-        ]);
-        var options = {
-          title: 'Employees by Position'
-        };
-
-        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-
-        chart.draw(data, options);
-      }
+    var options = {
+      title : 'Profit Loss Graph',
+      vAxis: {title: 'Profit/Loss'},
+      hAxis: {title: 'Date'},
+      seriesType: 'bars',
+      series: {2: {type: 'line'}},width: 900,
+        height: 200
+    };
+    var chart = new google.visualization.ComboChart(document.getElementById('draw'));
+    chart.draw(data, options);
+  }
     </script>
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -122,11 +74,10 @@ $select = "SELECT COUNT(*) as COUNTING,emp_position FROM `employee` GROUP by emp
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper"> <header class="main-header">
 
-    <!-- Logo -->
-    <a href="index2.html" class="logo">
-      <!-- mini logo for sidebar mini 50x50 pixels -->    <span class="logo-mini"><b>HR</b>MS</span>
+    <!-- Logo --> <a href="#l" class="logo">
+      <!-- mini logo for sidebar mini 50x50 pixels -->    <span class="logo-mini"><b>E</b>RP</span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>HR</b>MS</span>
+      <span class="logo-lg"><b>E</b>RP</span>
     </a>
 
      <!-- Header Navbar -->
@@ -276,7 +227,7 @@ $select = "SELECT COUNT(*) as COUNTING,emp_position FROM `employee` GROUP by emp
         <!-- Optionally, you can add icons to the links -->
         <li class="active"><a href="finance.php"><i class="fa fa-link"></i> <span>Home</span></a></li>
        <li><a href="salary.php"><i class="fa fa-link"></i> <span>Salary</span></a></li>
-        <li><a href="loan.php"><i class="fa fa-link"></i> <span>Loan</span></a></li>
+        <li><a href="loan.php"><i class="fa fa-link"></i> <span>Loan</span></a></li><li><a href="stockrequests.php"><i class="fa fa-link"></i> <span>Stock Request</span></a></li>
  <li><a href="employeelogfinance.php"><i class="fa fa-link"></i> <span>Employee Log</span></a></li>
           <li><a href="aboutusfinance.php"><i class="fa fa-link"></i> <span>About Us</span></a></li>
       </ul>
@@ -398,8 +349,8 @@ $select = "SELECT COUNT(*) as COUNTING,emp_position FROM `employee` GROUP by emp
     <div class="row">
       <div class="col-md-12">
        
-      <div id="piechart3" style="width: 50%; height: 300px; float:left"></div>
-     <div id="piechart1" style="width: 50%; height: 300px; float:left"></div>
+      <div id="draw" style="width: 50%; height: 100inch; float:left"></div>
+    
      </div>
       <!-- /.col -->
       <div class="col-md-4">
@@ -517,7 +468,7 @@ $select = "SELECT COUNT(*) as COUNTING,emp_position FROM `employee` GROUP by emp
     <div class="pull-right hidden-xs">
       <b>Version</b> 2.3.5
     </div>
-    <strong>Copyright &copy; 2014-2016 <a href="http://almsaeedstudio.com">Techrisers</a>.</strong> All rights
+    <strong>Copyright &copy; 2014-2016 <a href="#">Techrisers</a>.</strong> All rights
     reserved.
   </footer>
 

@@ -58,11 +58,10 @@ window.location = "test.php";
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper"> <header class="main-header">
 
-    <!-- Logo -->
-    <a href="index2.html" class="logo">
-      <!-- mini logo for sidebar mini 50x50 pixels -->    <span class="logo-mini"><b>HR</b>MS</span>
+    <!-- Logo --> <a href="#l" class="logo">
+      <!-- mini logo for sidebar mini 50x50 pixels -->    <span class="logo-mini"><b>E</b>RP</span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>HR</b>MS</span>
+      <span class="logo-lg"><b>E</b>RP</span>
     </a>
 
      <!-- Header Navbar -->
@@ -279,8 +278,8 @@ window.location = "test.php";
           </a>
           
           <ul class="treeview-menu">
-            <li><a href="addrequest.php">Do Request</a></li>
-            <li><a href="reqinsert.php">Check Request</a></li>
+            <li><a href="addrequest.php">Do Request</a></li><li><a href="reqinsert.php">Check Request</a></li>
+          <li><a href="stockrequest.php">Stock Order Request</a></li>
           </ul>
         </li>
      
@@ -384,7 +383,7 @@ window.location = "test.php";
     <div class="pull-right hidden-xs">
       <b>Version</b> 2.3.5
     </div>
-    <strong>Copyright &copy; 2014-2016 <a href="http://almsaeedstudio.com">Techrisers</a>.</strong> All rights
+    <strong>Copyright &copy; 2014-2016 <a href="#">Techrisers</a>.</strong> All rights
     reserved.
   </footer>
 

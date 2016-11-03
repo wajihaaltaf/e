@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>HRMS | Activate</title>
+<title>ERP | Activate</title>
 <style type="text/css">
 body
 {
@@ -20,7 +20,7 @@ body
 	width:450px;
 	color: #4F8A10;
 	background-color: #DFF2BF;
-	background-image:url('../HRMS/images/success.png');
+	background-image:url('../erp/images/success.png');
 }
 
 .errormsgbox
@@ -33,7 +33,7 @@ body
 	width:450px;
 	color: #D8000C;
 	background-color: #FFBABA;
-	background-image: url('../HRMS/images/error.png');
+	background-image: url('../erp/images/error.png');
 }
 </style>
 </head>

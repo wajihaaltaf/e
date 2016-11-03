@@ -67,12 +67,11 @@ window.location = "addrequest.php";
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
 <header class="main-header">
-  <!-- Logo -->
-  <a href="index2.html" class="logo">
+  <!-- Logo --> <a href="#l" class="logo">
   <!-- mini logo for sidebar mini 50x50 pixels -->
-  <span class="logo-mini"><b>HR</b>MS</span>
+  <span class="logo-mini"><b>E</b>RP</span>
   <!-- logo for regular state and mobile devices -->
-  <span class="logo-lg"><b>HR</b>MS</span> </a>
+  <span class="logo-lg"><b>E</b>RP</span> </a>
   <!-- Header Navbar -->
   <nav class="navbar navbar-static-top" role="navigation">
     <!-- Sidebar toggle button-->
@@ -241,8 +240,8 @@ window.location = "addrequest.php";
       </li>
       <li class="treeview"> <a href="#"><i class="fa fa-link"></i> <span>Request</span> <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span> </a>
         <ul class="treeview-menu">
-          <li><a href="addrequest.php">Do Request</a></li>
-          <li><a href="reqinsert.php">Check Request</a></li>
+          <li><a href="addrequest.php">Do Request</a></li><li><a href="reqinsert.php">Check Request</a></li>
+          <li><a href="stockrequest.php">Stock Order Request</a></li>
         </ul>
       </li>
       <li><a href="#"><i class="fa fa-link"></i> <span>Employee Log</span></a></li>
@@ -345,7 +344,7 @@ window.location = "addrequest.php";
   <!-- /.content-wrapper -->
   <footer class="main-footer">
     <div class="pull-right hidden-xs"> <b>Version</b> 2.3.5 </div>
-    <strong>Copyright &copy; 2014-2016 <a href="http://almsaeedstudio.com">Techrisers</a>.</strong> All rights
+    <strong>Copyright &copy; 2014-2016 <a href="#">Techrisers</a>.</strong> All rights
     reserved. </footer>
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">

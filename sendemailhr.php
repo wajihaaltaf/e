@@ -38,7 +38,7 @@ function smtpmailer($to, $from, $from_name, $subject, $body) {
 		return true;
 	}
 }
-if (smtpmailer($email, 'techrisersnedcis@gmail.com', $subject, 'HRMS', $message)) {
+if (smtpmailer($email, 'techrisersnedcis@gmail.com', $subject, 'erp', $message)) {
 	// Finish the page:
      $msg='<div class="success">!Mail Sent Successfully </div>';	
 }

@@ -83,11 +83,10 @@ $(function () {
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper"> <header class="main-header">
 
-    <!-- Logo -->
-    <a href="index2.html" class="logo">
-      <!-- mini logo for sidebar mini 50x50 pixels -->    <span class="logo-mini"><b>HR</b>MS</span>
+    <!-- Logo --> <a href="#l" class="logo">
+      <!-- mini logo for sidebar mini 50x50 pixels -->    <span class="logo-mini"><b>E</b>RP</span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>HR</b>MS</span>
+      <span class="logo-lg"><b>E</b>RP</span>
     </a>
 
      <!-- Header Navbar -->
@@ -235,8 +234,9 @@ $(function () {
         </li>
         <!-- Optionally, you can add icons to the links -->
         <li><a href="finance.php"><i class="fa fa-link"></i> <span>Home</span></a></li>
-       <li><a href="salary.php"><i class="fa fa-link"></i> <span>Salary</span></a></li>
-        <li class="active"><a href="loan.php"><i class="fa fa-link"></i> <span>Loan</span></a></li>
+       <li><a href="salary.php"><i class="fa fa-link"></i> <span>Salary</span></a></li> <li class="active"><a href="loan.php"><i class="fa fa-link"></i> <span>Loan</span></a></li>
+        
+        <li><a href="stockrequests.php"><i class="fa fa-link"></i> <span>Stock Request</span></a></li>
         <li><a href="employeelogfinance.php"><i class="fa fa-link"></i> <span>Employee Log</span></a></li>
           <li><a href="aboutusfinance.php"><i class="fa fa-link"></i> <span>About Us</span></a></li>
       </ul>
@@ -331,7 +331,7 @@ $(function () {
     <div class="pull-right hidden-xs">
       <b>Version</b> 2.3.5
     </div>
-    <strong>Copyright &copy; 2014-2016 <a href="http://almsaeedstudio.com">Techrisers</a>.</strong> All rights
+    <strong>Copyright &copy; 2014-2016 <a href="#">Techrisers</a>.</strong> All rights
     reserved.
   </footer>
 

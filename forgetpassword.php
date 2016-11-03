@@ -56,10 +56,10 @@ else{
 		$qry=mysql_query("UPDATE employee set Activation='$activation' where emp_email = '$email'")or die(mysqli_error($con));
             
 				$message = " To Reset Password, please click on this link:\n\n";
-                $message .= WEBSITE_URL . '/HRMS/reset.php?email=' . urlencode($email) . "&key=$activation";	
+                $message .= WEBSITE_URL . '/erp/reset.php?email=' . urlencode($email) . "&key=$activation";	
 		
 
-if (smtpmailer($email, 'techrisersnedcis@gmail.com', 'HRMS| Reset Password', 'FORGET PASSWORD', $message)) {
+if (smtpmailer($email, 'techrisersnedcis@gmail.com', 'ERP | Reset Password', 'FORGET PASSWORD', $message)) {
 	// Finish the page:
      $msg='<div class="success">! Reset Password email has been sent to '.$email.' Please click on the Link to Reset Your Password </div>';	
 }
@@ -85,10 +85,10 @@ $f = mysql_query("SELECT emp_id from employee where emp_email='$email'")or die(m
 $qry=mysql_query("UPDATE employee set Activation='$activation' where emp_email = '$email'")or die(mysqli_error($con));
 
 				$message = " To Activate Your Account, please click on this link:\n\n";
-                $message .= WEBSITE_URL . '/HRMS/activate.php?email=' . urlencode($email) . "&key=$activation";
+                $message .= WEBSITE_URL . '/erp/activate.php?email=' . urlencode($email) . "&key=$activation";
 
 	
-if (smtpmailer($email, 'techrisersnedcis@gmail.com', 'HRMS| Account Activation', 'Account Activation', $message)) {
+if (smtpmailer($email, 'techrisersnedcis@gmail.com', 'ERP | Account Activation', 'Account Activation', $message)) {
 	// Finish the page:
                 $msg='<div class="success">! Activation email
 has been sent to '.$email.' Please click on the Link to Reset Your Password </div>';	
@@ -144,7 +144,7 @@ window.location = "needhelp.php";
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/scripts.js"></script>
-<title>HRMS | Forget Password</title>
+<title>ERP | Forget Password</title>
 <!-- Bootstrap Core CSS -->
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <!-- Custom Fonts -->
